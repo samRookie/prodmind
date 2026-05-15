@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@prodmind/core": ["../../packages/core/src"],
+      "@prodmind/core/*": ["../../packages/core/src/*"],
+      "@prodmind/contracts": ["../../packages/contracts/src"],
+      "@prodmind/contracts/*": ["../../packages/contracts/src/*"],
+      "@prodmind/shared": ["../../packages/shared/src"],
+      "@prodmind/shared/*": ["../../packages/shared/src/*"],
+      "@prodmind/db": ["../../packages/db/src"],
+      "@prodmind/db/*": ["../../packages/db/src/*"],
+      "@prodmind/parser": ["../../packages/parser/src"],
+      "@prodmind/parser/*": ["../../packages/parser/src/*"],
+      "@prodmind/ai": ["../../packages/ai/src"],
+      "@prodmind/ai/*": ["../../packages/ai/src/*"]
+    }
+  },
+  "include": ["src"]
+}

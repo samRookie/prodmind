@@ -1,0 +1,35 @@
+{
+  "name": "@prodmind/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsup src/index.ts --format esm --clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@prodmind/contracts": "workspace:*",
+    "@prodmind/core": "workspace:*",
+    "@prodmind/shared": "workspace:*",
+    "@prodmind/db": "workspace:*",
+    "@prodmind/parser": "workspace:*",
+    "@prodmind/ai": "workspace:*",
+    "hono": "^4.6.20",
+    "@hono/node-server": "^1.13.8",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.4",
+    "@types/node": "^22.12.0",
+    "eslint": "^9.18.0"
+  }
+}

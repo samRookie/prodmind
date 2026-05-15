@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@prodmind/core": ["../../packages/core/src"],
+      "@prodmind/core/*": ["../../packages/core/src/*"],
+      "@prodmind/contracts": ["../../packages/contracts/src"],
+      "@prodmind/contracts/*": ["../../packages/contracts/src/*"],
+      "@prodmind/shared": ["../../packages/shared/src"],
+      "@prodmind/shared/*": ["../../packages/shared/src/*"],
+      "@prodmind/db": ["../../packages/db/src"],
+      "@prodmind/db/*": ["../../packages/db/src/*"]
+    }
+  },
+  "include": ["src"]
+}
