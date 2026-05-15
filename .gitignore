@@ -1,0 +1,165 @@
+# ──────────────────────────────────────────────
+# ProdMind — Monorepo .gitignore
+# Turborepo + pnpm + TypeScript + SQLite
+# ──────────────────────────────────────────────
+
+# ── Node.js / pnpm ────────────────────────────
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+# ── Turborepo ─────────────────────────────────
+.turbo/
+turbo-cache/
+out/
+
+# ── Build Outputs ─────────────────────────────
+dist/
+build/
+coverage/
+.next/
+storybook-static/
+*.js.map
+*.d.ts.map
+*.tsbuildinfo
+packages/*/dist/
+apps/*/dist/
+
+# ── Environment & Secrets ─────────────────────
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.production.local
+.env.test.local
+*.pem
+*.key
+*.crt
+*.cert
+credentials.json
+service-account.json
+*.cred
+secrets/
+
+# ── SQLite / Database ─────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite-wal
+*.sqlite-shm
+prodmind.db
+prodmind.db-wal
+prodmind.db-shm
+
+# ── ProdMind Runtime Directories ──────────────
+uploads/
+temp/
+tmp/
+snapshots/
+extracted/
+runtime-cache/
+logs/
+reports/
+graph-exports/
+processing/
+archives/
+
+# ── OS Junk ───────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ── IDE / Editor ──────────────────────────────
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.antigravity/
+.history/
+.cursor/
+
+# ── Testing / Tooling ─────────────────────────
+vitest.config.*.timestamp-*.mjs
+.vitest/
+playwright-report/
+test-results/
+coverage/
+__tests__/__snapshots__/*.snap.new
+*.test.tsbuildinfo
+
+# ── AI / LLM Runtime Artifacts ────────────────
+embeddings/
+vector-store/
+local-models/
+prompt-traces/
+token-logs/
+reasoning-cache/
+replay-artifacts/
+inference-cache/
+
+# ── ZIP / Extraction Artifacts ────────────────
+*.zip
+*.tar
+*.tar.gz
+*.tar.zst
+*.7z
+*.rar
+!packages/*/src/**/*.zip
+!apps/*/src/**/*.zip
+
+# ── Logging / Monitoring ──────────────────────
+*.log
+*.metrics
+trace*.json
+crash-*.json
+profile-*.cpuprofile
+profile-*.heapsnapshot
+telemetry/
+
+# ── DO NOT IGNORE ─────────────────────────────
+# Source code
+!*.ts
+!*.tsx
+!*.js
+!*.mjs
+!*.cjs
+
+# Docs & configuration templates
+!docs/
+!*.md
+!*.mdx
+!.env.example
+!.env.template
+
+# Migrations
+!packages/*/src/migrations/
+!apps/*/src/migrations/
+
+# Config files
+!.gitignore
+!.prettierrc
+!.eslintrc*
+!tsconfig*.json
+!drizzle.config.ts
+!turbo.json
+!package.json
+!pnpm-workspace.yaml
