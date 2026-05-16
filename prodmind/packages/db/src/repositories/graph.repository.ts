@@ -37,7 +37,7 @@ export class GraphRepository {
 
   async insertNodes(
     snapshotId: string,
-    inputs: Omit<NewNode, 'id' | 'snapshotId' | 'createdAt'>[],
+    inputs: (Omit<NewNode, 'id' | 'snapshotId' | 'createdAt'> & { id?: string })[],
   ): Promise<Result<Node[], string>> {
     const check = await this.assertSnapshotMutable(snapshotId);
     if (!check.success) return check;
@@ -49,7 +49,7 @@ export class GraphRepository {
           const [node] = await tx
             .insert(nodes)
             .values({
-              id: generateId(),
+              id: input.id ?? generateId(),
               snapshotId,
               filePath: input.filePath,
               fileHash: input.fileHash ?? null,
@@ -77,7 +77,7 @@ export class GraphRepository {
 
   async insertEdges(
     snapshotId: string,
-    inputs: Omit<NewEdge, 'id' | 'snapshotId' | 'createdAt'>[],
+    inputs: (Omit<NewEdge, 'id' | 'snapshotId' | 'createdAt'> & { id?: string })[],
   ): Promise<Result<Edge[], string>> {
     const check = await this.assertSnapshotMutable(snapshotId);
     if (!check.success) return check;
@@ -89,7 +89,7 @@ export class GraphRepository {
           const [edge] = await tx
             .insert(edges)
             .values({
-              id: generateId(),
+              id: input.id ?? generateId(),
               snapshotId,
               sourceNodeId: input.sourceNodeId,
               targetNodeId: input.targetNodeId,

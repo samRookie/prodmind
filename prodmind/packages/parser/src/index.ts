@@ -73,3 +73,11 @@ export type {
   ParseTiming,
 } from './types/ast.types.ts';
 export { SymbolType as SymbolTypeEnum } from './types/ast.types.ts';
+
+export { PathResolver, ModuleResolver, ExportResolver, SymbolRegistry, DependencyResolver, GraphNormalizer } from './resolution/index.ts';
+export type {
+  TsconfigPaths, ExportInfo, ExportMap, ResolvedImport, ResolvedSymbol,
+  SymbolRegistration, UnresolvedDependency, ExportConflict, SemanticDependency,
+  ResolutionResult, ResolvedPath,
+} from './resolution/index.ts';
+export { ResolutionError, PathResolutionError, ExportResolutionError, CyclicReExportError } from './resolution/index.ts';
