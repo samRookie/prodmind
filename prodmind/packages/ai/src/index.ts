@@ -13,5 +13,6 @@ export interface AnalysisResult {
 }
 
 export async function analyzeProject(_request: AnalysisRequest): Promise<AnalysisResult> {
+  await Promise.resolve();
   throw new Error('Not implemented yet');
 }

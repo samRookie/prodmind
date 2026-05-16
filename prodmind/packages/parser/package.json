@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./extractors": "./src/extractors/index.ts",
+    "./sanitizers": "./src/sanitizers/index.ts",
+    "./hashers": "./src/hashers/index.ts",
+    "./parsers": "./src/parsers/index.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
@@ -18,11 +22,13 @@
   "dependencies": {
     "@prodmind/contracts": "workspace:*",
     "@prodmind/shared": "workspace:*",
-    "@prodmind/core": "workspace:*"
+    "@prodmind/core": "workspace:*",
+    "@zip.js/zip.js": "^2.7.0",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
+    "@types/node": "^22.12.0",
     "tsup": "^8.3.5",
-    "typescript": "^5.7.3",
     "vitest": "^3.0.4",
     "eslint": "^9.18.0"
   }

@@ -1,19 +1,75 @@
-export interface ParseResult {
-  projectId: string;
-  files: number;
-  duration: number;
-  success: boolean;
-}
+export { ZipExtractor } from './extractors/index.ts';
+export { ExtractionWorkspace } from './extractors/index.ts';
+export type { ExtractionResult, ExtractionLimitsConfig } from './extractors/index.ts';
+export {
+  ExtractionError,
+  ZipSlipError,
+  ExtractionLimitError,
+  CorruptedArchiveError,
+} from './extractors/index.ts';
 
-export interface ParserConfig {
-  maxDepth: number;
-  maxImports: number;
-  timeout: number;
-}
+export { RepositorySanitizer } from './sanitizers/index.ts';
+export type { SanitizerConfig } from './sanitizers/index.ts';
+export { IgnoreRules } from './sanitizers/index.ts';
+export type { IgnoreRulesConfig } from './sanitizers/index.ts';
+export { FileClassifier } from './sanitizers/index.ts';
+export { RelevanceScorer } from './sanitizers/index.ts';
+export type { RelevanceScoreConfig } from './sanitizers/index.ts';
+export { SecretDetector } from './sanitizers/index.ts';
+export { SanitizationReportBuilder } from './sanitizers/index.ts';
+export {
+  SanitizationError,
+  FileClassificationError,
+  SecretDetectionError,
+} from './sanitizers/index.ts';
 
-export async function parseProject(
-  _projectPath: string,
-  _config?: Partial<ParserConfig>,
-): Promise<ParseResult> {
-  throw new Error('Not implemented yet');
-}
+export type { ClassifiedFile, FileCategory, Language } from './types/classification.types.ts';
+export { FileCategory as FileCategoryEnum } from './types/classification.types.ts';
+export { Language as LanguageEnum } from './types/classification.types.ts';
+export type {
+  FileEntry,
+  ParseCandidate,
+  SecretMatch,
+  SanitizationWarning,
+  SanitizationReport,
+} from './types/sanitization.types.ts';
+
+export { FileDiscovery } from './hashers/index.ts';
+export { Sha256Hasher } from './hashers/index.ts';
+export { getContentType } from './hashers/index.ts';
+export { ManifestBuilder } from './hashers/index.ts';
+export { SnapshotDiff } from './hashers/index.ts';
+export {
+  HashingError,
+  FileDiscoveryError,
+  ManifestGenerationError,
+  SnapshotDiffError,
+} from './hashers/index.ts';
+
+export type { DiscoveredFile, HashResult, FileDiscoveryOptions } from './types/hashing.types.ts';
+export type { RepositoryManifest, ManifestFileEntry } from './types/manifest.types.ts';
+export type { SnapshotDiffResult, DiffStatistics } from './types/diff.types.ts';
+
+export { parseTypeScriptFile } from './parsers/index.ts';
+export { batchParseFiles } from './parsers/index.ts';
+export type { BatchParseOptions } from './parsers/index.ts';
+export { shouldParseFile, getLanguage } from './parsers/index.ts';
+export {
+  ParserError,
+  UnsupportedFileError,
+  MalformedSyntaxError,
+  WorkerParserError,
+} from './parsers/index.ts';
+
+export type {
+  ParsedFile,
+  ParseSuccess,
+  ParseFailure,
+  ParseResult,
+  SymbolMetadata,
+  ImportMetadata,
+  ExportMetadata,
+  SourceLocation,
+  ParseTiming,
+} from './types/ast.types.ts';
+export { SymbolType as SymbolTypeEnum } from './types/ast.types.ts';

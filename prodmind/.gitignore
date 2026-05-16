@@ -1,21 +1,175 @@
+# ──────────────────────────────────────────────
+# ProdMind — Monorepo .gitignore
+# Turborepo + pnpm + TypeScript + SQLite
+# ──────────────────────────────────────────────
+
+# ── Node.js / pnpm ────────────────────────────
 node_modules/
-dist/
+.pnpm-store/
+pnpm-lock.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+
+# ── Turborepo ─────────────────────────────────
 .turbo/
-*.db
-*.sqlite
-*.sqlite3
+turbo-cache/
+out/
+
+# ── Build Outputs ─────────────────────────────
+dist/
+build/
+coverage/
+.next/
+storybook-static/
+*.js.map
+*.d.ts.map
+packages/*/dist/
+apps/*/dist/
+
+# ── Environment & Secrets ─────────────────────
 .env
 .env.local
 .env.*.local
+.env.development.local
+.env.production.local
+.env.test.local
+*.pem
+*.key
+*.crt
+*.cert
+credentials.json
+service-account.json
+*.cred
+secrets/
+
+# ── SQLite / Database ─────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite-wal
+*.sqlite-shm
+prodmind.db
+
+# ── ProdMind Runtime Directories ──────────────
 uploads/*
 !uploads/.gitkeep
 temp/*
 !temp/.gitkeep
+tmp/
 snapshots/*
 !snapshots/.gitkeep
-*.tsbuildinfo
+extracted/
+runtime-cache/
+parser-cache/
+ast-cache/
+logs/
+reports/
+graph-exports/
+processing/
+archives/
+
+# ── OS Junk ───────────────────────────────────
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ── IDE / Editor ──────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.antigravity/
+.history/
+.cursor/
+
+# ── Testing / Tooling ─────────────────────────
+vitest.config.*.timestamp-*.mjs
+.vitest/
+playwright-report/
+test-results/
+__tests__/__snapshots__/*.snap.new
+*.test.tsbuildinfo
+
+# ── AI / LLM Runtime Artifacts ────────────────
+embeddings/
+vector-store/
+vector-cache/
+local-models/
+prompt-traces/
+prompt-artifacts/
+token-logs/
+token-traces/
+reasoning-cache/
+replay-artifacts/
+replay-cache/
+inference-cache/
+
+# ── ZIP / Extraction Artifacts ────────────────
+*.zip
+*.tar
+*.tar.gz
+*.tar.zst
+*.7z
+*.rar
+!packages/*/src/**/*.zip
+!apps/*/src/**/*.zip
+
+# ── Logging / Monitoring ──────────────────────
 *.log
-coverage/
-.vite/
+*.metrics
+trace*.json
+crash-*.json
+crash-dumps/
+profile-*.cpuprofile
+profile-*.heapsnapshot
+profiling/
+telemetry/
+
+# ── DO NOT IGNORE ─────────────────────────────
+# Source code
+!*.ts
+!*.tsx
+!*.js
+!*.mjs
+!*.cjs
+!*.c
+!*.h
+
+# Docs & configuration templates
+!docs/
+!*.md
+!*.mdx
+!.env.example
+!.env.template
+
+# Migrations
+!packages/*/src/migrations/
+!apps/*/src/migrations/
+
+# Config files
+!.gitignore
+!.prettierrc
+!eslint.config.js
+!tsconfig*.json
+!drizzle.config.ts
+!turbo.json
+!package.json
+!pnpm-workspace.yaml
+!prodmind.config.ts

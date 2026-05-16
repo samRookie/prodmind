@@ -7,7 +7,8 @@
     ".": "./src/index.ts",
     "./errors": "./src/errors/index.ts",
     "./logger": "./src/logger/index.ts",
-    "./config": "./src/config/index.ts"
+    "./config": "./src/config/index.ts",
+    "./runtime": "./src/runtime/index.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
