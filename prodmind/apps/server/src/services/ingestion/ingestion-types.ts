@@ -34,6 +34,7 @@ export interface IngestionSuccessResult {
   failedFiles: Array<{ path: string; error: string }>;
   durationMs: number;
   snapshotStatus: string;
+  compressionRatio?: number;
 }
 
 export interface IngestionErrorResult {

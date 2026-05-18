@@ -12,6 +12,8 @@ export {
   RiskRepository,
   EventRepository,
   JobRepository,
+  CompressionRepository,
+  IncrementalRepository,
 } from './repositories/index.ts';
 
 export {
@@ -35,3 +37,41 @@ export type {
 export type {
   CircularDependency,
 } from './graph/dependency-query.ts';
+
+export {
+  getCompressedFileContext,
+  getCompressedFileContextsBySnapshot,
+  getCompressedModuleContext,
+  getAllModuleContexts,
+  getHighValueSymbols,
+  getCompressedRepositoryContext,
+  getCriticalDependencyChains,
+  getCompressedTopologySummary,
+} from './compression/index.ts';
+
+export type {
+  CompressedFileContextResult,
+  CompressedModuleContextResult,
+  HighValueSymbolResult,
+  CompressedRepositoryContextResult,
+} from './compression/index.ts';
+
+export {
+  getSnapshotLineage,
+  getPreviousSnapshotId,
+  getSnapshotDiffsBySnapshot,
+  getSnapshotDiffByType,
+  getReusedArtifacts,
+  getReusedArtifactsByType,
+  getInvalidatedRegions,
+  getInvalidatedByType,
+  getIncrementalMetrics,
+} from './incremental/index.ts';
+
+export type {
+  SnapshotLineageResult,
+  SnapshotDiffQueryResult,
+  ReuseArtifactResult,
+  InvalidationRegionResult,
+  IncrementalMetricsQueryResult,
+} from './incremental/index.ts';

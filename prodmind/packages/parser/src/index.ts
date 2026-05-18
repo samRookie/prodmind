@@ -81,3 +81,20 @@ export type {
   ResolutionResult, ResolvedPath,
 } from './resolution/index.ts';
 export { ResolutionError, PathResolutionError, ExportResolutionError, CyclicReExportError } from './resolution/index.ts';
+
+export { CompressionEngine, FileCompressor, ModuleCompressor, SymbolCompressor, RepositoryCompressor, CompressionMetricsCalculator } from './compression/index.ts';
+export { DEFAULT_COMPRESSION_RULES } from './compression/index.ts';
+export type { CompressionRulesConfig } from './compression/index.ts';
+export type {
+  CompressionInput, CompressionOutput, CompressedFileContext, CompressedModuleContext,
+  CompressedRepositoryContext, CompressionMetrics, CompressedSymbolRef, CompressedImport, CompressedExport,
+} from './compression/index.ts';
+export { CompressionError, FileCompressionError, ModuleCompressionError, RepositoryCompressionError, MetricCalculationError } from './compression/index.ts';
+
+export { IncrementalEngine, SnapshotDiffEngine, GraphDiffEngine, SemanticDiffEngine, CompressionDiffEngine, DependencyImpactEngine, ReuseEngine, InvalidationEngine, DiffMetricsCalculator } from './incremental/index.ts';
+export type {
+  IncrementalSnapshotDiffResult, IncrementalGraphDiffResult, IncrementalSemanticDiffResult, IncrementalCompressionDiffResult,
+  IncrementalDependencyImpactResult, ReusePlan, ReusePlanEntry, InvalidationResult, InvalidationEntry,
+  IncrementalAnalysisMetrics, IncrementalInput, IncrementalOutput, FileChangeSet, NodeRef, EdgeRef, SemanticDriftEntry,
+} from './incremental/index.ts';
+export { IncrementalError, IncrementalSnapshotDiffError, IncrementalGraphDiffError, IncrementalSemanticDiffError, IncrementalCompressionDiffError, IncrementalDependencyImpactError, IncrementalReuseError, IncrementalInvalidationError } from './incremental/index.ts';

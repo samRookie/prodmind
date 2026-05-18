@@ -4,3 +4,5 @@ export { GraphRepository } from './graph.repository.ts';
 export { RiskRepository } from './risk.repository.ts';
 export { EventRepository } from './event.repository.ts';
 export { JobRepository } from './job.repository.ts';
+export { CompressionRepository } from './compression.repository.ts';
+export { IncrementalRepository } from './incremental.repository.ts';

@@ -1,15 +1,17 @@
 import { readFile } from 'node:fs/promises';
 import type { Database } from '@prodmind/db';
 import { ProjectRepository, EventRepository } from '@prodmind/db';
-import { ZipExtractor, FileDiscovery, Sha256Hasher, ManifestBuilder, batchParseFiles } from '@prodmind/parser';
+import { ZipExtractor, FileDiscovery, Sha256Hasher, ManifestBuilder, batchParseFiles, CompressionEngine } from '@prodmind/parser';
 import { DependencyResolver, GraphNormalizer } from '@prodmind/parser';
 import { SnapshotStatus } from '@prodmind/contracts';
 import { SnapshotPipeline } from './snapshot-pipeline.ts';
 import { GraphBuilder } from './graph-builder.ts';
+import { IncrementalService } from './incremental-service.ts';
 import type { IngestionResult, ParseStatistics } from './ingestion-types.ts';
 import { IngestionPipelineError } from './ingestion-errors.ts';
 
 export class IngestionService {
+  private readonly db: Database;
   private readonly projectRepo: ProjectRepository;
   private readonly pipeline: SnapshotPipeline;
   private readonly events: EventRepository;
@@ -18,6 +20,7 @@ export class IngestionService {
   private readonly manifestBuilder: ManifestBuilder;
 
   public constructor(db: Database) {
+    this.db = db;
     this.projectRepo = new ProjectRepository(db);
     this.pipeline = new SnapshotPipeline(db);
     this.events = new EventRepository(db);
@@ -146,6 +149,54 @@ export class IngestionService {
 
       await this.pipeline.transitionTo(snapshotId, SnapshotStatus.ANALYZING);
 
+      let compressionRatio: number | undefined;
+      let latestCompressionOutput: import('@prodmind/parser').CompressionOutput | undefined;
+      try {
+        const compressionEngine = new CompressionEngine();
+        const compressionOutput = compressionEngine.compress({
+          parseResults,
+          fileHashes: fileHashMap,
+          resolution,
+          snapshotId,
+        });
+        latestCompressionOutput = compressionOutput;
+
+        const commitCompressionResult = await this.pipeline.commitCompression(snapshotId, compressionOutput);
+        if (commitCompressionResult.success) {
+          compressionRatio = compressionOutput.metrics.compressionRatio;
+          await this.events.log('compression_completed', {
+            snapshotId,
+            compressionRatio: compressionOutput.metrics.compressionRatio,
+            tokenReductionRatio: compressionOutput.metrics.tokenReductionRatio,
+          });
+        } else {
+          await this.events.log('compression_warning', {
+            snapshotId,
+            error: commitCompressionResult.error,
+          });
+        }
+      } catch (compressionErr) {
+        await this.events.log('compression_warning', {
+          snapshotId,
+          error: compressionErr instanceof Error ? compressionErr.message : String(compressionErr),
+        });
+      }
+
+      if (latestCompressionOutput) {
+        const incrementalService = new IncrementalService(this.db);
+        const deps = resolution?.dependencies.map((d) => ({
+          sourceFile: d.sourceFile,
+          targetFile: d.targetFile,
+        })) ?? [];
+        await incrementalService.analyze(
+          projectId,
+          snapshotId,
+          latestCompressionOutput,
+          fileHashMap,
+          deps,
+        );
+      }
+
       const activation = await this.pipeline.activateSnapshot(snapshotId);
       if (!activation.success) {
         await this.pipeline.markDegraded(snapshotId);
@@ -164,6 +215,7 @@ export class IngestionService {
         failedFiles,
         durationMs,
         snapshotStatus: activation.success ? SnapshotStatus.ACTIVE : SnapshotStatus.DEGRADED,
+        compressionRatio,
       };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : String(err);
