@@ -1,159 +1,342 @@
 # ProdMind
 
-AI Architectural Intelligence Engine for Vibecoded Projects
+> Local-First AI Engineering Intelligence System for Vibecoded Software
 
-## What is ProdMind?
+ProdMind is a graph-native engineering intelligence platform designed to analyze, compress, persist, and reason about large AI-generated codebases using deterministic memory systems, semantic dependency graphs, and incremental architectural intelligence.
 
-ProdMind is a local-first AI engineering intelligence platform that analyzes, compresses, remembers, and reviews AI-generated software projects at production scale.
+Instead of treating a repository as temporary prompt context, ProdMind treats software as a persistent evolving system.
 
-Unlike generic AI coding assistants that lose context as projects grow, ProdMind treats a codebase as a persistent architectural system. It builds a structured graph memory of the project using AST parsing, dependency analysis, metadata compression, and deterministic AI reasoning pipelines.
+It builds:
+- structural memory,
+- semantic graph intelligence,
+- dependency-aware snapshots,
+- architectural retrieval systems,
+- incremental change intelligence,
+- and AI-ready compressed repository context.
 
-**Built for vibecoders** — developers shipping heavily AI-generated applications through Claude, Gemini, Cursor, Copilot, Antigravity, and other autonomous coding systems — where architectural entropy, hallucinations, context collapse, and production instability become critical problems.
+---
 
-## The Problem
+# Why ProdMind Exists
 
-As AI-generated codebases scale:
-- Context windows collapse between development sessions
-- Architectural relationships become implicit and unmapped
-- Hallucinations compound across modules
-- Blast radius of changes becomes invisible
-- Production risk accumulates silently
+AI-generated software scales faster than human architectural understanding.
 
-ProdMind solves this with **persistent architectural memory** — a queryable graph of your project that remembers structure, risk, and intent across iterations.
+Modern vibecoding workflows using:
+- Claude Code
+- Cursor
+- Gemini
+- Antigravity
+- Copilot
+- autonomous coding agents
 
-## Core Features
+can generate production-scale repositories rapidly — but architectural integrity collapses over time.
 
-### Project ZIP Ingestion
-Upload complete project root ZIP files for instant analysis.
+The major problems:
+- context window fragmentation
+- hidden dependency chains
+- architectural drift
+- hallucinated integrations
+- silent coupling growth
+- invisible blast radius
+- unstable scaling patterns
+- repeated AI regressions
 
-### AST-Based Structural Analysis
-Extract symbols, imports, exports, interfaces, and architectural metadata without executing code.
+ProdMind solves this by creating a persistent graph-memory intelligence layer for software systems.
 
-### Persistent Graph Memory
-Every project version becomes a queryable snapshot with deterministic node and edge relationships.
+---
 
-### Incremental Diff Analysis
-Only changed files reprocessed between uploads — massive token and processing savings.
+# Current System Status
 
-### Blast Radius Engine
-Analyze architectural impact propagation using deterministic graph traversal.
+## Completed Systems
 
-### Production Risk Detection
-Identify resilience, scalability, maintainability, and structural engineering risks.
+### Phase 1 — Monorepo Foundation & Infrastructure
+- Turborepo + pnpm monorepo
+- Strict TypeScript governance
+- Shared contracts architecture
+- Hono backend scaffold
+- Vite + React frontend scaffold
+- CI workflow
+- Runtime config governance
+- Workspace package boundaries
 
-### AI Prompt Generation
-Generate highly structured prompts for external coding agents (Claude Code, Cursor, Antigravity).
-
-### Local-First Design
-No mandatory cloud dependency. Hybrid local/cloud AI inference ready.
-
-## Architecture
-
-**Tech Stack:**
-- Turborepo monorepo + pnpm workspaces
-- Vite + React frontend
-- Hono backend
-- Drizzle ORM + SQLite/libSQL
-- Zod contract system
-- TypeScript (strict mode everywhere)
-
-**Core Systems:**
-- Graph-based project memory engine
-- AST parsing pipeline
-- BFS dependency traversal engine
-- Deterministic repository layer
+### Phase 2 — Database & Graph Memory Foundation
+- Drizzle ORM + libSQL/SQLite
+- 8 production-grade graph tables
+- Repository abstraction layer
+- Snapshot lifecycle state machine
 - Transaction-safe persistence
-- AI orchestration scaffolding
-- Incremental snapshot architecture
+- Graph traversal engine
+- Blast radius analysis
+- Cycle detection
+- WAL mode optimization
+- Foreign-key enforcement
+- Immutable snapshot governance
 
-## Engineering Principles
+### Phase 3 — ZIP Ingestion & File Processing Pipeline
+- ZIP upload pipeline
+- Secure extraction engine
+- ZIP-slip protection
+- Ignore-rule sanitization
+- File classification engine
+- Secret detection engine
+- SHA-256 hashing pipeline
+- Repository manifest generation
+- Incremental diffing support
+- TypeScript AST parsing
+- JSX/TSX support
+- Worker-thread execution
+- Full ingestion orchestration
+- Upload API integration
+- Graph persistence integration
 
-- No autonomous filesystem mutation
-- No direct code execution of user projects
-- Deterministic state transitions
-- Strongly typed contracts
-- Hallucination-resistant AI workflows
-- Reproducible analysis pipelines
-
-## Current Status
-
-**Completed:**
-- Monorepo foundation
-- Workspace architecture
-- Shared contracts system
-- Database layer
-- Graph schema & repository layer
-- Traversal engine
-- Snapshot lifecycle
-- Transaction-safe persistence
-- CI/CD foundation
-
-**In Progress:**
-- ZIP ingestion engine
-- AST parsing pipeline
-- AI orchestration layer
+### Phase 4 — Graph Construction & Memory Engine (In Progress)
+Completed:
+- Dependency graph construction
+- Import/export resolution
+- Graph normalization
+- Snapshot memory activation
 - Context compression engine
-- Memory graph synthesis
-- Production intelligence analysis
+- Repository/module/file/symbol summaries
+- Incremental diff intelligence
+- Snapshot evolution tracking
+- Graph persistence pipeline
 
-**Roadmap:**
-- GitHub integration
-- Semantic retrieval systems
-- Architectural drift analysis
-- Multi-language parsing
-- Local LLM execution
-- Production telemetry intelligence
-- Organizational engineering policy systems
+Currently Building:
+- Semantic graph intelligence
+- Architectural boundary detection
+- Graph metrics engine
+- Memory retrieval systems
+- Graph validation & integrity analysis
+- Large-scale graph verification
 
-## Installation & Development
+---
 
-```bash
-# Clone repo
-git clone https://github.com/YOUR_USERNAME/prodmind.git
-cd prodmind
+# Core Capabilities
 
-# Install dependencies
-pnpm install
+## Repository Ingestion
+Upload repository ZIP files for deterministic structural analysis.
 
-# Build all packages
-pnpm run build
+## AST-Based Structural Intelligence
+Extract:
+- imports
+- exports
+- symbols
+- interfaces
+- async patterns
+- dependency relationships
 
-# Dev server
-pnpm run dev
+without executing user code.
 
-# Run tests
-pnpm run test
+## Persistent Graph Memory
+Every upload becomes a queryable immutable architectural snapshot.
+
+## Incremental Intelligence
+Only modified graph regions are recomputed between snapshots.
+
+## Dependency Traversal Engine
+Deterministic BFS-based traversal for:
+- dependency analysis
+- blast radius analysis
+- impact propagation
+- architectural exploration
+
+## Context Compression Engine
+Multi-layer repository compression:
+- repository summaries
+- module summaries
+- file summaries
+- symbol summaries
+
+optimized for future AI retrieval efficiency.
+
+## Semantic Graph Intelligence (In Progress)
+Planned semantic capabilities:
+- service boundary detection
+- domain clustering
+- architectural ownership mapping
+- coupling analysis
+- infrastructure vs business-logic separation
+
+## Snapshot Evolution Tracking
+Track repository evolution across uploads:
+- changed graph regions
+- modified dependency chains
+- architectural drift
+- incremental recomputation
+
+---
+
+# Architecture
+
+## Monorepo Structure
+
+```txt
+apps/
+  web/            → React frontend
+  server/         → Hono API server
+
+packages/
+  ai/             → AI orchestration layer
+  contracts/      → Zod schemas + DTO contracts
+  core/           → Runtime infrastructure
+  db/             → Graph persistence + repositories
+  parser/         → ZIP ingestion + AST intelligence
+  shared/         → Shared utilities/constants
 ```
 
-## Project Structure
-prodmind/
-├── packages/
-│   ├── frontend/          # Vite + React UI
-│   ├── backend/           # Hono server
-│   ├── contracts/         # Zod schemas & types
-│   ├── graph-engine/      # Project memory system
-│   └── ...
-├── turbo.json
-├── pnpm-workspace.yaml
-└── README.md
+---
 
-## Vision
+# Tech Stack
 
-ProdMind aims to become a **Staff Engineer AI Layer** for vibecoded software development — not replacing developers, but acting as a persistent architectural reviewer that prevents AI-generated projects from collapsing as complexity scales.
+## Backend
+- TypeScript
+- Hono
+- Drizzle ORM
+- SQLite / libSQL
+- Zod
+- tsup
 
-## Target Users
+## Frontend
+- React
+- Vite
+- Zustand
+- TailwindCSS
+- shadcn/ui
 
-- Vibecoders & AI-first developers
-- Indie hackers & startups
-- Hackathon teams
-- Senior engineers using AI augmentation
+## Infrastructure
+- Turborepo
+- pnpm workspaces
+- Vitest
+- GitHub Actions
+
+---
+
+# Engineering Principles
+
+- Local-first architecture
+- Deterministic graph generation
+- Immutable snapshot history
+- Contracts-first development
+- Strong package boundaries
+- No user-code execution
+- Hallucination-resistant workflows
+- Incremental recomputation
+- Transaction-safe persistence
+- AI as orchestration, not source-of-truth
+
+---
+
+# Current Architectural Status
+
+## Stable & Production-Grade
+- Database layer
+- Snapshot lifecycle
+- Repository persistence
+- Graph traversal engine
+- ZIP ingestion
+- AST parsing pipeline
+- Compression engine
+- Incremental diffing
+
+## Active Focus
+Expanded Phase 4:
+- semantic graph systems
+- retrieval-grade memory
+- graph metrics
+- integrity validation
+- scalability hardening
+
+## Not Yet Started
+- AI orchestration engine
+- provider adapters
+- engineering risk intelligence
+- graph-aware chat system
+- local LLM routing
+- retrieval-augmented AI analysis
+
+---
+
+# Development
+
+## Install
+
+```bash
+pnpm install
+```
+
+## Run Development
+
+```bash
+pnpm dev
+```
+
+## Typecheck
+
+```bash
+pnpm typecheck
+```
+
+## Lint
+
+```bash
+pnpm lint
+```
+
+## Test
+
+```bash
+pnpm test
+```
+
+## Build
+
+```bash
+pnpm build
+```
+
+---
+
+# Long-Term Vision
+
+ProdMind aims to become a persistent engineering intelligence layer capable of:
+- understanding massive repositories,
+- preserving architectural memory,
+- analyzing dependency evolution,
+- preventing AI-generated architectural collapse,
+- enabling staff-engineer-grade AI reasoning,
+- and powering deterministic AI engineering workflows.
+
+The goal is not another coding assistant.
+
+The goal is an architectural cognition system for AI-native software engineering.
+
+---
+
+# Target Users
+
+- Vibecoders
+- AI-first developers
+- Indie hackers
+- Startup engineering teams
 - Rapid prototyping teams
+- Staff engineers using AI augmentation
 - Engineering reviewers
+- Autonomous coding workflow operators
 
-## License
+---
 
-[Add your license here — MIT, Apache 2.0, etc.]
+# Current State of Development
 
-## Contributing
+ProdMind is actively under heavy architectural development.
 
-Contributions welcome. Open an issue for discussion before large changes.
+The foundational ingestion, persistence, traversal, compression, and snapshot systems are operational.
+
+The project is currently evolving toward:
+- semantic graph intelligence,
+- retrieval-grade memory systems,
+- and AI orchestration infrastructure.
+
+---
+
+# License
+
+Private / In Active Development
