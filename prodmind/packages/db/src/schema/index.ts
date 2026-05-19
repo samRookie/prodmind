@@ -42,3 +42,5 @@ export { couplingEdges } from './coupling-analysis.ts';
 export type { CouplingEdgeRow, NewCouplingEdgeRow } from './coupling-analysis.ts';
 export { graphMetrics } from './graph-metrics.ts';
 export type { GraphMetricsRow, NewGraphMetricsRow } from './graph-metrics.ts';
+export { validationResults, snapshotIntegrity } from './validation-results.ts';
+export type { ValidationResultRow, NewValidationResultRow, SnapshotIntegrityRow, NewSnapshotIntegrityRow } from './validation-results.ts';

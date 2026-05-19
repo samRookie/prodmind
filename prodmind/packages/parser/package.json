@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
     "test": "vitest run",
+    "test:stress": "vitest run --include='**/*.stress.test.ts'",
     "test:watch": "vitest",
     "clean": "rm -rf dist .turbo"
   },

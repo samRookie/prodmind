@@ -16,6 +16,13 @@
       "persistent": true,
       "cache": false
     },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "test:stress": {
+      "cache": false
+    },
     "clean": {
       "cache": false
     }

@@ -2,9 +2,9 @@ import { readFile } from 'node:fs/promises';
 import type { Database } from '@prodmind/db';
 import { ProjectRepository, EventRepository } from '@prodmind/db';
 import { ZipExtractor, FileDiscovery, Sha256Hasher, ManifestBuilder, batchParseFiles, CompressionEngine } from '@prodmind/parser';
-import { DependencyResolver, GraphNormalizer, SemanticEngine, MetricsEngine } from '@prodmind/parser';
+import { DependencyResolver, GraphNormalizer, SemanticEngine, MetricsEngine, IntegrityEngine } from '@prodmind/parser';
 import type { SemanticOutput, MetricsOutput } from '@prodmind/parser';
-import { SnapshotStatus } from '@prodmind/contracts';
+import { SnapshotStatus, ValidationState } from '@prodmind/contracts';
 import { SnapshotPipeline } from './snapshot-pipeline.ts';
 import { GraphBuilder } from './graph-builder.ts';
 import { IncrementalService } from './incremental-service.ts';
@@ -288,6 +288,117 @@ export class IngestionService {
           snapshotId,
           error: metricsErr instanceof Error ? metricsErr.message : String(metricsErr),
         });
+      }
+
+      try {
+        const retrievalResult = await this.pipeline.commitRetrievalMetadata(snapshotId);
+        if (retrievalResult.success) {
+          await this.events.log('retrieval_metadata_completed', { snapshotId });
+        }
+      } catch (retrievalErr) {
+        await this.events.log('retrieval_metadata_warning', {
+          snapshotId,
+          error: retrievalErr instanceof Error ? retrievalErr.message : String(retrievalErr),
+        });
+      }
+
+      let validationState = ValidationState.DEGRADED;
+      let integrityScore = 0;
+      let readinessScore = 0;
+      let validationIssueCount = 0;
+      let validationBlocked = false;
+
+      try {
+        const engine = new IntegrityEngine();
+        const validationInput = {
+          snapshotId,
+          nodes: graph.nodes.map((n) => ({
+            id: n.id,
+            filePath: n.filePath,
+            fileHash: n.fileHash ?? null,
+            nodeType: n.nodeType,
+            symbolName: n.symbolName ?? null,
+            language: n.language ?? null,
+            metadataJson: n.metadataJson ?? null,
+          })),
+          edges: graph.edges.map((e) => ({
+            id: e.id,
+            sourceNodeId: e.sourceNodeId,
+            targetNodeId: e.targetNodeId,
+            edgeType: e.edgeType,
+            weight: e.weight ?? null,
+            metadataJson: e.metadataJson ?? null,
+          })),
+          classifications: semanticOutput?.classifications,
+          domainClusters: semanticOutput?.domainClusters,
+          centrality: metricsOutput?.centrality,
+          instability: metricsOutput?.instability,
+          propagationRisk: metricsOutput?.propagationRisk,
+          fanMetrics: metricsOutput?.fanMetrics,
+          complexity: metricsOutput?.complexity,
+          retrievalAvailable: true,
+          compressionAvailable: latestCompressionOutput != null,
+        };
+
+        const validationOutput = engine.validate(validationInput);
+        validationIssueCount = validationOutput.issues.length;
+        validationState = validationOutput.snapshotResult.validationState;
+        integrityScore = validationOutput.snapshotResult.integrityScore;
+        readinessScore = validationOutput.snapshotResult.readinessScore;
+
+        const persistResult = await this.pipeline.commitValidationResults(
+          snapshotId,
+          validationOutput.issues,
+          integrityScore,
+          readinessScore,
+          validationState,
+        );
+
+        if (persistResult.success) {
+          await this.events.log('validation_completed', {
+            snapshotId,
+            issueCount: validationIssueCount,
+            validationState,
+            integrityScore,
+            readinessScore,
+          });
+        }
+
+        if (validationState === ValidationState.INVALID) {
+          validationBlocked = true;
+          await this.events.log('validation_blocked', {
+            snapshotId,
+            reason: 'CRITICAL validation issues found',
+            criticalCount: validationOutput.summary.criticalCount,
+          });
+        }
+      } catch (validationErr) {
+        await this.events.log('validation_warning', {
+          snapshotId,
+          error: validationErr instanceof Error ? validationErr.message : String(validationErr),
+        });
+      }
+
+      if (validationBlocked) {
+        await this.pipeline.markDegraded(snapshotId);
+        const durationMs = Date.now() - startWall;
+        return {
+          success: true,
+          projectId,
+          snapshotId,
+          fileCount: manifest.totalFiles,
+          nodeCount: graph.nodes.length,
+          edgeCount: graph.edges.length,
+          parseStatistics: parseStats,
+          failedFiles,
+          durationMs,
+          snapshotStatus: SnapshotStatus.DEGRADED,
+          compressionRatio,
+          semanticClassifiedCount: semanticOutput?.classifications.length,
+          couplingEdgeCount: semanticOutput?.couplingEdges.length,
+          domainClusterCount: semanticOutput?.domainClusters.length,
+          graphMetricsCount: metricsOutput?.records.length,
+        };
       }
 
       const activation = await this.pipeline.activateSnapshot(snapshotId);

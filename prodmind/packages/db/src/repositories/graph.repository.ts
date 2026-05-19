@@ -28,8 +28,8 @@ export class GraphRepository {
       return { success: false, error: `Snapshot ${snapshotId} not found` };
     }
 
-    if (snap.status === SnapshotStatus.ACTIVE) {
-      return { success: false, error: `Cannot modify ACTIVE snapshot ${snapshotId}` };
+    if (snap.status === SnapshotStatus.ACTIVE || snap.status === SnapshotStatus.FAILED) {
+      return { success: false, error: `Cannot modify ${snap.status} snapshot ${snapshotId}` };
     }
 
     return { success: true, data: undefined };

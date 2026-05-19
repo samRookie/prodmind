@@ -33,3 +33,5 @@ export { NodeType, EdgeType } from './graph.ts';
 export { JobStatus } from './job.ts';
 export { SemanticType, CouplingType, RuleStrength } from './semantic.ts';
 export { MetricType, MetricScope, MetricPriority, FanLevel, InstabilityLevel, ComplexityLevel } from './metrics.ts';
+export { RetrievalScope, RetrievalStrategy, RetrievalOrdering } from './retrieval.ts';
+export { ValidationSeverity, ValidationCategory, ValidationState } from './validation.ts';

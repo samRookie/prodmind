@@ -20,6 +20,12 @@ export {
   FanLevel,
   InstabilityLevel,
   ComplexityLevel,
+  RetrievalScope,
+  RetrievalStrategy,
+  RetrievalOrdering,
+  ValidationSeverity,
+  ValidationCategory,
+  ValidationState,
 } from './enums/index.ts';
 
 export {

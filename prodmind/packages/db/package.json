@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./schema": "./src/schema/index.ts"
+    "./schema": "./src/schema/index.ts",
+    "./__tests__/*": "./src/__tests__/*"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
@@ -13,6 +14,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
     "test": "vitest run",
+    "test:stress": "vitest run --include='**/*.stress.test.ts'",
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",

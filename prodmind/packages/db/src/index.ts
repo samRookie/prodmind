@@ -18,6 +18,8 @@ export {
   CouplingRepository,
   DomainRepository,
   MetricsRepository,
+  RetrievalRepository,
+  ValidationRepository,
 } from './repositories/index.ts';
 
 export {

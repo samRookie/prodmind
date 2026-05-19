@@ -1,0 +1,23 @@
+export enum ValidationSeverity {
+  INFO = 'INFO',
+  WARNING = 'WARNING',
+  ERROR = 'ERROR',
+  CRITICAL = 'CRITICAL',
+}
+
+export enum ValidationCategory {
+  GRAPH_STRUCTURE = 'GRAPH_STRUCTURE',
+  DEPENDENCY = 'DEPENDENCY',
+  SEMANTIC = 'SEMANTIC',
+  SYMBOL_OWNERSHIP = 'SYMBOL_OWNERSHIP',
+  RETRIEVAL = 'RETRIEVAL',
+  SNAPSHOT = 'SNAPSHOT',
+  ARCHITECTURE = 'ARCHITECTURE',
+  METRICS = 'METRICS',
+}
+
+export enum ValidationState {
+  VALID = 'VALID',
+  DEGRADED = 'DEGRADED',
+  INVALID = 'INVALID',
+}

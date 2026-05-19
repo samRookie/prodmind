@@ -11,3 +11,6 @@ export { CouplingRepository } from './coupling.repository.ts';
 export { DomainRepository } from './domain.repository.ts';
 export { MetricsRepository } from './metrics.repository.ts';
 export type { MetricInsertInput } from './metrics.repository.ts';
+export { RetrievalRepository } from './retrieval.repository.ts';
+export { ValidationRepository } from './validation.repository.ts';
+export type { ValidationSummary } from './validation.repository.ts';

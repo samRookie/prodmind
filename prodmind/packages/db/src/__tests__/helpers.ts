@@ -272,6 +272,30 @@ export async function createTables(client: Client): Promise<void> {
       metadata_json TEXT,
       created_at TEXT NOT NULL
     )`,
+    `CREATE TABLE IF NOT EXISTS validation_results (
+      id TEXT PRIMARY KEY,
+      snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
+      category TEXT NOT NULL,
+      severity TEXT NOT NULL,
+      state TEXT NOT NULL,
+      issue_code TEXT NOT NULL,
+      message TEXT NOT NULL,
+      node_id TEXT,
+      edge_id TEXT,
+      metadata_json TEXT,
+      created_at TEXT NOT NULL
+    )`,
+    `CREATE TABLE IF NOT EXISTS snapshot_integrity (
+      id TEXT PRIMARY KEY,
+      snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
+      integrity_score REAL NOT NULL,
+      readiness_score REAL NOT NULL,
+      validation_state TEXT NOT NULL,
+      critical_issue_count INTEGER NOT NULL DEFAULT 0,
+      warning_count INTEGER NOT NULL DEFAULT 0,
+      metadata_json TEXT,
+      created_at TEXT NOT NULL
+    )`,
   ];
   for (const sql of stmts) {
     await client.execute(sql);

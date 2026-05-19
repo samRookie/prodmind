@@ -125,3 +125,28 @@ export { computeComplexity, computeDepthAnalysis } from './metrics/index.ts';
 export { createGraphAnalysisCache } from './metrics/index.ts';
 export type { GraphAnalysisCache, SCCResult } from './metrics/index.ts';
 export { MetricsError, CentralityError, FanMetricsError, CouplingDensityError, InstabilityError, PropagationRiskError, ComplexityError, DepthAnalysisError } from './metrics/index.ts';
+
+export { IntegrityEngine } from './validation/index.ts';
+export type { ValidationInput, ValidationOutput, ValidationContext, ValidationIssue, ValidationSummary } from './validation/index.ts';
+export type { GraphValidationResult, SemanticValidationResult, RetrievalValidationResult, SnapshotValidationResult, IntegrityMetrics } from './validation/index.ts';
+export { validateGraphStructure, validateDependencyStructure, validateSemanticStructure, validateSymbolStructure, validateRetrievalStructure, validateMetricsStructure } from './validation/index.ts';
+export { validateSnapshotReadiness, computeReadinessScore, computeIntegrityScore, determineValidationState } from './validation/index.ts';
+export { generateValidationReport, aggregateValidationMetrics, summarizeCriticalIssues } from './validation/index.ts';
+export type { ValidationReport } from './validation/index.ts';
+export { ValidationError, GraphIntegrityError, RetrievalIntegrityError, SnapshotIntegrityError } from './validation/index.ts';
+
+export { RetrievalEngine } from './retrieval/index.ts';
+export type { RetrievalInput } from './retrieval/index.ts';
+export type {
+  RetrievalQuery, RetrievalContext, RetrievalResult, RetrievalMetadata, RetrievalStats,
+  RetrievedNode, RetrievedEdge, NeighborhoodResult, BlastRadiusResult,
+  ArchitecturalSliceResult, SymbolNeighborhoodResult,
+} from './retrieval/index.ts';
+export { createRetrievalCache } from './retrieval/index.ts';
+export { retrieveDependencyNeighborhood, retrieveReverseDependencies, retrieveBidirectionalNeighborhood, retrieveDepthLimitedSubgraph } from './retrieval/index.ts';
+export { retrieveSymbolOwners, retrieveSymbolNeighbors, retrieveSharedNamespaces, retrieveCrossModuleSymbolUsage } from './retrieval/index.ts';
+export { retrieveBlastRadiusSubgraph, rankPropagationRisk, computeTraversalPressure, retrieveCriticalPropagationPaths } from './retrieval/index.ts';
+export { retrieveArchitecturalSlice, retrieveInfrastructureSlice, retrieveBusinessDomainSlice, retrieveSemanticClusterSlice } from './retrieval/index.ts';
+export { rankRetrievedNodes, computeRetrievalWeight, applyMetricWeighting, applySemanticWeighting, applyRiskWeighting } from './retrieval/index.ts';
+export { stableNodeSort, stableEdgeSort, stableMetricSort } from './retrieval/index.ts';
+export { RetrievalError, RetrievalTraversalError, RetrievalOrderingError } from './retrieval/index.ts';

@@ -1,11 +1,12 @@
 import type { Database } from '@prodmind/db';
-import { SnapshotRepository, EventRepository, CompressionRepository, SemanticRepository, CouplingRepository, DomainRepository, MetricsRepository } from '@prodmind/db';
+import { SnapshotRepository, EventRepository, CompressionRepository, SemanticRepository, CouplingRepository, DomainRepository, MetricsRepository, ValidationRepository } from '@prodmind/db';
 import type { Snapshot, NewCompressedFileContextRow, NewCompressedModuleContextRow, NewCompressedRepositoryContextRow, NewCompressionMetricsRow } from '@prodmind/db';
 import type { NewNode, NewEdge } from '@prodmind/db';
 import { GraphRepository } from '@prodmind/db';
 import { SnapshotStatus } from '@prodmind/contracts';
 import type { Result } from '@prodmind/contracts';
 import type { CompressionOutput, SemanticOutput, MetricRecord } from '@prodmind/parser';
+import type { ValidationIssue } from '@prodmind/parser';
 
 export class SnapshotPipeline {
   private readonly snapshots: SnapshotRepository;
@@ -16,6 +17,7 @@ export class SnapshotPipeline {
   private readonly couplingRepo: CouplingRepository;
   private readonly domainRepo: DomainRepository;
   private readonly metricsRepo: MetricsRepository;
+  private readonly validationRepo: ValidationRepository;
 
   public constructor(db: Database) {
     this.snapshots = new SnapshotRepository(db);
@@ -26,6 +28,7 @@ export class SnapshotPipeline {
     this.couplingRepo = new CouplingRepository(db);
     this.domainRepo = new DomainRepository(db);
     this.metricsRepo = new MetricsRepository(db);
+    this.validationRepo = new ValidationRepository(db);
   }
 
   public async createSnapshot(
@@ -268,6 +271,122 @@ export class SnapshotPipeline {
     }
   }
 
+  public async commitRetrievalMetadata(
+    snapshotId: string,
+  ): Promise<Result<void, string>> {
+    try {
+      const nodeList = await this.graph.getNodesBySnapshot(snapshotId);
+      const metrics = await this.metricsRepo.getMetricsByType('CENTRALITY', snapshotId);
+
+      const topSeeds = metrics
+        .filter((m) => m.nodeId)
+        .slice(0, 10)
+        .map((m) => m.nodeId!);
+
+      const namespaceMap = new Map<string, string[]>();
+      const symbolOwners: Array<{ symbolName: string; nodeIds: string[] }> = [];
+
+      for (const n of nodeList) {
+        const normalized = n.filePath.replace(/\\/g, '/');
+        const parts = normalized.split('/');
+        const namespace = parts.length > 1 ? parts.slice(0, -1).join('/') : 'root';
+        const existing = namespaceMap.get(namespace) ?? [];
+        existing.push(n.id);
+        namespaceMap.set(namespace, existing);
+
+        if (n.symbolName) {
+          const existingSym = symbolOwners.find((s) => s.symbolName === n.symbolName);
+          if (existingSym) {
+            existingSym.nodeIds.push(n.id);
+          } else {
+            symbolOwners.push({ symbolName: n.symbolName, nodeIds: [n.id] });
+          }
+        }
+      }
+
+      const retrievalMetadata = {
+        centralitySeeds: topSeeds,
+        namespaceCount: namespaceMap.size,
+        symbolOwnerCount: symbolOwners.length,
+        namespaces: Array.from(namespaceMap.entries()).map(([ns, ids]) => ({
+          namespace: ns,
+          nodeCount: ids.length,
+        })),
+        generatedAt: new Date().toISOString(),
+      };
+
+      await this.snapshots.updateMetadata(
+        snapshotId,
+        JSON.stringify(retrievalMetadata),
+      );
+
+      return { success: true, data: undefined };
+    } catch (err) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : 'Retrieval metadata commit failed',
+      };
+    }
+  }
+
+  public async commitValidationResults(
+    snapshotId: string,
+    issues: ValidationIssue[],
+    integrityScore: number,
+    readinessScore: number,
+    validationState: string,
+  ): Promise<Result<void, string>> {
+    try {
+      const issueInserts = issues.map((i) => ({
+        category: i.category,
+        severity: i.severity,
+        state: validationState,
+        issueCode: i.issueCode,
+        message: i.message,
+        nodeId: i.nodeId,
+        edgeId: i.edgeId,
+        metadataJson: i.metadataJson,
+      }));
+
+      const issuesSaved = await this.validationRepo.insertValidationIssues(snapshotId, issueInserts);
+      if (!issuesSaved) {
+        return { success: false, error: 'Failed to insert validation issues' };
+      }
+
+      const criticalCount = issues.filter((i) => i.severity === 'CRITICAL').length;
+      const warningCount = issues.filter((i) => i.severity === 'WARNING').length;
+
+      const integritySaved = await this.validationRepo.insertSnapshotIntegrity(snapshotId, {
+        integrityScore,
+        readinessScore,
+        validationState,
+        criticalIssueCount: criticalCount,
+        warningCount,
+        metadataJson: null,
+      });
+
+      if (!integritySaved) {
+        return { success: false, error: 'Failed to insert snapshot integrity' };
+      }
+
+      await this.events.log('validation_completed', {
+        snapshotId,
+        issueCount: issues.length,
+        criticalCount,
+        validationState,
+        integrityScore,
+        readinessScore,
+      });
+
+      return { success: true, data: undefined };
+    } catch (err) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : 'Validation commit failed',
+      };
+    }
+  }
+
   public async activateSnapshot(snapshotId: string): Promise<Result<Snapshot, string>> {
     const result = await this.snapshots.activateSnapshotWithValidation(snapshotId);
     if (result.success) {
@@ -279,6 +398,8 @@ export class SnapshotPipeline {
   public async rollbackSnapshot(snapshotId: string): Promise<Snapshot> {
     const snapshot = await this.snapshots.findById(snapshotId);
     if (!snapshot) throw new Error(`Snapshot ${snapshotId} not found for rollback`);
+
+    if (snapshot.status === SnapshotStatus.FAILED) return snapshot as Snapshot;
 
     const failed = await this.snapshots.markFailed(snapshotId);
     await this.events.log('snapshot_rollback', {

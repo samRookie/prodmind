@@ -160,4 +160,14 @@ export class SnapshotRepository {
 
     return result?.version ?? 0;
   }
+
+  async updateMetadata(
+    id: string,
+    metadataJson: string | null,
+  ): Promise<void> {
+    await this.db
+      .update(snapshots)
+      .set({ metadataJson })
+      .where(eq(snapshots.id, id));
+  }
 }
