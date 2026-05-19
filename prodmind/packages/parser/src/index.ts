@@ -135,6 +135,12 @@ export { generateValidationReport, aggregateValidationMetrics, summarizeCritical
 export type { ValidationReport } from './validation/index.ts';
 export { ValidationError, GraphIntegrityError, RetrievalIntegrityError, SnapshotIntegrityError } from './validation/index.ts';
 
+export { Phase4SystemVerifier, SnapshotFreezer, SystemBenchmark } from './verification/index.ts';
+export type { VerificationReport, VerificationIssue, VerificationSummary, PerformanceMetrics, DeterminismFlags, SystemHealth, RemediationSummary, VerificationStatus } from './verification/index.ts';
+export type { FreezableSnapshot, FrozenSnapshot } from './verification/index.ts';
+export type { BenchmarkScale, BenchmarkTarget, ScaleBenchmarkResult, BenchmarkReport } from './verification/index.ts';
+export { VerificationError, SystemVerificationError, SnapshotFrozenError, BenchmarkTargetError } from './verification/index.ts';
+
 export { RetrievalEngine } from './retrieval/index.ts';
 export type { RetrievalInput } from './retrieval/index.ts';
 export type {

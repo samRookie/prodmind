@@ -17,6 +17,7 @@ export const snapshots = sqliteTable(
     compressionRatio: real('compression_ratio'),
     confidenceScore: real('confidence_score'),
     isDegraded: integer('is_degraded', { mode: 'boolean' }).notNull().default(false),
+    isFrozen: integer('is_frozen', { mode: 'boolean' }).notNull().default(false),
   },
   (table) => ({
     projectIdIdx: index('idx_snapshots_project_id').on(table.projectId),

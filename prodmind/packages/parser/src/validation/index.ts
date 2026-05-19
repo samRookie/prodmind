@@ -27,3 +27,13 @@ export { generateValidationReport, aggregateValidationMetrics, summarizeCritical
 export type { ValidationReport } from './validation-report.ts';
 
 export { ValidationError, GraphIntegrityError, RetrievalIntegrityError, SnapshotIntegrityError } from './validation-errors.ts';
+
+export { Phase4SystemVerifier, SnapshotFreezer, SystemBenchmark } from '../verification/index.ts';
+export type {
+  VerificationReport, VerificationIssue as VerifierIssue,
+  VerificationSummary, PerformanceMetrics, DeterminismFlags,
+  SystemHealth, RemediationSummary, VerificationStatus,
+  FreezableSnapshot, FrozenSnapshot,
+  BenchmarkScale, BenchmarkTarget, ScaleBenchmarkResult, BenchmarkReport,
+} from '../verification/index.ts';
+export { VerificationError as VerifierError, SystemVerificationError, SnapshotFrozenError, BenchmarkTargetError } from '../verification/index.ts';
