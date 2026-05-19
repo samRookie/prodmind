@@ -2,7 +2,8 @@ import { readFile } from 'node:fs/promises';
 import type { Database } from '@prodmind/db';
 import { ProjectRepository, EventRepository } from '@prodmind/db';
 import { ZipExtractor, FileDiscovery, Sha256Hasher, ManifestBuilder, batchParseFiles, CompressionEngine } from '@prodmind/parser';
-import { DependencyResolver, GraphNormalizer } from '@prodmind/parser';
+import { DependencyResolver, GraphNormalizer, SemanticEngine, MetricsEngine } from '@prodmind/parser';
+import type { SemanticOutput, MetricsOutput } from '@prodmind/parser';
 import { SnapshotStatus } from '@prodmind/contracts';
 import { SnapshotPipeline } from './snapshot-pipeline.ts';
 import { GraphBuilder } from './graph-builder.ts';
@@ -147,6 +148,55 @@ export class IngestionService {
         edgeCount: graph.edges.length,
       });
 
+      let semanticOutput: SemanticOutput | undefined;
+      try {
+        const engine = new SemanticEngine();
+        const semanticNodes = graph.nodes.map((n) => ({
+          id: n.id,
+          filePath: n.filePath,
+          fileHash: n.fileHash ?? null,
+          nodeType: n.nodeType,
+          symbolName: n.symbolName ?? null,
+          language: n.language ?? null,
+          metadataJson: n.metadataJson ?? null,
+        }));
+        const semanticEdges = graph.edges.map((e) => ({
+          id: e.id,
+          sourceNodeId: e.sourceNodeId,
+          targetNodeId: e.targetNodeId,
+          edgeType: e.edgeType,
+          weight: e.weight ?? null,
+          metadataJson: e.metadataJson ?? null,
+        }));
+        semanticOutput = engine.analyze({
+          parseResults,
+          resolution,
+          nodes: semanticNodes,
+          edges: semanticEdges,
+          fileHashes: fileHashMap,
+          snapshotId,
+        });
+        const semanticResult = await this.pipeline.commitSemantic(snapshotId, semanticOutput);
+        if (semanticResult.success) {
+          await this.events.log('semantic_completed', {
+            snapshotId,
+            classifiedCount: semanticOutput.classifications.length,
+            couplingCount: semanticOutput.couplingEdges.length,
+            clusterCount: semanticOutput.domainClusters.length,
+          });
+        } else {
+          await this.events.log('semantic_warning', {
+            snapshotId,
+            error: semanticResult.error,
+          });
+        }
+      } catch (semanticErr) {
+        await this.events.log('semantic_warning', {
+          snapshotId,
+          error: semanticErr instanceof Error ? semanticErr.message : String(semanticErr),
+        });
+      }
+
       await this.pipeline.transitionTo(snapshotId, SnapshotStatus.ANALYZING);
 
       let compressionRatio: number | undefined;
@@ -197,6 +247,49 @@ export class IngestionService {
         );
       }
 
+      let metricsOutput: MetricsOutput | undefined;
+      try {
+        const metricsEngine = new MetricsEngine();
+        metricsOutput = metricsEngine.analyze({
+          nodes: graph.nodes.map((n) => ({
+            id: n.id,
+            filePath: n.filePath,
+            fileHash: n.fileHash ?? null,
+            nodeType: n.nodeType,
+            symbolName: n.symbolName ?? null,
+            language: n.language ?? null,
+            metadataJson: n.metadataJson ?? null,
+          })),
+          edges: graph.edges.map((e) => ({
+            id: e.id,
+            sourceNodeId: e.sourceNodeId,
+            targetNodeId: e.targetNodeId,
+            edgeType: e.edgeType,
+            weight: e.weight ?? null,
+            metadataJson: e.metadataJson ?? null,
+          })),
+          snapshotId,
+          semanticClassifications: semanticOutput?.classifications,
+        });
+        const metricResult = await this.pipeline.commitMetrics(snapshotId, metricsOutput.records);
+        if (metricResult.success) {
+          await this.events.log('metrics_completed', {
+            snapshotId,
+            recordCount: metricsOutput.records.length,
+          });
+        } else {
+          await this.events.log('metrics_warning', {
+            snapshotId,
+            error: metricResult.error,
+          });
+        }
+      } catch (metricsErr) {
+        await this.events.log('metrics_warning', {
+          snapshotId,
+          error: metricsErr instanceof Error ? metricsErr.message : String(metricsErr),
+        });
+      }
+
       const activation = await this.pipeline.activateSnapshot(snapshotId);
       if (!activation.success) {
         await this.pipeline.markDegraded(snapshotId);
@@ -216,6 +309,10 @@ export class IngestionService {
         durationMs,
         snapshotStatus: activation.success ? SnapshotStatus.ACTIVE : SnapshotStatus.DEGRADED,
         compressionRatio,
+        semanticClassifiedCount: semanticOutput?.classifications.length,
+        couplingEdgeCount: semanticOutput?.couplingEdges.length,
+        domainClusterCount: semanticOutput?.domainClusters.length,
+        graphMetricsCount: metricsOutput?.records.length,
       };
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : String(err);

@@ -1,23 +1,31 @@
 import type { Database } from '@prodmind/db';
-import { SnapshotRepository, EventRepository, CompressionRepository } from '@prodmind/db';
+import { SnapshotRepository, EventRepository, CompressionRepository, SemanticRepository, CouplingRepository, DomainRepository, MetricsRepository } from '@prodmind/db';
 import type { Snapshot, NewCompressedFileContextRow, NewCompressedModuleContextRow, NewCompressedRepositoryContextRow, NewCompressionMetricsRow } from '@prodmind/db';
 import type { NewNode, NewEdge } from '@prodmind/db';
 import { GraphRepository } from '@prodmind/db';
 import { SnapshotStatus } from '@prodmind/contracts';
 import type { Result } from '@prodmind/contracts';
-import type { CompressionOutput } from '@prodmind/parser';
+import type { CompressionOutput, SemanticOutput, MetricRecord } from '@prodmind/parser';
 
 export class SnapshotPipeline {
   private readonly snapshots: SnapshotRepository;
   private readonly graph: GraphRepository;
   private readonly events: EventRepository;
   private readonly compressionRepo: CompressionRepository;
+  private readonly semanticRepo: SemanticRepository;
+  private readonly couplingRepo: CouplingRepository;
+  private readonly domainRepo: DomainRepository;
+  private readonly metricsRepo: MetricsRepository;
 
   public constructor(db: Database) {
     this.snapshots = new SnapshotRepository(db);
     this.graph = new GraphRepository(db);
     this.events = new EventRepository(db);
     this.compressionRepo = new CompressionRepository(db);
+    this.semanticRepo = new SemanticRepository(db);
+    this.couplingRepo = new CouplingRepository(db);
+    this.domainRepo = new DomainRepository(db);
+    this.metricsRepo = new MetricsRepository(db);
   }
 
   public async createSnapshot(
@@ -182,6 +190,82 @@ export class SnapshotPipeline {
       compressedDependencyCount: m.compressedDependencyCount,
       compressedSymbolCount: m.compressedSymbolCount,
     };
+  }
+
+  public async commitSemantic(
+    snapshotId: string,
+    output: SemanticOutput,
+  ): Promise<Result<void, string>> {
+    try {
+      const classInputs = output.classifications.map((c) => ({
+        nodeId: c.nodeId,
+        semanticType: c.semanticType,
+        ruleStrength: c.ruleStrength,
+        classificationReasonsJson: JSON.stringify(c.classificationReasons),
+        matchedHeuristicsJson: JSON.stringify(c.matchedHeuristics),
+        infraScore: null as number | null,
+        businessScore: null as number | null,
+        dominantRole: null as string | null,
+      }));
+
+      for (let i = 0; i < output.classifications.length; i++) {
+        const infra = output.infraBusinessResults[i];
+        if (infra) {
+          classInputs[i]!.infraScore = infra.infraScore;
+          classInputs[i]!.businessScore = infra.businessScore;
+          classInputs[i]!.dominantRole = infra.dominantRole;
+        }
+      }
+
+      const classResult = await this.semanticRepo.insertClassifications(snapshotId, classInputs);
+      if (!classResult.success) return classResult;
+
+      const clusterInputs = output.domainClusters.map((c) => ({
+        clusterName: c.clusterName,
+        nodeIdsJson: JSON.stringify(c.nodeIds),
+        cohesionScore: c.cohesionScore,
+        fragmentationScore: c.fragmentationScore,
+        boundaryMetadataJson: c.boundaryMetadataJson,
+      }));
+
+      const domainResult = await this.domainRepo.insertDomainClusters(snapshotId, clusterInputs);
+      if (!domainResult.success) return domainResult;
+
+      const couplingInputs = output.couplingEdges.map((e) => ({
+        sourceNodeId: e.sourceNodeId,
+        targetNodeId: e.targetNodeId,
+        couplingType: e.couplingType,
+        couplingStrength: e.couplingStrength,
+        propagationRisk: e.propagationRisk,
+        metadataJson: e.metadataJson,
+      }));
+
+      const couplingResult = await this.couplingRepo.insertCouplingEdges(snapshotId, couplingInputs);
+      if (!couplingResult.success) return couplingResult;
+
+      return { success: true, data: undefined };
+    } catch (err) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : 'Semantic commit failed',
+      };
+    }
+  }
+
+  public async commitMetrics(
+    snapshotId: string,
+    records: MetricRecord[],
+  ): Promise<Result<void, string>> {
+    try {
+      const result = await this.metricsRepo.insertMetrics(snapshotId, records);
+      if (!result.success) return result;
+      return { success: true, data: undefined };
+    } catch (err) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : 'Metrics commit failed',
+      };
+    }
   }
 
   public async activateSnapshot(snapshotId: string): Promise<Result<Snapshot, string>> {

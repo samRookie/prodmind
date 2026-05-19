@@ -1,0 +1,42 @@
+export enum MetricType {
+  CENTRALITY = 'CENTRALITY',
+  FAN_ANALYSIS = 'FAN_ANALYSIS',
+  COUPLING_DENSITY = 'COUPLING_DENSITY',
+  INSTABILITY = 'INSTABILITY',
+  PROPAGATION_RISK = 'PROPAGATION_RISK',
+  COMPLEXITY = 'COMPLEXITY',
+  DEPTH = 'DEPTH',
+}
+
+export enum MetricScope {
+  GLOBAL = 'GLOBAL',
+  NODE = 'NODE',
+  CLUSTER = 'CLUSTER',
+}
+
+export enum MetricPriority {
+  LOW = 'LOW',
+  IMPORTANT = 'IMPORTANT',
+  CRITICAL = 'CRITICAL',
+}
+
+export enum FanLevel {
+  LOW = 'LOW',
+  MODERATE = 'MODERATE',
+  HIGH = 'HIGH',
+  CRITICAL = 'CRITICAL',
+}
+
+export enum InstabilityLevel {
+  STABLE = 'STABLE',
+  BALANCED = 'BALANCED',
+  UNSTABLE = 'UNSTABLE',
+  VOLATILE = 'VOLATILE',
+}
+
+export enum ComplexityLevel {
+  SIMPLE = 'SIMPLE',
+  MODERATE = 'MODERATE',
+  COMPLEX = 'COMPLEX',
+  HIGHLY_COMPLEX = 'HIGHLY_COMPLEX',
+}

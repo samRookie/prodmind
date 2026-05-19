@@ -11,6 +11,15 @@ export {
   NodeType,
   EdgeType,
   JobStatus,
+  SemanticType,
+  CouplingType,
+  RuleStrength,
+  MetricType,
+  MetricScope,
+  MetricPriority,
+  FanLevel,
+  InstabilityLevel,
+  ComplexityLevel,
 } from './enums/index.ts';
 
 export {

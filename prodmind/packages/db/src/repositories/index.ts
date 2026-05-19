@@ -6,3 +6,8 @@ export { EventRepository } from './event.repository.ts';
 export { JobRepository } from './job.repository.ts';
 export { CompressionRepository } from './compression.repository.ts';
 export { IncrementalRepository } from './incremental.repository.ts';
+export { SemanticRepository } from './semantic.repository.ts';
+export { CouplingRepository } from './coupling.repository.ts';
+export { DomainRepository } from './domain.repository.ts';
+export { MetricsRepository } from './metrics.repository.ts';
+export type { MetricInsertInput } from './metrics.repository.ts';

@@ -1,0 +1,21 @@
+warning: in the working copy of 'prodmind/apps/server/src/services/ingestion/ingestion-types.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/apps/server/src/services/ingestion/ingestion.service.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/apps/server/src/services/ingestion/snapshot-pipeline.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/contracts/src/enums/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/contracts/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/db/src/__tests__/helpers.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/db/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/db/src/repositories/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/db/src/schema/index.ts', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'prodmind/packages/parser/src/index.ts', LF will be replaced by CRLF the next time Git touches it
+ .../src/services/ingestion/ingestion-types.ts      |  4 [32m+[m
+ .../src/services/ingestion/ingestion.service.ts    | 99 [32m+++++++++++++++++++++[m[31m-[m
+ .../src/services/ingestion/snapshot-pipeline.ts    | 88 [32m++++++++++++++++++[m[31m-[m
+ prodmind/packages/contracts/src/enums/index.ts     |  2 [32m+[m
+ prodmind/packages/contracts/src/index.ts           |  9 [32m++[m
+ prodmind/packages/db/src/__tests__/helpers.ts      | 46 [32m++++++++++[m
+ prodmind/packages/db/src/index.ts                  |  4 [32m+[m
+ prodmind/packages/db/src/repositories/index.ts     |  5 [32m++[m
+ prodmind/packages/db/src/schema/index.ts           |  9 [32m++[m
+ prodmind/packages/parser/src/index.ts              | 27 [32m++++++[m
+ 10 files changed, 290 insertions(+), 3 deletions(-)

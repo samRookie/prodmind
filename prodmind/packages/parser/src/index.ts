@@ -98,3 +98,30 @@ export type {
   IncrementalAnalysisMetrics, IncrementalInput, IncrementalOutput, FileChangeSet, NodeRef, EdgeRef, SemanticDriftEntry,
 } from './incremental/index.ts';
 export { IncrementalError, IncrementalSnapshotDiffError, IncrementalGraphDiffError, IncrementalSemanticDiffError, IncrementalCompressionDiffError, IncrementalDependencyImpactError, IncrementalReuseError, IncrementalInvalidationError } from './incremental/index.ts';
+
+export { SemanticEngine } from './semantic/index.ts';
+export type {
+  SemanticInput, SemanticOutput, ClassificationResult, ClassificationHeuristic,
+  InfraBusinessResult, DomainClusterResult, CouplingEdgeResult,
+} from './semantic/index.ts';
+export { classifyNodeSemanticType, classifyFileSemanticRole, classifyModuleSemanticRole, computeSemanticRuleStrength } from './semantic/index.ts';
+export { detectInfrastructureLayer, detectBusinessLogicLayer, computeInfraWeight, computeBusinessWeight } from './semantic/index.ts';
+export { clusterDomainRegions, computeClusterAffinity, detectSharedClusters, detectFragmentedDomains } from './semantic/index.ts';
+export { detectArchitecturalRegions } from './semantic/index.ts';
+export type { ArchitecturalRegion } from './semantic/index.ts';
+export { analyzeDirectEdges, detectCouplingHotspots, classifyCoupling, computeCouplingStrength, computePropagationRisk } from './semantic/index.ts';
+export type { CouplingAnalysisInput } from './semantic/index.ts';
+export { SemanticError, ClassificationError, CouplingAnalysisError, DomainClusteringError } from './semantic/index.ts';
+
+export { MetricsEngine } from './metrics/index.ts';
+export type {
+  MetricsInput, MetricsOutput, MetricsNode, MetricsEdge, MetricRecord,
+  CentralityResult, FanMetricsResult, CouplingDensityResult,
+  InstabilityResult, PropagationRiskResult, DepthResult, ComplexityResult,
+} from './metrics/index.ts';
+export { computeCentrality, computeFanMetrics, classifyFanLevel, isUtilityHotspot, isGodModule } from './metrics/index.ts';
+export { computeCouplingDensity, computeInstability, classifyInstability } from './metrics/index.ts';
+export { computeComplexity, computeDepthAnalysis } from './metrics/index.ts';
+export { createGraphAnalysisCache } from './metrics/index.ts';
+export type { GraphAnalysisCache, SCCResult } from './metrics/index.ts';
+export { MetricsError, CentralityError, FanMetricsError, CouplingDensityError, InstabilityError, PropagationRiskError, ComplexityError, DepthAnalysisError } from './metrics/index.ts';

@@ -35,6 +35,10 @@ export interface IngestionSuccessResult {
   durationMs: number;
   snapshotStatus: string;
   compressionRatio?: number;
+  semanticClassifiedCount?: number;
+  couplingEdgeCount?: number;
+  domainClusterCount?: number;
+  graphMetricsCount?: number;
 }
 
 export interface IngestionErrorResult {

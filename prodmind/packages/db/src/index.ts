@@ -14,6 +14,10 @@ export {
   JobRepository,
   CompressionRepository,
   IncrementalRepository,
+  SemanticRepository,
+  CouplingRepository,
+  DomainRepository,
+  MetricsRepository,
 } from './repositories/index.ts';
 
 export {

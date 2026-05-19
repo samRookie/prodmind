@@ -31,3 +31,5 @@ export enum StorageProvider {
 export { SnapshotStatus, canTransitionTo } from './snapshot.ts';
 export { NodeType, EdgeType } from './graph.ts';
 export { JobStatus } from './job.ts';
+export { SemanticType, CouplingType, RuleStrength } from './semantic.ts';
+export { MetricType, MetricScope, MetricPriority, FanLevel, InstabilityLevel, ComplexityLevel } from './metrics.ts';

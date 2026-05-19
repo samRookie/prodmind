@@ -33,3 +33,12 @@ export type { SnapshotDiffRow, NewSnapshotDiffRow } from './snapshot-diffs.ts';
 export type { ReuseArtifact, NewReuseArtifact } from './reuse-artifacts.ts';
 export type { InvalidationRegion, NewInvalidationRegion } from './invalidation-regions.ts';
 export type { IncrementalMetricsRow, NewIncrementalMetricsRow } from './incremental-metrics.ts';
+
+export { semanticClassifications } from './semantic-metadata.ts';
+export type { SemanticClassificationRow, NewSemanticClassificationRow } from './semantic-metadata.ts';
+export { domainClusters } from './domain-clusters.ts';
+export type { DomainClusterRow, NewDomainClusterRow } from './domain-clusters.ts';
+export { couplingEdges } from './coupling-analysis.ts';
+export type { CouplingEdgeRow, NewCouplingEdgeRow } from './coupling-analysis.ts';
+export { graphMetrics } from './graph-metrics.ts';
+export type { GraphMetricsRow, NewGraphMetricsRow } from './graph-metrics.ts';

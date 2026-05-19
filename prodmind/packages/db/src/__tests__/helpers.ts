@@ -207,6 +207,40 @@ export async function createTables(client: Client): Promise<void> {
       total_current_edges INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL
     )`,
+    `CREATE TABLE IF NOT EXISTS semantic_classifications (
+      id TEXT PRIMARY KEY,
+      snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
+      node_id TEXT NOT NULL REFERENCES nodes(id),
+      semantic_type TEXT NOT NULL,
+      rule_strength TEXT NOT NULL,
+      classification_reasons_json TEXT,
+      matched_heuristics_json TEXT,
+      infra_score REAL,
+      business_score REAL,
+      dominant_role TEXT,
+      created_at TEXT NOT NULL
+    )`,
+    `CREATE TABLE IF NOT EXISTS domain_clusters (
+      id TEXT PRIMARY KEY,
+      snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
+      cluster_name TEXT NOT NULL,
+      node_ids_json TEXT NOT NULL,
+      cohesion_score REAL,
+      fragmentation_score REAL,
+      boundary_metadata_json TEXT,
+      created_at TEXT NOT NULL
+    )`,
+    `CREATE TABLE IF NOT EXISTS coupling_edges (
+      id TEXT PRIMARY KEY,
+      snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
+      source_node_id TEXT NOT NULL REFERENCES nodes(id),
+      target_node_id TEXT NOT NULL REFERENCES nodes(id),
+      coupling_type TEXT NOT NULL,
+      coupling_strength REAL NOT NULL,
+      propagation_risk REAL,
+      metadata_json TEXT,
+      created_at TEXT NOT NULL
+    )`,
     `CREATE TABLE IF NOT EXISTS compression_metrics (
       id TEXT PRIMARY KEY,
       snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
@@ -224,6 +258,18 @@ export async function createTables(client: Client): Promise<void> {
       original_file_count INTEGER NOT NULL DEFAULT 0,
       compressed_dependency_count INTEGER NOT NULL DEFAULT 0,
       compressed_symbol_count INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL
+    )`,
+    `CREATE TABLE IF NOT EXISTS graph_metrics (
+      id TEXT PRIMARY KEY,
+      snapshot_id TEXT NOT NULL REFERENCES snapshots(id),
+      metric_type TEXT NOT NULL,
+      metric_scope TEXT NOT NULL,
+      node_id TEXT,
+      metric_value REAL NOT NULL,
+      metric_classification TEXT,
+      metric_priority TEXT NOT NULL DEFAULT 'LOW',
+      metadata_json TEXT,
       created_at TEXT NOT NULL
     )`,
   ];
