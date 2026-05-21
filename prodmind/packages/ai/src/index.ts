@@ -42,3 +42,9 @@ export * from './context/index.ts';
 
 // Runtime
 export * from './runtime/index.ts';
+
+// Memory
+export * as Memory from './memory/index.ts';
+
+// Capabilities
+export * as Capabilities from './capabilities/index.ts';
