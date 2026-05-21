@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { describe, expect, it } from 'vitest';
 
-import { OrchestrationRuntime } from '../runtime/orchestration-runtime.ts';
 import { createExecutionEdge, createExecutionEvent, createExecutionGraph, createExecutionNode, createExecutionNodeResult } from '../contracts';
-import { ExecutionScheduler } from '../runtime';
-import { OrchestrationReplay } from '../replay';
 import { BudgetGovernance, ConcurrencyGovernance, ExecutionLimits } from '../governance';
+import { OrchestrationReplay } from '../replay';
+import { ExecutionScheduler } from '../runtime';
+import { OrchestrationRuntime } from '../runtime/orchestration-runtime.ts';
 
 // ---------------------------------------------------------------------------
 // Determinism: 50-run identical execution
