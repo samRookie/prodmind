@@ -1,5 +1,6 @@
 import { generateId, now } from '@prodmind/db';
 
+import type { PromptCategory } from '../contracts/prompt-contracts.ts';
 import { PromptType } from '../contracts/prompt-contracts.ts';
 import { PromptFingerprinter } from '../fingerprinting/prompt-fingerprinter.ts';
 import { ImmutablePromptError, PromptNotFoundError } from './registry-errors.ts';
@@ -11,6 +12,7 @@ export interface PromptDefinition {
   promptId: string;
   version: number;
   promptType: PromptType;
+  category?: PromptCategory;
   template: string;
   checksum: string;
   status: PromptStatus;
@@ -23,6 +25,7 @@ export interface RegisterPromptInput {
   promptId: string;
   promptType: PromptType;
   template: string;
+  category?: PromptCategory;
   metadata?: Record<string, unknown>;
 }
 
@@ -41,6 +44,7 @@ export class PromptRegistry {
       promptId: input.promptId,
       version: nextVersion,
       promptType: input.promptType,
+      category: input.category,
       template: input.template,
       checksum,
       status: 'draft',
@@ -105,6 +109,20 @@ export class PromptRegistry {
     }
 
     return Promise.resolve(all);
+  }
+
+  public listByCategory(category: PromptCategory): Promise<PromptDefinition[]> {
+    return Promise.resolve(
+      [...this.prompts.values()].filter((p) => p.category === category),
+    );
+  }
+
+  public getCategories(): Promise<PromptCategory[]> {
+    const categories = new Set<PromptCategory>();
+    for (const p of this.prompts.values()) {
+      if (p.category) categories.add(p.category);
+    }
+    return Promise.resolve([...categories].sort());
   }
 
   public async enforceImmutability(promptId: string, version?: number): Promise<void> {

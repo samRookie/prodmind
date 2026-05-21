@@ -1,9 +1,26 @@
 export type {
+  AnalysisFinding,
   AnalysisPrompt,
+  AnalysisRecommendation,
+  ExecutionConfig,
   GraphReasoningPrompt,
+  NormalizedPromptResult,
   PromptContract,
+  PromptContextEnvelope,
+  PromptEnvelope,
+  PromptExecutionMetrics,
+  PromptExecutionRequest,
+  PromptExecutionResult,
+  PromptFailure,
+  PromptCategory,
+  PromptTrace,
+  PromptTraceEntry,
+  ProviderConstraints,
+  ProviderExecutionEnvelope,
+  ProviderResponseEnvelope,
   ReviewPrompt,
+  StructuredAnalysisResult,
   SummarizationPrompt,
   ValidationPrompt,
 } from './prompt-contracts.ts';
-export { PromptType } from './prompt-contracts.ts';
+export { PROMPT_CATEGORIES, PromptType } from './prompt-contracts.ts';
