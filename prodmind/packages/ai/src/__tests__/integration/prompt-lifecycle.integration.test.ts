@@ -1,11 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
-import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
-import { TemplateEngine } from '../../prompts/templates/template-engine.ts';
-import { PromptValidator } from '../../prompts/validation/prompt-validator.ts';
-import { GovernanceLayer } from '../../governance/governance-rules.ts';
+import { describe, expect,it } from 'vitest';
+
 import { createExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
 import { ExecutionStore } from '../../execution-history/execution-store.ts';
+import { GovernanceLayer } from '../../governance/governance-rules.ts';
+import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
+import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
+import { TemplateEngine } from '../../prompts/templates/template-engine.ts';
+import { PromptValidator } from '../../prompts/validation/prompt-validator.ts';
 import { createMockProvider } from '../../testing/mock-provider.ts';
 
 describe('Prompt lifecycle integration', () => {

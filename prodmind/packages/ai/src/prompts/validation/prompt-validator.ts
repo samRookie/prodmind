@@ -1,7 +1,7 @@
-import { TemplateEngine } from '../templates/template-engine.ts';
 import type { RenderedPrompt } from '../templates/template-engine.ts';
-import { validateRenderedPrompt, validateTokenRisk, validateTemplateSyntax, validateNoDuplicateVariables, validatePrompt } from './validation-rules.ts';
+import { TemplateEngine } from '../templates/template-engine.ts';
 import type { ValidationResult, ValidationWarning } from './validation-rules.ts';
+import { validateNoDuplicateVariables, validatePrompt,validateRenderedPrompt, validateTemplateSyntax, validateTokenRisk } from './validation-rules.ts';
 
 export class PromptValidator {
   private readonly engine = new TemplateEngine();

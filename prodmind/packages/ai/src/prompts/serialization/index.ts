@@ -1,1 +1,1 @@
-export { stableStringify, sortKeysDeep, normalizeArrays } from './stable-json.ts';
+export { normalizeArrays,sortKeysDeep, stableStringify } from './stable-json.ts';

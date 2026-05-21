@@ -1,7 +1,8 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
 import { OrchestrationExecutor } from '../executor.ts';
-import { sequence } from '../workflow.ts';
 import { TransformStep } from '../step.ts';
+import { sequence } from '../workflow.ts';
 
 const double = new TransformStep({
   id: 'double',

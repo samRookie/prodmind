@@ -1,2 +1,2 @@
-export { sha256, sha256Truncated, canonicalFingerprint } from './canonical-hash.ts';
+export { canonicalFingerprint,sha256, sha256Truncated } from './canonical-hash.ts';
 export { PromptFingerprinter } from './prompt-fingerprinter.ts';

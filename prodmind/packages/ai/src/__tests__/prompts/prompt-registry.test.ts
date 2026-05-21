@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
+import { describe, expect,it } from 'vitest';
+
 import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
+import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
 import { ImmutablePromptError } from '../../prompts/registry/registry-errors.ts';
 import { SIMPLE_TEMPLATE } from '../test-utils/sample-templates.ts';
 

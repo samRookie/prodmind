@@ -1,5 +1,5 @@
+import { type FeatureFlagKey,featureFlags, getLimits } from '@prodmind/core';
 import { z } from 'zod';
-import { featureFlags, getLimits, type FeatureFlagKey } from '@prodmind/core';
 
 export const contextWeightsSchema = z.object({
   centrality: z.number().min(0).max(1).default(0.25),

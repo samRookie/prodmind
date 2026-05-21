@@ -1,5 +1,5 @@
-import type { Step, StepInput, StepOutput, StepContext } from './types.ts';
 import { CompositionError } from './errors.ts';
+import type { Step, StepContext,StepInput, StepOutput } from './types.ts';
 
 export interface Sequence<TInput, TOutput> extends Step<TInput, TOutput> {
   readonly kind: 'sequence';

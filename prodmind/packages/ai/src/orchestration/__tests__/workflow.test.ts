@@ -1,9 +1,10 @@
-import { describe, it, expect } from 'vitest';
-import { sequence, parallel, conditional, map } from '../workflow.ts';
-import { TransformStep } from '../step.ts';
-import { createStepInput } from '../types.ts';
-import type { StepContext, StepInput } from '../types.ts';
+import { describe, expect,it } from 'vitest';
+
 import { CompositionError } from '../errors.ts';
+import { TransformStep } from '../step.ts';
+import type { StepContext, StepInput } from '../types.ts';
+import { createStepInput } from '../types.ts';
+import { conditional, map,parallel, sequence } from '../workflow.ts';
 
 const mockContext: StepContext = {
   workflowId: 'test-wf',

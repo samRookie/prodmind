@@ -1,7 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
 import type { RetrievalInput } from '@prodmind/parser';
+import { beforeEach,describe, expect, it } from 'vitest';
+
+import { resetContextConfig,resolveContextConfig } from '../config.ts';
 import { ContextRetrievalEngine } from '../retrieval.ts';
-import { resolveContextConfig, resetContextConfig } from '../config.ts';
 
 function makeInput(): RetrievalInput {
   return {

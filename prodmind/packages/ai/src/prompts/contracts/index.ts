@@ -1,9 +1,9 @@
-export { PromptType } from './prompt-contracts.ts';
 export type {
-  PromptContract,
   AnalysisPrompt,
+  GraphReasoningPrompt,
+  PromptContract,
   ReviewPrompt,
   SummarizationPrompt,
-  GraphReasoningPrompt,
   ValidationPrompt,
 } from './prompt-contracts.ts';
+export { PromptType } from './prompt-contracts.ts';

@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
 import type { RetrievalInput } from '@prodmind/parser';
-import { NeighborhoodEngine } from '../neighborhood.ts';
+import { describe, expect,it } from 'vitest';
+
 import { createContextNode } from '../contracts.ts';
+import { NeighborhoodEngine } from '../neighborhood.ts';
 
 function makeInput(): RetrievalInput {
   return {

@@ -1,9 +1,10 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+import { beforeAll,describe, expect, it } from 'vitest';
+
+import type { ExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
+import { createExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
 import { ReplayEngine } from '../../replay/replay-engine.ts';
 import { IntegrityError } from '../../replay/replay-errors.ts';
-import { createExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
 import { createMockProvider } from '../../testing/mock-provider.ts';
-import type { ExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
 
 describe('ReplayEngine', () => {
   const engine = new ReplayEngine();

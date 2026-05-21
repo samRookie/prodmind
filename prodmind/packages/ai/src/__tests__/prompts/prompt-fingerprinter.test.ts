@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect,it } from 'vitest';
+
+import { canonicalFingerprint,sha256, sha256Truncated } from '../../prompts/fingerprinting/canonical-hash.ts';
 import { PromptFingerprinter } from '../../prompts/fingerprinting/prompt-fingerprinter.ts';
-import { sha256, sha256Truncated, canonicalFingerprint } from '../../prompts/fingerprinting/canonical-hash.ts';
-import { stableStringify, sortKeysDeep, normalizeArrays } from '../../prompts/serialization/stable-json.ts';
+import { normalizeArrays,sortKeysDeep, stableStringify } from '../../prompts/serialization/stable-json.ts';
 
 describe('PromptFingerprinter', () => {
   const fingerprinter = new PromptFingerprinter();

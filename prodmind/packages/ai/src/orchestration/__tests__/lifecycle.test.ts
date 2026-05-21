@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
-import { LifecycleManager } from '../lifecycle.ts';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { LifecycleMiddleware } from '../lifecycle.ts';
+import { LifecycleManager } from '../lifecycle.ts';
 
 describe('LifecycleManager', () => {
   it('emits no hooks when no middlewares are registered', async () => {

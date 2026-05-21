@@ -1,7 +1,8 @@
 import { generateId, now } from '@prodmind/db';
+
+import { PromptType } from '../contracts/prompt-contracts.ts';
 import { PromptFingerprinter } from '../fingerprinting/prompt-fingerprinter.ts';
 import { ImmutablePromptError, PromptNotFoundError } from './registry-errors.ts';
-import { PromptType } from '../contracts/prompt-contracts.ts';
 
 export type PromptStatus = 'draft' | 'published' | 'deprecated';
 

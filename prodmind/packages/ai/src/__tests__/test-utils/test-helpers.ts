@@ -1,9 +1,9 @@
-import { createMockProvider, deterministicRequest } from '../../testing/mock-provider.ts';
+import type { TokenUsage } from '../../contracts/request.ts';
 import { createResponse } from '../../contracts/response.ts';
 import { createExecutionContext } from '../../execution/execution-context.ts';
-import { createExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
 import type { ExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
-import type { TokenUsage } from '../../contracts/request.ts';
+import { createExecutionSnapshot } from '../../execution-history/execution-snapshot.ts';
+import { createMockProvider, deterministicRequest } from '../../testing/mock-provider.ts';
 
 export function testRequest(): ReturnType<typeof deterministicRequest> {
   return deterministicRequest();

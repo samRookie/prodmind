@@ -1,5 +1,5 @@
-import { PromptRegistry } from '../prompts/registry/prompt-registry.ts';
 import type { PromptDefinition } from '../prompts/registry/prompt-registry.ts';
+import { PromptRegistry } from '../prompts/registry/prompt-registry.ts';
 import { ImmutablePromptError } from './governance-errors.ts';
 
 export interface GovernanceConfig {

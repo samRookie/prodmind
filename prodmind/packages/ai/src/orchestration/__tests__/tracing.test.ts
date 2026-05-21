@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { Tracer, generateTraceId } from '../tracing.ts';
+import { describe, expect,it } from 'vitest';
+
+import { generateTraceId,Tracer } from '../tracing.ts';
 
 describe('Tracer', () => {
   it('starts empty', () => {

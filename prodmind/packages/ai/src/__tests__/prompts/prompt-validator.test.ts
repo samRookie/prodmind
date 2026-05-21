@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect,it } from 'vitest';
+
 import { PromptValidator } from '../../prompts/validation/prompt-validator.ts';
-import { validateRenderedPrompt, validateTokenRisk, validateTemplateSyntax, validateNoDuplicateVariables, validatePrompt } from '../../prompts/validation/validation-rules.ts';
-import { SIMPLE_TEMPLATE, MALFORMED_TEMPLATE } from '../test-utils/sample-templates.ts';
+import { validateNoDuplicateVariables, validatePrompt,validateRenderedPrompt, validateTemplateSyntax, validateTokenRisk } from '../../prompts/validation/validation-rules.ts';
+import { MALFORMED_TEMPLATE,SIMPLE_TEMPLATE } from '../test-utils/sample-templates.ts';
 
 describe('PromptValidator', () => {
   const validator = new PromptValidator();

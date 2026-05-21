@@ -1,10 +1,11 @@
 import { featureFlags } from '@prodmind/core';
-import type { AIProvider } from '../providers/ai-provider.ts';
+
+import { createRequest } from '../contracts/request.ts';
 import type { AIResponse } from '../contracts/response.ts';
 import type { ExecutionSnapshot } from '../execution-history/execution-snapshot.ts';
 import { createExecutionSnapshot } from '../execution-history/execution-snapshot.ts';
 import { PromptFingerprinter } from '../prompts/fingerprinting/prompt-fingerprinter.ts';
-import { createRequest } from '../contracts/request.ts';
+import type { AIProvider } from '../providers/ai-provider.ts';
 import { IntegrityError } from './replay-errors.ts';
 
 export interface ReplayRequest {

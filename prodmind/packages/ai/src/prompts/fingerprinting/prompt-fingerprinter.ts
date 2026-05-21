@@ -1,6 +1,6 @@
-import { sha256Truncated, canonicalFingerprint } from './canonical-hash.ts';
-import { stableStringify } from '../serialization/stable-json.ts';
 import type { TokenUsage } from '../../contracts/request.ts';
+import { stableStringify } from '../serialization/stable-json.ts';
+import { canonicalFingerprint,sha256Truncated } from './canonical-hash.ts';
 
 export class PromptFingerprinter {
   public async templateFingerprint(template: string, promptType: string): Promise<string> {

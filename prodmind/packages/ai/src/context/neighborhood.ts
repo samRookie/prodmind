@@ -1,8 +1,9 @@
-import { createRetrievalCache, retrieveDependencyNeighborhood, retrieveBidirectionalNeighborhood, retrieveReverseDependencies, retrieveBlastRadiusSubgraph, retrieveArchitecturalSlice, type RetrievalInput, type RetrievalContext, type RetrievedNode } from '@prodmind/parser';
-import type { ContextNode, ContextDependencyEdge, ContextDependencyChain, ContextRegion, ContextSlice } from './contracts.ts';
-import { createContextNode, createContextDependencyEdge, createContextRegion, createContextDependencyChain, createContextSlice } from './contracts.ts';
+import { createRetrievalCache, type RetrievalContext, type RetrievalInput, retrieveArchitecturalSlice, retrieveBidirectionalNeighborhood, retrieveBlastRadiusSubgraph, retrieveCriticalPropagationPaths, retrieveDependencyNeighborhood, type RetrievedNode,retrieveReverseDependencies } from '@prodmind/parser';
+
 import type { ContextConfig } from './config.ts';
 import { resolveContextConfig } from './config.ts';
+import type { ContextDependencyChain, ContextDependencyEdge, ContextNode, ContextRegion, ContextSlice } from './contracts.ts';
+import { createContextDependencyChain, createContextDependencyEdge, createContextNode, createContextRegion, createContextSlice } from './contracts.ts';
 
 export class NeighborhoodEngine {
   buildContext(input: RetrievalInput): RetrievalContext {
@@ -154,6 +155,127 @@ export class NeighborhoodEngine {
         semanticTypes: asResult.semanticTypes,
       },
     });
+  }
+
+  getCyclicDependencies(
+    ctx: RetrievalContext,
+    _config?: ContextConfig,
+  ): readonly ContextNode[] {
+    const visited = new Set<string>();
+    const recursionStack = new Set<string>();
+    const cyclicNodeIds = new Set<string>();
+
+    function dfs(nodeId: string): void {
+      visited.add(nodeId);
+      recursionStack.add(nodeId);
+      const neighbors = ctx.adjacency.get(nodeId) ?? [];
+      for (const neighbor of neighbors) {
+        if (!visited.has(neighbor)) {
+          dfs(neighbor);
+        } else if (recursionStack.has(neighbor)) {
+          cyclicNodeIds.add(nodeId);
+          cyclicNodeIds.add(neighbor);
+        }
+      }
+      recursionStack.delete(nodeId);
+    }
+
+    for (const nodeId of ctx.sortedNodeIds) {
+      if (!visited.has(nodeId)) dfs(nodeId);
+    }
+
+    const result: ContextNode[] = [];
+    for (const nodeId of cyclicNodeIds) {
+      const raw = ctx.nodeMap.get(nodeId);
+      if (!raw) continue;
+      const cent = ctx.centralityMap.get(nodeId);
+      const inst = ctx.instabilityMap.get(nodeId);
+      const risk = ctx.propagationRiskMap.get(nodeId);
+      result.push(toNode({
+        nodeId: raw.id, filePath: raw.filePath, depth: 0, nodeType: raw.nodeType,
+        language: raw.language, symbolName: raw.symbolName, centralityScore: cent?.dependencyInfluenceScore ?? null,
+        instabilityScore: inst?.instabilityScore ?? null, propagationRiskScore: risk?.propagationPressure ?? null,
+        fanIn: null, fanOut: null, semanticType: null, classification: null,
+      }));
+    }
+
+    return Object.freeze(result);
+  }
+
+  getChokePoints(
+    ctx: RetrievalContext,
+    threshold?: number,
+    maxResults?: number,
+  ): readonly ContextNode[] {
+    const limit = maxResults ?? 25;
+    const fanThreshold = threshold ?? 5;
+
+    const chokeCandidates: Array<{ nodeId: string; score: number }> = [];
+
+    for (const nodeId of ctx.sortedNodeIds) {
+      const fwd = ctx.adjacency.get(nodeId) ?? [];
+      const rev = ctx.reverseAdjacency.get(nodeId) ?? [];
+      const totalConnections = fwd.length + rev.length;
+      if (totalConnections >= fanThreshold) {
+        chokeCandidates.push({ nodeId, score: totalConnections });
+      }
+    }
+
+    chokeCandidates.sort((a, b) => b.score - a.score || a.nodeId.localeCompare(b.nodeId));
+
+    const result: ContextNode[] = [];
+    for (const { nodeId } of chokeCandidates.slice(0, limit)) {
+      const raw = ctx.nodeMap.get(nodeId);
+      if (!raw) continue;
+      const cent = ctx.centralityMap.get(nodeId);
+      const inst = ctx.instabilityMap.get(nodeId);
+      const risk = ctx.propagationRiskMap.get(nodeId);
+      result.push(toNode({
+        nodeId: raw.id, filePath: raw.filePath, depth: 0, nodeType: raw.nodeType,
+        language: raw.language, symbolName: raw.symbolName, centralityScore: cent?.dependencyInfluenceScore ?? null,
+        instabilityScore: inst?.instabilityScore ?? null, propagationRiskScore: risk?.propagationPressure ?? null,
+        fanIn: null, fanOut: null, semanticType: null, classification: null,
+      }));
+    }
+
+    return Object.freeze(result);
+  }
+
+  getHotspotRegions(
+    ctx: RetrievalContext,
+    threshold?: number,
+  ): readonly ContextNode[] {
+    const instThreshold = threshold ?? 0.5;
+    const result: ContextNode[] = [];
+
+    for (const nodeId of ctx.sortedNodeIds) {
+      const inst = ctx.instabilityMap.get(nodeId);
+      if (inst && inst.instabilityScore >= instThreshold) {
+        const raw = ctx.nodeMap.get(nodeId);
+        if (!raw) continue;
+        const cent = ctx.centralityMap.get(nodeId);
+        const risk = ctx.propagationRiskMap.get(nodeId);
+        result.push(toNode({
+          nodeId: raw.id, filePath: raw.filePath, depth: 0, nodeType: raw.nodeType,
+          language: raw.language, symbolName: raw.symbolName, centralityScore: cent?.dependencyInfluenceScore ?? null,
+          instabilityScore: inst.instabilityScore, propagationRiskScore: risk?.propagationPressure ?? null,
+          fanIn: null, fanOut: null, semanticType: null, classification: null,
+        }));
+      }
+    }
+
+    return Object.freeze(result);
+  }
+
+  getCriticalPaths(
+    ctx: RetrievalContext,
+    seedId: string,
+    depth?: number,
+    config?: ContextConfig,
+  ): Array<{ source: string; target: string; riskScore: number }> {
+    const cfg = config ?? resolveContextConfig();
+    const maxDepth = depth ?? cfg.maxDepth;
+    return retrieveCriticalPropagationPaths(ctx, seedId, maxDepth);
   }
 }
 

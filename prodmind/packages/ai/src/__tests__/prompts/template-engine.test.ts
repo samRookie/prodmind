@@ -1,7 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect,it } from 'vitest';
+
 import { TemplateEngine } from '../../prompts/templates/template-engine.ts';
-import { UnresolvedVariableError, UnclosedSectionError, InvalidSyntaxError } from '../../prompts/templates/template-errors.ts';
-import { SIMPLE_TEMPLATE, SECTION_TEMPLATE, LIST_TEMPLATE, MALFORMED_TEMPLATE, UNCLOSED_SECTION_TEMPLATE, sampleContext } from '../test-utils/sample-templates.ts';
+import { InvalidSyntaxError,UnclosedSectionError, UnresolvedVariableError } from '../../prompts/templates/template-errors.ts';
+import { LIST_TEMPLATE, MALFORMED_TEMPLATE, sampleContext,SECTION_TEMPLATE, SIMPLE_TEMPLATE, UNCLOSED_SECTION_TEMPLATE } from '../test-utils/sample-templates.ts';
 
 describe('TemplateEngine', () => {
   const engine = new TemplateEngine();

@@ -1,41 +1,40 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import {
-  createContextNode,
-  createContextDependencyEdge,
-  createContextRegion,
-  createContextDependencyChain,
-  createContextSlice,
-  createContextCompressionEnvelope,
-  createContextBudget,
-  createRetrievalCandidate,
-  createRankedContextResult,
-  createAssemblyTraceEntry,
-  createAssemblyTrace,
-  createAssemblyMetrics,
-  createContextAssemblyResult,
-  createContextReplayEnvelope,
-} from '../contracts.ts';
+import { beforeEach,describe, expect, it } from 'vitest';
 
 import {
-  ContextAssemblyError,
-  RetrievalPhaseError,
-  RankingError,
-  SlicingError,
+  contextConfigSchema,
+  contextWeightsSchema,
+  resetContextConfig,
+  resolveContextConfig,
+  tokenBudgetSchema,
+} from '../config.ts';
+import {
+  createAssemblyMetrics,
+  createAssemblyTrace,
+  createAssemblyTraceEntry,
+  createContextAssemblyResult,
+  createContextBudget,
+  createContextCompressionEnvelope,
+  createContextDependencyChain,
+  createContextDependencyEdge,
+  createContextNode,
+  createContextRegion,
+  createContextReplayEnvelope,
+  createContextSlice,
+  createRankedContextResult,
+  createRetrievalCandidate,
+} from '../contracts.ts';
+import {
   BudgetExceededError,
   CompressionError,
+  ContextAssemblyError,
   DedupError,
-  ReplayMismatchError,
   InvalidRegionError,
+  RankingError,
+  ReplayMismatchError,
+  RetrievalPhaseError,
+  SlicingError,
   TokenBudgetError,
 } from '../errors.ts';
-
-import {
-  contextWeightsSchema,
-  tokenBudgetSchema,
-  contextConfigSchema,
-  resolveContextConfig,
-  resetContextConfig,
-} from '../config.ts';
 
 describe('ContextNode', () => {
   it('creates frozen ContextNode with all fields', () => {

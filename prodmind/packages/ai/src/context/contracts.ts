@@ -1,5 +1,5 @@
-import { generateId, now } from '@prodmind/db';
 import type { RetrievalStrategy, SemanticType } from '@prodmind/contracts';
+import { generateId, now } from '@prodmind/db';
 
 export type ContextSliceKind =
   | 'local_neighborhood'

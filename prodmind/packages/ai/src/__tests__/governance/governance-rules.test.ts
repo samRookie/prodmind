@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeAll } from 'vitest';
-import { GovernanceLayer } from '../../governance/governance-rules.ts';
-import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
-import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
+import { beforeAll,describe, expect, it } from 'vitest';
+
 import { ImmutablePromptError } from '../../governance/governance-errors.ts';
+import { GovernanceLayer } from '../../governance/governance-rules.ts';
+import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
+import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
 
 describe('GovernanceLayer', () => {
   const registry = new PromptRegistry();

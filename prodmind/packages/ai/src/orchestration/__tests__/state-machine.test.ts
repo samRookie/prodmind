@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { StateMachine } from '../state-machine.ts';
+import { describe, expect,it } from 'vitest';
+
 import { InvalidTransitionError } from '../errors.ts';
+import { StateMachine } from '../state-machine.ts';
 
 type TestState = 'idle' | 'running' | 'completed' | 'failed';
 type TestEvent = 'start' | 'finish' | 'error' | 'reset';
