@@ -1,7 +1,6 @@
 import { generateId } from '@prodmind/db';
-import { stableStringify } from '../serialization/stable-json.ts';
-import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
-import type { RenderedPrompt } from '../templates/template-engine.ts';
+
+import type { TokenUsage } from '../../contracts/request.ts';
 import type {
   AnalysisFinding,
   AnalysisRecommendation,
@@ -14,8 +13,10 @@ import type {
   ProviderResponseEnvelope,
   StructuredAnalysisResult,
 } from '../contracts/prompt-contracts.ts';
+import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
 import type { PromptDefinition } from '../registry/prompt-registry.ts';
-import type { TokenUsage } from '../../contracts/request.ts';
+import { stableStringify } from '../serialization/stable-json.ts';
+import type { RenderedPrompt } from '../templates/template-engine.ts';
 
 export async function createPromptEnvelope(
   def: PromptDefinition,

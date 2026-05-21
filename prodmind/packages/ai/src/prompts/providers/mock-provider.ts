@@ -1,5 +1,5 @@
-import { createProviderResponseEnvelope } from '../envelopes/prompt-envelopes.ts';
 import type { PromptCategory, ProviderExecutionEnvelope, ProviderResponseEnvelope } from '../contracts/prompt-contracts.ts';
+import { createProviderResponseEnvelope } from '../envelopes/prompt-envelopes.ts';
 import type { ProviderAdapter, ProviderCapabilityDescriptor } from './provider-adapter.ts';
 
 export interface MockProviderConfig {

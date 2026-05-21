@@ -1,22 +1,3 @@
-import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
-import { stableStringify } from '../serialization/stable-json.ts';
-import { TemplateEngine } from '../templates/template-engine.ts';
-import { PromptNormalizer } from '../normalization/prompt-normalizer.ts';
-import { ResponseNormalizer } from '../response/response-normalizer.ts';
-import { PromptTracer } from '../tracing/prompt-tracer.ts';
-import { PromptGovernance } from '../governance/prompt-governance.ts';
-import {
-  createPromptContextEnvelope,
-  createPromptEnvelope,
-  createProviderExecutionEnvelope,
-} from '../envelopes/prompt-envelopes.ts';
-import {
-  GovernanceValidationError,
-  PromptExecutionError,
-  PromptSelectionError,
-} from './execution-errors.ts';
-import type { PromptRegistry } from '../registry/prompt-registry.ts';
-import type { ProviderAdapter } from '../providers/provider-adapter.ts';
 import type {
   ExecutionConfig,
   PromptExecutionMetrics,
@@ -24,6 +5,25 @@ import type {
   PromptExecutionResult,
   PromptFailure,
 } from '../contracts/prompt-contracts.ts';
+import {
+  createPromptContextEnvelope,
+  createPromptEnvelope,
+  createProviderExecutionEnvelope,
+} from '../envelopes/prompt-envelopes.ts';
+import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
+import { PromptGovernance } from '../governance/prompt-governance.ts';
+import { PromptNormalizer } from '../normalization/prompt-normalizer.ts';
+import type { ProviderAdapter } from '../providers/provider-adapter.ts';
+import type { PromptRegistry } from '../registry/prompt-registry.ts';
+import { ResponseNormalizer } from '../response/response-normalizer.ts';
+import { stableStringify } from '../serialization/stable-json.ts';
+import { TemplateEngine } from '../templates/template-engine.ts';
+import { PromptTracer } from '../tracing/prompt-tracer.ts';
+import {
+  GovernanceValidationError,
+  PromptExecutionError,
+  PromptSelectionError,
+} from './execution-errors.ts';
 
 const DEFAULT_EXECUTION_CONFIG: ExecutionConfig = {
   maxPromptSize: 32000,

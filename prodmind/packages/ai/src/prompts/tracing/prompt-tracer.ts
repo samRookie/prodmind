@@ -1,4 +1,5 @@
 import { now } from '@prodmind/db';
+
 import type { PromptTrace, PromptTraceEntry } from '../contracts/prompt-contracts.ts';
 
 export class PromptTracer {

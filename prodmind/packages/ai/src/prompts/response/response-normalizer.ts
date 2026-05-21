@@ -1,5 +1,3 @@
-import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
-import { stableStringify } from '../serialization/stable-json.ts';
 import type {
   AnalysisFinding,
   AnalysisRecommendation,
@@ -10,6 +8,8 @@ import type {
   PromptTraceEntry,
   StructuredAnalysisResult,
 } from '../contracts/prompt-contracts.ts';
+import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
+import { stableStringify } from '../serialization/stable-json.ts';
 
 function parseSectionsFromText(text: string): Record<string, string> {
   const sections: Record<string, string> = {};

@@ -1,4 +1,5 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect,it } from 'vitest';
+
 import { PromptNormalizer } from '../../prompts/normalization/prompt-normalizer.ts';
 
 describe('PromptNormalizer', () => {

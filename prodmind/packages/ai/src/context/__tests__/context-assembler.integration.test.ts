@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it } from 'vitest';
 import type { SemanticType } from '@prodmind/contracts';
 import type { RetrievalInput } from '@prodmind/parser';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { ContextAssembler } from '../assembly/context-assembler.ts';
 import { resetContextConfig } from '../config.ts';

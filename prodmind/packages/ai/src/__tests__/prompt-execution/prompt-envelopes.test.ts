@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
-import { createStructuredAnalysisResult, createEmptyProviderResponseEnvelope } from '../../prompts/envelopes/prompt-envelopes.ts';
+import { describe, expect,it } from 'vitest';
+
 import type { AnalysisFinding, AnalysisRecommendation } from '../../prompts/contracts/prompt-contracts.ts';
+import { createEmptyProviderResponseEnvelope,createStructuredAnalysisResult } from '../../prompts/envelopes/prompt-envelopes.ts';
 
 describe('createStructuredAnalysisResult', () => {
   it('sorts findings by severity', () => {

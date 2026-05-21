@@ -1,6 +1,6 @@
 import type { ContextAssemblyResult } from '../../context/contracts.ts';
-import type { RenderedPrompt } from '../templates/template-engine.ts';
 import type { TokenUsage } from '../../contracts/request.ts';
+import type { RenderedPrompt } from '../templates/template-engine.ts';
 
 export enum PromptType {
   ANALYSIS = 'ANALYSIS',

@@ -1,7 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
-import { PromptGovernance } from '../../prompts/governance/prompt-governance.ts';
+import { beforeEach,describe, expect, it } from 'vitest';
+
 import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
+import { PromptGovernance } from '../../prompts/governance/prompt-governance.ts';
+import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
 
 describe('PromptGovernance', () => {
   let registry: PromptRegistry;

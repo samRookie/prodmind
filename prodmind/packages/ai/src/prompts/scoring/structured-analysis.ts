@@ -1,7 +1,7 @@
+import type { AnalysisFinding, AnalysisRecommendation, StructuredAnalysisResult } from '../contracts/prompt-contracts.ts';
+import { createStructuredAnalysisResult } from '../envelopes/prompt-envelopes.ts';
 import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
 import { stableStringify } from '../serialization/stable-json.ts';
-import { createStructuredAnalysisResult } from '../envelopes/prompt-envelopes.ts';
-import type { AnalysisFinding, AnalysisRecommendation, StructuredAnalysisResult } from '../contracts/prompt-contracts.ts';
 
 export function emptyStructuredAnalysis(): StructuredAnalysisResult {
   return createStructuredAnalysisResult({

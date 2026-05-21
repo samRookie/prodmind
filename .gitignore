@@ -72,6 +72,9 @@ graph-exports/
 processing/
 archives/
 
+# ── Nested clones / duplicates ────────────────
+prodmind-1/
+
 # ── OS Junk ───────────────────────────────────
 .DS_Store
 .DS_Store?

@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
-import { emptyStructuredAnalysis, createFindings, createRecommendations } from '../../prompts/scoring/structured-analysis.ts';
+import { describe, expect,it } from 'vitest';
+
+import { createFindings, createRecommendations,emptyStructuredAnalysis } from '../../prompts/scoring/structured-analysis.ts';
 
 describe('emptyStructuredAnalysis', () => {
   it('returns a frozen empty result', () => {

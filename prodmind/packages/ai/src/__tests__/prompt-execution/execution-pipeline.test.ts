@@ -1,10 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
+import { beforeEach,describe, expect, it } from 'vitest';
+
+import type { AssemblyMetrics, AssemblyTrace, ContextAssemblyResult, ContextBudget, ContextSlice } from '../../context/contracts.ts';
+import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
+import { PromptExecutionPipeline } from '../../prompts/execution/prompt-execution-pipeline.ts';
 import { PromptGovernance } from '../../prompts/governance/prompt-governance.ts';
 import { MockProviderAdapter } from '../../prompts/providers/mock-provider.ts';
-import { PromptExecutionPipeline } from '../../prompts/execution/prompt-execution-pipeline.ts';
-import { PromptType } from '../../prompts/contracts/prompt-contracts.ts';
-import type { ContextAssemblyResult, ContextBudget, AssemblyTrace, AssemblyMetrics, ContextSlice } from '../../context/contracts.ts';
+import { PromptRegistry } from '../../prompts/registry/prompt-registry.ts';
 
 function makeMockContextResult(): ContextAssemblyResult {
   const budget: ContextBudget = Object.freeze({

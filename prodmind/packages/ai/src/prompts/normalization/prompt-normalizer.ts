@@ -1,6 +1,6 @@
+import type { ExecutionConfig, NormalizedPromptResult } from '../contracts/prompt-contracts.ts';
 import { sha256Truncated } from '../fingerprinting/canonical-hash.ts';
 import { stableStringify } from '../serialization/stable-json.ts';
-import type { ExecutionConfig, NormalizedPromptResult } from '../contracts/prompt-contracts.ts';
 
 const DEFAULT_CONFIG: ExecutionConfig['normalizationRules'] = {
   trimWhitespace: true,

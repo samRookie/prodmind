@@ -1,4 +1,3 @@
-export { PromptExecutionPipeline } from './prompt-execution-pipeline.ts';
 export {
   ContextInjectionError,
   EnvelopeConstructionError,
@@ -9,3 +8,4 @@ export {
   ProviderHandoffError,
   ResponseNormalizationError,
 } from './execution-errors.ts';
+export { PromptExecutionPipeline } from './prompt-execution-pipeline.ts';
