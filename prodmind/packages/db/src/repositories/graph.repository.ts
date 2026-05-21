@@ -45,23 +45,23 @@ export class GraphRepository {
     try {
       const result = await this.db.transaction(async (tx) => {
         const inserted: Node[] = [];
-        for (const input of inputs) {
-          const [node] = await tx
-            .insert(nodes)
-            .values({
-              id: input.id ?? generateId(),
-              snapshotId,
-              filePath: input.filePath,
-              fileHash: input.fileHash ?? null,
-              nodeType: input.nodeType,
-              symbolName: input.symbolName ?? null,
-              language: input.language ?? null,
-              metadataJson: input.metadataJson ?? null,
-              summaryJson: input.summaryJson ?? null,
-              createdAt: now(),
-            })
-            .returning();
-          inserted.push(node!);
+        const batchSize = 100;
+        for (let i = 0; i < inputs.length; i += batchSize) {
+          const batch = inputs.slice(i, i + batchSize);
+          const values = batch.map((input) => ({
+            id: input.id ?? generateId(),
+            snapshotId,
+            filePath: input.filePath,
+            fileHash: input.fileHash ?? null,
+            nodeType: input.nodeType,
+            symbolName: input.symbolName ?? null,
+            language: input.language ?? null,
+            metadataJson: input.metadataJson ?? null,
+            summaryJson: input.summaryJson ?? null,
+            createdAt: now(),
+          }));
+          const rows = await tx.insert(nodes).values(values).returning();
+          inserted.push(...rows);
         }
         return inserted;
       });
@@ -85,21 +85,21 @@ export class GraphRepository {
     try {
       const result = await this.db.transaction(async (tx) => {
         const inserted: Edge[] = [];
-        for (const input of inputs) {
-          const [edge] = await tx
-            .insert(edges)
-            .values({
-              id: input.id ?? generateId(),
-              snapshotId,
-              sourceNodeId: input.sourceNodeId,
-              targetNodeId: input.targetNodeId,
-              edgeType: input.edgeType,
-              weight: input.weight ?? null,
-              metadataJson: input.metadataJson ?? null,
-              createdAt: now(),
-            })
-            .returning();
-          inserted.push(edge!);
+        const batchSize = 100;
+        for (let i = 0; i < inputs.length; i += batchSize) {
+          const batch = inputs.slice(i, i + batchSize);
+          const values = batch.map((input) => ({
+            id: input.id ?? generateId(),
+            snapshotId,
+            sourceNodeId: input.sourceNodeId,
+            targetNodeId: input.targetNodeId,
+            edgeType: input.edgeType,
+            weight: input.weight ?? null,
+            metadataJson: input.metadataJson ?? null,
+            createdAt: now(),
+          }));
+          const rows = await tx.insert(edges).values(values).returning();
+          inserted.push(...rows);
         }
         return inserted;
       });
@@ -197,6 +197,62 @@ export class GraphRepository {
     ]);
 
     return { nodes: nodeList, edges: edgeList };
+  }
+
+  async insertNodesAndEdges(
+    snapshotId: string,
+    nodeInputs: (Omit<NewNode, 'id' | 'snapshotId' | 'createdAt'> & { id?: string })[],
+    edgeInputs: (Omit<NewEdge, 'id' | 'snapshotId' | 'createdAt'> & { id?: string })[],
+  ): Promise<Result<{ nodes: Node[]; edges: Edge[] }, string>> {
+    const check = await this.assertSnapshotMutable(snapshotId);
+    if (!check.success) return check;
+
+    try {
+      const result = await this.db.transaction(async (tx) => {
+        const insertedNodes: Node[] = [];
+        const batchSize = 100;
+        for (let i = 0; i < nodeInputs.length; i += batchSize) {
+          const batch = nodeInputs.slice(i, i + batchSize);
+          const values = batch.map((input) => ({
+            id: input.id ?? generateId(),
+            snapshotId,
+            filePath: input.filePath,
+            fileHash: input.fileHash ?? null,
+            nodeType: input.nodeType,
+            symbolName: input.symbolName ?? null,
+            language: input.language ?? null,
+            metadataJson: input.metadataJson ?? null,
+            summaryJson: input.summaryJson ?? null,
+            createdAt: now(),
+          }));
+          const rows = await tx.insert(nodes).values(values).returning();
+          insertedNodes.push(...rows);
+        }
+        const insertedEdges: Edge[] = [];
+        for (let i = 0; i < edgeInputs.length; i += batchSize) {
+          const batch = edgeInputs.slice(i, i + batchSize);
+          const values = batch.map((input) => ({
+            id: input.id ?? generateId(),
+            snapshotId,
+            sourceNodeId: input.sourceNodeId,
+            targetNodeId: input.targetNodeId,
+            edgeType: input.edgeType,
+            weight: input.weight ?? null,
+            metadataJson: input.metadataJson ?? null,
+            createdAt: now(),
+          }));
+          const rows = await tx.insert(edges).values(values).returning();
+          insertedEdges.push(...rows);
+        }
+        return { nodes: insertedNodes, edges: insertedEdges };
+      });
+      return { success: true, data: result };
+    } catch (err) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : 'Node/edge insertion failed',
+      };
+    }
   }
 
   async deleteNodesBySnapshot(snapshotId: string): Promise<Result<void, string>> {

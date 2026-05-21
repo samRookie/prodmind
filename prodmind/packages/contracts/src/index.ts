@@ -1,5 +1,4 @@
 export type { Result, ApiResponse, UUID, DomainNode, HealthStatus, HealthCheck, PaginatedResponse } from './types/index.ts';
-export type { HealthResponseDTO, ErrorResponseDTO } from './dto/index.ts';
 
 export {
   Severity,

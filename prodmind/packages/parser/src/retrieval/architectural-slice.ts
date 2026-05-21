@@ -197,8 +197,5 @@ function findEdge(
   sourceId: string,
   targetId: string,
 ): { id: string; sourceNodeId: string; targetNodeId: string; edgeType: string; weight: number | null; metadataJson: string | null } | undefined {
-  for (const e of ctx.edgeMap.values()) {
-    if (e.sourceNodeId === sourceId && e.targetNodeId === targetId) return e;
-  }
-  return undefined;
+  return ctx.adjacencyEdge.get(sourceId)?.get(targetId);
 }

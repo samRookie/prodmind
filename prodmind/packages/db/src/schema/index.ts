@@ -44,3 +44,9 @@ export { graphMetrics } from './graph-metrics.ts';
 export type { GraphMetricsRow, NewGraphMetricsRow } from './graph-metrics.ts';
 export { validationResults, snapshotIntegrity } from './validation-results.ts';
 export type { ValidationResultRow, NewValidationResultRow, SnapshotIntegrityRow, NewSnapshotIntegrityRow } from './validation-results.ts';
+
+export { promptRegistry } from './prompt-registry.ts';
+export type { PromptRegistryRow, NewPromptRegistryRow } from './prompt-registry.ts';
+
+export { executionHistory } from './execution-history.ts';
+export type { ExecutionHistoryRow, NewExecutionHistoryRow } from './execution-history.ts';

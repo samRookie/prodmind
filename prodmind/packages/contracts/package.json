@@ -4,11 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types/index.ts",
-    "./schemas": "./src/schemas/index.ts",
-    "./dto": "./src/dto/index.ts",
-    "./enums": "./src/enums/index.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",

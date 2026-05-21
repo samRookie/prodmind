@@ -47,6 +47,7 @@ function buildFanInFanOut(edges: AnalysisEdge[]): Map<string, { fanIn: number; f
 function findCycles(
   nodes: AnalysisNode[],
   edges: AnalysisEdge[],
+  maxCycles: number = 100,
 ): Set<string>[] {
   const adj = new Map<string, string[]>();
   for (const n of nodes) adj.set(n.id, []);
@@ -55,34 +56,53 @@ function findCycles(
   }
 
   const cycles: Set<string>[] = [];
-  const visited = new Set<string>();
-  const recStack = new Set<string>();
+  const color = new Map<string, number>();
+  const WHITE = 0, GRAY = 1, BLACK = 2;
+  const sortedNodes = [...nodes].sort((a, b) => a.id.localeCompare(b.id));
 
-  function dfs(nodeId: string, path: string[]) {
-    visited.add(nodeId);
-    recStack.add(nodeId);
+  for (const n of sortedNodes) color.set(n.id, WHITE);
 
-    const neighbors = adj.get(nodeId) ?? [];
-    for (const neighbor of neighbors) {
-      if (!visited.has(neighbor)) {
-        dfs(neighbor, [...path, neighbor]);
-      } else if (recStack.has(neighbor)) {
-        const cycleStart = path.indexOf(neighbor);
+  for (const startNode of sortedNodes) {
+    if (color.get(startNode.id) !== WHITE) continue;
+    if (cycles.length >= maxCycles) break;
+
+    const stack: Array<{
+      nodeId: string;
+      path: string[];
+      adjIdx: number;
+      neighbors: string[];
+    }> = [];
+
+    const neighbors = (adj.get(startNode.id) ?? []).slice().sort();
+    color.set(startNode.id, GRAY);
+    stack.push({ nodeId: startNode.id, path: [startNode.id], adjIdx: 0, neighbors });
+
+    while (stack.length > 0) {
+      if (cycles.length >= maxCycles) break;
+      const frame = stack[stack.length - 1]!;
+
+      if (frame.adjIdx >= frame.neighbors.length) {
+        color.set(frame.nodeId, BLACK);
+        stack.pop();
+        continue;
+      }
+
+      const neighbor = frame.neighbors[frame.adjIdx]!;
+      frame.adjIdx++;
+
+      const neighborColor = color.get(neighbor);
+      if (neighborColor === GRAY) {
+        const cycleStart = frame.path.indexOf(neighbor);
         if (cycleStart >= 0) {
-          const cycle = path.slice(cycleStart);
+          const cycle = frame.path.slice(cycleStart);
           cycle.push(neighbor);
           cycles.push(new Set(cycle));
         }
+      } else if (neighborColor === WHITE) {
+        color.set(neighbor, GRAY);
+        const childNeighbors = (adj.get(neighbor) ?? []).slice().sort();
+        stack.push({ nodeId: neighbor, path: [...frame.path, neighbor], adjIdx: 0, neighbors: childNeighbors });
       }
-    }
-
-    recStack.delete(nodeId);
-  }
-
-  const sortedNodes = [...nodes].sort((a, b) => a.id.localeCompare(b.id));
-  for (const n of sortedNodes) {
-    if (!visited.has(n.id)) {
-      dfs(n.id, [n.id]);
     }
   }
 

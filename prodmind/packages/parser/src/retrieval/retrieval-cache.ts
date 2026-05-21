@@ -99,6 +99,7 @@ export function createRetrievalCache(input: {
   const edgeMap = buildEdgeMap(input.edges);
   const adjacency = buildAdjacency(input.nodes, input.edges);
   const reverseAdjacency = buildReverseAdjacency(input.nodes, input.edges);
+  const adjacencyEdge = buildAdjacencyEdge(input.edges);
   const namespaceMap = buildNamespaceMap(input.nodes);
   const { symbolNamespaceMap, symbolOwnershipMap } = buildSymbolMaps(input.nodes);
   const sortedNodeIds = getSortedKeys(nodeMap);
@@ -112,6 +113,7 @@ export function createRetrievalCache(input: {
   return Object.freeze({
     adjacency,
     reverseAdjacency,
+    adjacencyEdge,
     nodeMap,
     edgeMap,
     semanticMap,
@@ -124,4 +126,13 @@ export function createRetrievalCache(input: {
     symbolOwnershipMap,
     sortedNodeIds,
   });
+}
+
+function buildAdjacencyEdge(edges: MetricsEdge[]): Map<string, Map<string, MetricsEdge>> {
+  const adjEdge = new Map<string, Map<string, MetricsEdge>>();
+  for (const e of edges) {
+    if (!adjEdge.has(e.sourceNodeId)) adjEdge.set(e.sourceNodeId, new Map());
+    adjEdge.get(e.sourceNodeId)!.set(e.targetNodeId, e);
+  }
+  return adjEdge;
 }

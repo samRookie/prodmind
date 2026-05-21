@@ -12,6 +12,8 @@ export interface RetrievalQuery {
   clusterNames?: string[];
   maxDepth?: number;
   maxResults?: number;
+  maxVisitedNodes?: number;
+  traversalBudget?: number;
   ordering?: RetrievalOrdering;
   includeMetrics?: boolean;
   includeSemantic?: boolean;
@@ -45,6 +47,7 @@ export interface RetrievedEdge {
 export interface RetrievalContext {
   adjacency: Map<string, string[]>;
   reverseAdjacency: Map<string, string[]>;
+  adjacencyEdge: Map<string, Map<string, MetricsEdge>>;
   nodeMap: Map<string, MetricsNode>;
   edgeMap: Map<string, MetricsEdge>;
   semanticMap: Map<string, ClassificationResult>;

@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import type { Database } from '../client.ts';
 import { domainClusters } from '../schema/domain-clusters.ts';
 import type { DomainClusterRow, NewDomainClusterRow } from '../schema/domain-clusters.ts';
@@ -11,29 +11,28 @@ export class DomainRepository {
   async insertDomainClusters(
     snapshotId: string,
     inputs: Omit<NewDomainClusterRow, 'id' | 'snapshotId' | 'createdAt'>[],
+    txDb?: Database,
   ): Promise<Result<DomainClusterRow[], string>> {
     try {
-      const result = await this.db.transaction(async (tx) => {
-        const inserted: DomainClusterRow[] = [];
-        for (const input of inputs) {
-          const [row] = await tx
-            .insert(domainClusters)
-            .values({
-              id: generateId(),
-              snapshotId,
-              clusterName: input.clusterName,
-              nodeIdsJson: input.nodeIdsJson,
-              cohesionScore: input.cohesionScore ?? null,
-              fragmentationScore: input.fragmentationScore ?? null,
-              boundaryMetadataJson: input.boundaryMetadataJson ?? null,
-              createdAt: now(),
-            })
-            .returning();
-          inserted.push(row!);
-        }
-        return inserted;
-      });
-      return { success: true, data: result };
+      const dbc = txDb ?? this.db;
+      const inserted: DomainClusterRow[] = [];
+      const batchSize = 100;
+      for (let i = 0; i < inputs.length; i += batchSize) {
+        const batch = inputs.slice(i, i + batchSize);
+        const values = batch.map((input) => ({
+          id: generateId(),
+          snapshotId,
+          clusterName: input.clusterName,
+          nodeIdsJson: input.nodeIdsJson,
+          cohesionScore: input.cohesionScore ?? null,
+          fragmentationScore: input.fragmentationScore ?? null,
+          boundaryMetadataJson: input.boundaryMetadataJson ?? null,
+          createdAt: now(),
+        }));
+        const rows = await dbc.insert(domainClusters).values(values).returning();
+        inserted.push(...rows);
+      }
+      return { success: true, data: inserted };
     } catch (err) {
       return {
         success: false,
@@ -55,8 +54,10 @@ export class DomainRepository {
       .select()
       .from(domainClusters)
       .where(
-        eq(domainClusters.clusterName, clusterName) &&
-        eq(domainClusters.snapshotId, snapshotId),
+        and(
+          eq(domainClusters.clusterName, clusterName),
+          eq(domainClusters.snapshotId, snapshotId),
+        ),
       )
       .limit(1);
     return result ?? null;

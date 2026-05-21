@@ -1,6 +1,8 @@
+import { getEnv } from '@prodmind/core';
+
 export const serverConfig = {
-  port: Number(process.env['PORT']) || 3001,
-  host: process.env['HOST'] || '0.0.0.0',
+  port: getEnv().PORT,
+  host: getEnv().HOST,
   apiPrefix: '/api/v1',
-  corsOrigins: process.env['CORS_ORIGINS']?.split(',') ?? ['http://localhost:5173'],
+  corsOrigins: getEnv().CORS_ORIGINS?.split(',').map((s) => s.trim()) ?? ['http://localhost:5173'],
 } as const;

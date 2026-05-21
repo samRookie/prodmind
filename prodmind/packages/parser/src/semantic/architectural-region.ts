@@ -38,8 +38,10 @@ function findConnectedComponents(adj: Map<string, Set<string>>): string[][] {
     const component: string[] = [];
     const queue = [nodeId];
     visited.add(nodeId);
-    while (queue.length > 0) {
-      const current = queue.shift()!;
+    let head = 0;
+    while (head < queue.length) {
+      const current = queue[head]!;
+      head++;
       component.push(current);
       const neighbors = adj.get(current);
       if (neighbors) {

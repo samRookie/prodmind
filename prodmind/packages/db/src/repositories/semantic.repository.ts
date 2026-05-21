@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import type { Database } from '../client.ts';
 import { semanticClassifications } from '../schema/semantic-metadata.ts';
 import type { SemanticClassificationRow, NewSemanticClassificationRow } from '../schema/semantic-metadata.ts';
@@ -11,32 +11,31 @@ export class SemanticRepository {
   async insertClassifications(
     snapshotId: string,
     inputs: Omit<NewSemanticClassificationRow, 'id' | 'snapshotId' | 'createdAt'>[],
+    txDb?: Database,
   ): Promise<Result<SemanticClassificationRow[], string>> {
     try {
-      const result = await this.db.transaction(async (tx) => {
-        const inserted: SemanticClassificationRow[] = [];
-        for (const input of inputs) {
-          const [row] = await tx
-            .insert(semanticClassifications)
-            .values({
-              id: generateId(),
-              snapshotId,
-              nodeId: input.nodeId,
-              semanticType: input.semanticType,
-              ruleStrength: input.ruleStrength,
-              classificationReasonsJson: input.classificationReasonsJson ?? null,
-              matchedHeuristicsJson: input.matchedHeuristicsJson ?? null,
-              infraScore: input.infraScore ?? null,
-              businessScore: input.businessScore ?? null,
-              dominantRole: input.dominantRole ?? null,
-              createdAt: now(),
-            })
-            .returning();
-          inserted.push(row!);
-        }
-        return inserted;
-      });
-      return { success: true, data: result };
+      const dbc = txDb ?? this.db;
+      const inserted: SemanticClassificationRow[] = [];
+      const batchSize = 100;
+      for (let i = 0; i < inputs.length; i += batchSize) {
+        const batch = inputs.slice(i, i + batchSize);
+        const values = batch.map((input) => ({
+          id: generateId(),
+          snapshotId,
+          nodeId: input.nodeId,
+          semanticType: input.semanticType,
+          ruleStrength: input.ruleStrength,
+          classificationReasonsJson: input.classificationReasonsJson ?? null,
+          matchedHeuristicsJson: input.matchedHeuristicsJson ?? null,
+          infraScore: input.infraScore ?? null,
+          businessScore: input.businessScore ?? null,
+          dominantRole: input.dominantRole ?? null,
+          createdAt: now(),
+        }));
+        const rows = await dbc.insert(semanticClassifications).values(values).returning();
+        inserted.push(...rows);
+      }
+      return { success: true, data: inserted };
     } catch (err) {
       return {
         success: false,
@@ -58,8 +57,10 @@ export class SemanticRepository {
       .select()
       .from(semanticClassifications)
       .where(
-        eq(semanticClassifications.nodeId, nodeId) &&
-        eq(semanticClassifications.snapshotId, snapshotId),
+        and(
+          eq(semanticClassifications.nodeId, nodeId),
+          eq(semanticClassifications.snapshotId, snapshotId),
+        ),
       )
       .limit(1);
     return result ?? null;

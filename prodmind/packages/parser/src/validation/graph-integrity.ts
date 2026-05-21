@@ -137,8 +137,6 @@ export function validateCycleCorrectness(ctx: ValidationContext): ValidationIssu
   const WHITE = 0, GRAY = 1, BLACK = 2;
   const color = new Map<string, number>();
   const parent = new Map<string, string | null>();
-  let cycleCount = 0;
-
   for (const id of nodeIds) color.set(id, WHITE);
 
   for (const startId of nodeIds) {
@@ -161,14 +159,13 @@ export function validateCycleCorrectness(ctx: ValidationContext): ValidationIssu
       } else {
         const neighbor = next.value;
         if (color.get(neighbor) === GRAY) {
-          cycleCount++;
           issues.push(makeIssue('CYCLE_DETECTED', ValidationSeverity.ERROR,
             `Cycle detected involving edge ${frame.nodeId} -> ${neighbor}`, frame.nodeId));
         } else if (color.get(neighbor) === WHITE) {
           color.set(neighbor, GRAY);
           parent.set(neighbor, frame.nodeId);
           const neighborIter = ctx.adjacency.get(neighbor)?.values() ?? [][Symbol.iterator]();
-          stack.push({ nodeId: neighbor, iterator: neighborIter[Symbol.iterator]?.() ?? [][Symbol.iterator]() });
+          stack.push({ nodeId: neighbor, iterator: neighborIter });
         }
       }
     }

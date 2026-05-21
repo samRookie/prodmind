@@ -7,6 +7,7 @@ import type { SemanticType } from '@prodmind/contracts';
 const EMPTY_CTX = {
   adjacency: new Map(),
   reverseAdjacency: new Map(),
+  adjacencyEdge: new Map(),
   nodeMap: new Map(),
   edgeMap: new Map(),
   semanticMap: new Map(),

@@ -1,4 +1,4 @@
-import { mkdir, writeFile, stat } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve, normalize, dirname } from 'node:path';
 
 export async function ensureDirectoryExists(dirPath: string): Promise<void> {
@@ -27,11 +27,6 @@ export async function safeWriteFile(
 
   await writeFile(normalizedPath, data);
   return normalizedPath;
-}
-
-export async function getFileSize(filePath: string): Promise<number> {
-  const stats = await stat(filePath);
-  return stats.size;
 }
 
 export function resolveWorkspaceEntry(

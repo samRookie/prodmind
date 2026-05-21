@@ -53,7 +53,7 @@ export function validateCircularDependencies(ctx: ValidationContext): Validation
         } else if (color.get(neighbor) === WHITE) {
           color.set(neighbor, GRAY);
           const neighborIter = ctx.adjacency.get(neighbor)?.values() ?? [][Symbol.iterator]();
-          stack.push({ nodeId: neighbor, iter: neighborIter[Symbol.iterator]?.() ?? [][Symbol.iterator]() });
+          stack.push({ nodeId: neighbor, iter: neighborIter });
         }
       }
     }

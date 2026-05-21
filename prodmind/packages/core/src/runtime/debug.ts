@@ -1,8 +1,17 @@
-export function isDebugEnabled(): boolean {
-  if (typeof process === 'undefined' || !process.env) {
-    return false;
+import { getEnv } from '../config/env.ts';
+
+function getDebugEnv(): string {
+  try {
+    const env = getEnv();
+    return env.DEBUG ?? '';
+  } catch {
+    if (typeof process === 'undefined' || !process.env) return '';
+    return process.env.DEBUG ?? '';
   }
-  const debugEnv = process.env.DEBUG ?? '';
+}
+
+export function isDebugEnabled(): boolean {
+  const debugEnv = getDebugEnv();
   return debugEnv === '*' || debugEnv.startsWith('prodmind');
 }
 

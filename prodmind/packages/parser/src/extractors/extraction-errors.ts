@@ -18,15 +18,6 @@ export class ExtractionError extends AppError {
   }
 }
 
-export class ZipSlipError extends ExtractionError {
-  public constructor(path: string) {
-    super(`ZIP slip detected: entry path "${path}" attempts directory traversal`, {
-      details: { entryPath: path },
-    });
-    this.name = 'ZipSlipError';
-  }
-}
-
 export class ExtractionLimitError extends ExtractionError {
   public constructor(
     message: string,

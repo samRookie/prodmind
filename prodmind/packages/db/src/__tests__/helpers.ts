@@ -10,6 +10,7 @@ import { generateId, now } from '../utils.ts';
 export async function createTestDb(): Promise<{ client: Client; db: Database; dbPath: string }> {
   const dbPath = path.join(os.tmpdir(), `prodmind-${randomUUID()}.db`);
   const client = createClient({ url: `file:${dbPath}` });
+  await client.execute('PRAGMA journal_mode=WAL');
   await client.execute('PRAGMA foreign_keys=ON');
   const db = drizzle(client, { schema }) as Database;
   return { client, db, dbPath };
@@ -39,7 +40,8 @@ export async function createTables(client: Client): Promise<void> {
       metadata_json TEXT,
       compression_ratio REAL,
       confidence_score REAL,
-      is_degraded INTEGER NOT NULL DEFAULT 0
+      is_degraded INTEGER NOT NULL DEFAULT 0,
+      is_frozen INTEGER NOT NULL DEFAULT 0
     )`,
     `CREATE TABLE IF NOT EXISTS nodes (
       id TEXT PRIMARY KEY,

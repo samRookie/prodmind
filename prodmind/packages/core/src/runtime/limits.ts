@@ -1,3 +1,29 @@
+import type { DbLimits as _DbLimits, GraphLimits as _GraphLimits, Limits as _Limits, ParseLimits as _ParseLimits, ServerLimits as _ServerLimits,UploadLimits as _UploadLimits } from '../config/limits.ts';
+import { DEFAULT_LIMITS } from '../config/limits.ts';
+
+export type Limits = _Limits;
+export type UploadLimits = _UploadLimits;
+export type ParseLimits = _ParseLimits;
+export type GraphLimits = _GraphLimits;
+export type DbLimits = _DbLimits;
+export type ServerLimits = _ServerLimits;
+
+let _limits: _Limits | null = null;
+
+export function getLimits(): _Limits {
+  if (_limits) return _limits;
+  _limits = DEFAULT_LIMITS;
+  return _limits;
+}
+
+export function setLimits(limits: _Limits): void {
+  _limits = limits;
+}
+
+export function resetLimits(): void {
+  _limits = null;
+}
+
 export const MAX_UPLOAD_SIZE_MB = 50;
 export const MAX_EXTRACTION_SIZE_MB = 200;
 export const MAX_FILE_COUNT = 100;

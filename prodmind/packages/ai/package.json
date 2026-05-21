@@ -20,6 +20,7 @@
     "@prodmind/shared": "workspace:*",
     "@prodmind/core": "workspace:*",
     "@prodmind/db": "workspace:*",
+    "@prodmind/parser": "workspace:*",
     "zod": "^3.24.1"
   },
   "devDependencies": {

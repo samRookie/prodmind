@@ -35,9 +35,11 @@ export function retrieveBlastRadiusSubgraph(
   ctx: RetrievalContext,
   seedNodeId: string,
   maxDepth: number,
+  maxVisitedNodes?: number,
+  traversalBudget?: number,
 ): BlastRadiusResult {
-  const forward = retrieveDependencyNeighborhood(ctx, [seedNodeId], maxDepth);
-  const backward = retrieveReverseDependencies(ctx, [seedNodeId], maxDepth);
+  const forward = retrieveDependencyNeighborhood(ctx, [seedNodeId], maxDepth, maxVisitedNodes, traversalBudget);
+  const backward = retrieveReverseDependencies(ctx, [seedNodeId], maxDepth, maxVisitedNodes, traversalBudget);
 
   const entryPoint = toRetrievedNode(seedNodeId, 0, ctx);
 
@@ -112,8 +114,10 @@ export function retrieveCriticalPropagationPaths(
   ctx: RetrievalContext,
   seedNodeId: string,
   maxDepth: number,
+  maxVisitedNodes?: number,
+  traversalBudget?: number,
 ): Array<{ source: string; target: string; riskScore: number }> {
-  const forward = retrieveDependencyNeighborhood(ctx, [seedNodeId], maxDepth);
+  const forward = retrieveDependencyNeighborhood(ctx, [seedNodeId], maxDepth, maxVisitedNodes, traversalBudget);
   const paths: Array<{ source: string; target: string; riskScore: number }> = [];
 
   for (const node of forward.nodes) {

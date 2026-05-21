@@ -1,3 +1,4 @@
+import { getLimits } from '@prodmind/core';
 import type { ParseResult } from '../types/ast.types.ts';
 import { parseTypeScriptFile } from './ts-parser.ts';
 import { shouldParseFile } from './unsupported-files.ts';
@@ -11,7 +12,8 @@ export async function batchParseFiles(
   files: Array<{ path: string; source: string }>,
   options?: BatchParseOptions,
 ): Promise<ParseResult[]> {
-  const timeoutPerFile = options?.timeoutPerFile ?? 30_000;
+  const limits = getLimits();
+  const timeoutPerFile = options?.timeoutPerFile ?? limits.parse.maxParseTimeMs;
 
   const sorted = [...files].sort((a, b) => a.path.localeCompare(b.path));
 

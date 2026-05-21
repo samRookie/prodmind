@@ -45,12 +45,12 @@ export class IncrementalRepository {
   async insertReuseArtifacts(inputs: Omit<NewReuseArtifact, 'id' | 'createdAt'>[]): Promise<Result<ReuseArtifact[], string>> {
     try {
       const result: ReuseArtifact[] = [];
-      for (const input of inputs) {
-        const [record] = await this.db
-          .insert(reuseArtifacts)
-          .values({ id: generateId(), createdAt: now(), ...input })
-          .returning();
-        result.push(record!);
+      const batchSize = 100;
+      for (let i = 0; i < inputs.length; i += batchSize) {
+        const batch = inputs.slice(i, i + batchSize);
+        const values = batch.map((input) => ({ id: generateId(), createdAt: now(), ...input }));
+        const rows = await this.db.insert(reuseArtifacts).values(values).returning();
+        result.push(...rows);
       }
       return { success: true, data: result };
     } catch (err) {
@@ -61,12 +61,12 @@ export class IncrementalRepository {
   async insertInvalidations(inputs: Omit<NewInvalidationRegion, 'id' | 'createdAt'>[]): Promise<Result<InvalidationRegion[], string>> {
     try {
       const result: InvalidationRegion[] = [];
-      for (const input of inputs) {
-        const [record] = await this.db
-          .insert(invalidationRegions)
-          .values({ id: generateId(), createdAt: now(), ...input })
-          .returning();
-        result.push(record!);
+      const batchSize = 100;
+      for (let i = 0; i < inputs.length; i += batchSize) {
+        const batch = inputs.slice(i, i + batchSize);
+        const values = batch.map((input) => ({ id: generateId(), createdAt: now(), ...input }));
+        const rows = await this.db.insert(invalidationRegions).values(values).returning();
+        result.push(...rows);
       }
       return { success: true, data: result };
     } catch (err) {
@@ -141,5 +141,23 @@ export class IncrementalRepository {
       .where(eq(incrementalMetrics.snapshotId, snapshotId))
       .limit(1);
     return result ?? null;
+  }
+
+  async deleteBySnapshot(snapshotId: string): Promise<Result<void, string>> {
+    try {
+      await this.db.transaction(async (tx) => {
+        await tx.delete(incrementalMetrics).where(eq(incrementalMetrics.snapshotId, snapshotId));
+        await tx.delete(snapshotDiffs).where(eq(snapshotDiffs.snapshotId, snapshotId));
+        await tx.delete(reuseArtifacts).where(eq(reuseArtifacts.snapshotId, snapshotId));
+        await tx.delete(invalidationRegions).where(eq(invalidationRegions.snapshotId, snapshotId));
+        await tx.delete(snapshotLineage).where(eq(snapshotLineage.childSnapshotId, snapshotId));
+      });
+      return { success: true, data: undefined };
+    } catch (err) {
+      return {
+        success: false,
+        error: err instanceof Error ? err.message : 'Failed to delete incremental data',
+      };
+    }
   }
 }

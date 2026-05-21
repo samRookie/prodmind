@@ -1,8 +1,8 @@
-import { ParserError } from '../parsers/parser-errors.ts';
+import { AppError } from '@prodmind/core';
 
-export class ResolutionError extends ParserError {
+export class ResolutionError extends AppError {
   public constructor(message: string, options?: { cause?: Error; details?: Record<string, unknown> }) {
-    super(message, { statusCode: 422, details: options?.details, cause: options?.cause });
+    super('PARSER_ERROR', message, { statusCode: 422, details: options?.details, cause: options?.cause });
     this.name = 'ResolutionError';
   }
 }

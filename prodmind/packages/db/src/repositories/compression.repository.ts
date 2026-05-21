@@ -18,35 +18,34 @@ export class CompressionRepository {
   async insertFileContexts(
     snapshotId: string,
     inputs: Omit<NewCompressedFileContextRow, 'id' | 'snapshotId' | 'createdAt'>[],
+    txDb?: Database,
   ): Promise<Result<CompressedFileContextRow[], string>> {
     try {
-      const result = await this.db.transaction(async (tx) => {
-        const inserted: CompressedFileContextRow[] = [];
-        for (const input of inputs) {
-          const [row] = await tx
-            .insert(compressedFileContexts)
-            .values({
-              id: generateId(),
-              snapshotId,
-              filePath: input.filePath,
-              language: input.language ?? null,
-              architecturalRole: input.architecturalRole ?? null,
-              semanticClassification: input.semanticClassification ?? null,
-              purpose: input.purpose ?? null,
-              isAsync: input.isAsync ?? false,
-              dependencyCount: input.dependencyCount ?? 0,
-              symbolsJson: input.symbolsJson ?? null,
-              importsJson: input.importsJson ?? null,
-              exportsJson: input.exportsJson ?? null,
-              dependencyPathsJson: input.dependencyPathsJson ?? null,
-              createdAt: now(),
-            })
-            .returning();
-          inserted.push(row!);
-        }
-        return inserted;
-      });
-      return { success: true, data: result };
+      const dbc = txDb ?? this.db;
+      const inserted: CompressedFileContextRow[] = [];
+      const batchSize = 100;
+      for (let i = 0; i < inputs.length; i += batchSize) {
+        const batch = inputs.slice(i, i + batchSize);
+        const values = batch.map((input) => ({
+          id: generateId(),
+          snapshotId,
+          filePath: input.filePath,
+          language: input.language ?? null,
+          architecturalRole: input.architecturalRole ?? null,
+          semanticClassification: input.semanticClassification ?? null,
+          purpose: input.purpose ?? null,
+          isAsync: input.isAsync ?? false,
+          dependencyCount: input.dependencyCount ?? 0,
+          symbolsJson: input.symbolsJson ?? null,
+          importsJson: input.importsJson ?? null,
+          exportsJson: input.exportsJson ?? null,
+          dependencyPathsJson: input.dependencyPathsJson ?? null,
+          createdAt: now(),
+        }));
+        const rows = await dbc.insert(compressedFileContexts).values(values).returning();
+        inserted.push(...rows);
+      }
+      return { success: true, data: inserted };
     } catch (err) {
       return {
         success: false,
@@ -58,35 +57,34 @@ export class CompressionRepository {
   async insertModuleContexts(
     snapshotId: string,
     inputs: Omit<NewCompressedModuleContextRow, 'id' | 'snapshotId' | 'createdAt'>[],
+    txDb?: Database,
   ): Promise<Result<CompressedModuleContextRow[], string>> {
     try {
-      const result = await this.db.transaction(async (tx) => {
-        const inserted: CompressedModuleContextRow[] = [];
-        for (const input of inputs) {
-          const [row] = await tx
-            .insert(compressedModuleContexts)
-            .values({
-              id: generateId(),
-              snapshotId,
-              modulePath: input.modulePath,
-              totalFiles: input.totalFiles ?? 0,
-              totalSymbols: input.totalSymbols ?? 0,
-              exportedSymbols: input.exportedSymbols ?? 0,
-              internalSymbols: input.internalSymbols ?? 0,
-              couplingLevel: input.couplingLevel ?? null,
-              boundaryType: input.boundaryType ?? null,
-              filePathsJson: input.filePathsJson ?? null,
-              dependencyModulesJson: input.dependencyModulesJson ?? null,
-              dependentModulesJson: input.dependentModulesJson ?? null,
-              topSymbolsJson: input.topSymbolsJson ?? null,
-              createdAt: now(),
-            })
-            .returning();
-          inserted.push(row!);
-        }
-        return inserted;
-      });
-      return { success: true, data: result };
+      const dbc = txDb ?? this.db;
+      const inserted: CompressedModuleContextRow[] = [];
+      const batchSize = 100;
+      for (let i = 0; i < inputs.length; i += batchSize) {
+        const batch = inputs.slice(i, i + batchSize);
+        const values = batch.map((input) => ({
+          id: generateId(),
+          snapshotId,
+          modulePath: input.modulePath,
+          totalFiles: input.totalFiles ?? 0,
+          totalSymbols: input.totalSymbols ?? 0,
+          exportedSymbols: input.exportedSymbols ?? 0,
+          internalSymbols: input.internalSymbols ?? 0,
+          couplingLevel: input.couplingLevel ?? null,
+          boundaryType: input.boundaryType ?? null,
+          filePathsJson: input.filePathsJson ?? null,
+          dependencyModulesJson: input.dependencyModulesJson ?? null,
+          dependentModulesJson: input.dependentModulesJson ?? null,
+          topSymbolsJson: input.topSymbolsJson ?? null,
+          createdAt: now(),
+        }));
+        const rows = await dbc.insert(compressedModuleContexts).values(values).returning();
+        inserted.push(...rows);
+      }
+      return { success: true, data: inserted };
     } catch (err) {
       return {
         success: false,
@@ -98,9 +96,11 @@ export class CompressionRepository {
   async insertRepositoryContext(
     snapshotId: string,
     input: Omit<NewCompressedRepositoryContextRow, 'id' | 'snapshotId' | 'createdAt'>,
+    txDb?: Database,
   ): Promise<Result<CompressedRepositoryContextRow, string>> {
     try {
-      const [row] = await this.db
+      const dbInstance = txDb ?? this.db;
+      const [row] = await dbInstance
         .insert(compressedRepositoryContexts)
         .values({
           id: generateId(),
@@ -133,9 +133,11 @@ export class CompressionRepository {
   async insertMetrics(
     snapshotId: string,
     input: Omit<NewCompressionMetricsRow, 'id' | 'snapshotId' | 'createdAt'>,
+    txDb?: Database,
   ): Promise<Result<CompressionMetricsRow, string>> {
     try {
-      const [row] = await this.db
+      const dbInstance = txDb ?? this.db;
+      const [row] = await dbInstance
         .insert(compressionMetrics)
         .values({
           id: generateId(),
@@ -166,9 +168,10 @@ export class CompressionRepository {
     }
   }
 
-  async updateSnapshotCompressionRatio(snapshotId: string, ratio: number): Promise<Result<void, string>> {
+  async updateSnapshotCompressionRatio(snapshotId: string, ratio: number, txDb?: Database): Promise<Result<void, string>> {
     try {
-      await this.db
+      const dbInstance = txDb ?? this.db;
+      await dbInstance
         .update(snapshots)
         .set({ compressionRatio: ratio })
         .where(eq(snapshots.id, snapshotId));

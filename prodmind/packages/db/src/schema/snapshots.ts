@@ -22,6 +22,7 @@ export const snapshots = sqliteTable(
   (table) => ({
     projectIdIdx: index('idx_snapshots_project_id').on(table.projectId),
     statusIdx: index('idx_snapshots_status').on(table.status),
+    projectVersionIdx: index('idx_snapshots_project_version').on(table.projectId, table.version),
   }),
 );
 

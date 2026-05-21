@@ -3,7 +3,6 @@ export { ExtractionWorkspace } from './extractors/index.ts';
 export type { ExtractionResult, ExtractionLimitsConfig } from './extractors/index.ts';
 export {
   ExtractionError,
-  ZipSlipError,
   ExtractionLimitError,
   CorruptedArchiveError,
 } from './extractors/index.ts';
@@ -54,12 +53,7 @@ export { parseTypeScriptFile } from './parsers/index.ts';
 export { batchParseFiles } from './parsers/index.ts';
 export type { BatchParseOptions } from './parsers/index.ts';
 export { shouldParseFile, getLanguage } from './parsers/index.ts';
-export {
-  ParserError,
-  UnsupportedFileError,
-  MalformedSyntaxError,
-  WorkerParserError,
-} from './parsers/index.ts';
+
 
 export type {
   ParsedFile,

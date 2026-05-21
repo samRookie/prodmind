@@ -9,6 +9,7 @@ import type { CompressionOutput, SemanticOutput, MetricRecord } from '@prodmind/
 import type { ValidationIssue } from '@prodmind/parser';
 
 export class SnapshotPipeline {
+  private readonly db: Database;
   private readonly snapshots: SnapshotRepository;
   private readonly graph: GraphRepository;
   private readonly events: EventRepository;
@@ -20,6 +21,7 @@ export class SnapshotPipeline {
   private readonly validationRepo: ValidationRepository;
 
   public constructor(db: Database) {
+    this.db = db;
     this.snapshots = new SnapshotRepository(db);
     this.graph = new GraphRepository(db);
     this.events = new EventRepository(db);
@@ -57,14 +59,9 @@ export class SnapshotPipeline {
     nodeInputs: Omit<NewNode, 'id' | 'snapshotId' | 'createdAt'>[],
     edgeInputs: Omit<NewEdge, 'id' | 'snapshotId' | 'createdAt'>[],
   ): Promise<Result<void, string>> {
-    const nodeResult = await this.graph.insertNodes(snapshotId, nodeInputs);
-    if (!nodeResult.success) {
-      return nodeResult;
-    }
-
-    const edgeResult = await this.graph.insertEdges(snapshotId, edgeInputs);
-    if (!edgeResult.success) {
-      return edgeResult;
+    const result = await this.graph.insertNodesAndEdges(snapshotId, nodeInputs, edgeInputs);
+    if (!result.success) {
+      return result;
     }
 
     return { success: true, data: undefined };
@@ -77,23 +74,25 @@ export class SnapshotPipeline {
     try {
       const fileInputs = this.toFileContextInputs(output);
       const moduleInputs = this.toModuleContextInputs(output);
-
-      const fileResult = await this.compressionRepo.insertFileContexts(snapshotId, fileInputs);
-      if (!fileResult.success) return fileResult;
-
-      const moduleResult = await this.compressionRepo.insertModuleContexts(snapshotId, moduleInputs);
-      if (!moduleResult.success) return moduleResult;
-
       const repoInput = this.toRepositoryContextInput(output);
-      const repoResult = await this.compressionRepo.insertRepositoryContext(snapshotId, repoInput);
-      if (!repoResult.success) return repoResult;
-
       const metricsInput = this.toMetricsInput(output);
-      const metricsResult = await this.compressionRepo.insertMetrics(snapshotId, metricsInput);
-      if (!metricsResult.success) return metricsResult;
 
-      const ratioUpdate = await this.compressionRepo.updateSnapshotCompressionRatio(snapshotId, output.metrics.compressionRatio);
-      if (!ratioUpdate.success) return ratioUpdate;
+      await this.db.transaction(async (tx) => {
+        const fileResult = await this.compressionRepo.insertFileContexts(snapshotId, fileInputs, tx as unknown as Database);
+        if (!fileResult.success) throw new Error(fileResult.error);
+
+        const moduleResult = await this.compressionRepo.insertModuleContexts(snapshotId, moduleInputs, tx as unknown as Database);
+        if (!moduleResult.success) throw new Error(moduleResult.error);
+
+        const repoResult = await this.compressionRepo.insertRepositoryContext(snapshotId, repoInput, tx as unknown as Database);
+        if (!repoResult.success) throw new Error(repoResult.error);
+
+        const metricsResult = await this.compressionRepo.insertMetrics(snapshotId, metricsInput, tx as unknown as Database);
+        if (!metricsResult.success) throw new Error(metricsResult.error);
+
+        const ratioUpdate = await this.compressionRepo.updateSnapshotCompressionRatio(snapshotId, output.metrics.compressionRatio, tx as unknown as Database);
+        if (!ratioUpdate.success) throw new Error(ratioUpdate.error);
+      });
 
       return { success: true, data: undefined };
     } catch (err) {
@@ -220,9 +219,6 @@ export class SnapshotPipeline {
         }
       }
 
-      const classResult = await this.semanticRepo.insertClassifications(snapshotId, classInputs);
-      if (!classResult.success) return classResult;
-
       const clusterInputs = output.domainClusters.map((c) => ({
         clusterName: c.clusterName,
         nodeIdsJson: JSON.stringify(c.nodeIds),
@@ -230,9 +226,6 @@ export class SnapshotPipeline {
         fragmentationScore: c.fragmentationScore,
         boundaryMetadataJson: c.boundaryMetadataJson,
       }));
-
-      const domainResult = await this.domainRepo.insertDomainClusters(snapshotId, clusterInputs);
-      if (!domainResult.success) return domainResult;
 
       const couplingInputs = output.couplingEdges.map((e) => ({
         sourceNodeId: e.sourceNodeId,
@@ -243,8 +236,16 @@ export class SnapshotPipeline {
         metadataJson: e.metadataJson,
       }));
 
-      const couplingResult = await this.couplingRepo.insertCouplingEdges(snapshotId, couplingInputs);
-      if (!couplingResult.success) return couplingResult;
+      await this.db.transaction(async (tx) => {
+        const classResult = await this.semanticRepo.insertClassifications(snapshotId, classInputs, tx as unknown as Database);
+        if (!classResult.success) throw new Error(classResult.error);
+
+        const domainResult = await this.domainRepo.insertDomainClusters(snapshotId, clusterInputs, tx as unknown as Database);
+        if (!domainResult.success) throw new Error(domainResult.error);
+
+        const couplingResult = await this.couplingRepo.insertCouplingEdges(snapshotId, couplingInputs, tx as unknown as Database);
+        if (!couplingResult.success) throw new Error(couplingResult.error);
+      });
 
       return { success: true, data: undefined };
     } catch (err) {
@@ -401,6 +402,8 @@ export class SnapshotPipeline {
 
     if (snapshot.status === SnapshotStatus.FAILED) return snapshot as Snapshot;
 
+    await this.cleanupSnapshotData(snapshotId);
+
     const failed = await this.snapshots.markFailed(snapshotId);
     await this.events.log('snapshot_rollback', {
       snapshotId,
@@ -408,6 +411,16 @@ export class SnapshotPipeline {
       previousStatus: snapshot.status,
     });
     return failed;
+  }
+
+  private async cleanupSnapshotData(snapshotId: string): Promise<void> {
+    try { await this.validationRepo.deleteSnapshotValidation(snapshotId); } catch {}
+    try { await this.metricsRepo.deleteMetricsBySnapshot(snapshotId); } catch {}
+    try { await this.couplingRepo.deleteBySnapshot(snapshotId); } catch {}
+    try { await this.domainRepo.deleteBySnapshot(snapshotId); } catch {}
+    try { await this.semanticRepo.deleteBySnapshot(snapshotId); } catch {}
+    try { await this.compressionRepo.deleteBySnapshot(snapshotId); } catch {}
+    try { await this.graph.deleteNodesBySnapshot(snapshotId); } catch {}
   }
 
   public findById(id: string): Promise<Snapshot | null> {

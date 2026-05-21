@@ -52,6 +52,7 @@ export async function getSubgraph(
 export async function getCircularDependencies(
   db: Database,
   snapshotId: string,
+  maxCycles: number = 100,
 ): Promise<CircularDependency[]> {
   const { nodes: allNodes, edges: allEdges } = await getDependencyGraph(db, snapshotId);
 
@@ -59,9 +60,12 @@ export async function getCircularDependencies(
   for (const node of allNodes) {
     adjacency.set(node.id, []);
   }
+  const adjEdge = new Map<string, Map<string, Edge>>();
   for (const edge of allEdges) {
     const list = adjacency.get(edge.sourceNodeId);
     if (list) list.push(edge.targetNodeId);
+    if (!adjEdge.has(edge.sourceNodeId)) adjEdge.set(edge.sourceNodeId, new Map());
+    adjEdge.get(edge.sourceNodeId)!.set(edge.targetNodeId, edge);
   }
 
   const WHITE = 0;
@@ -77,24 +81,44 @@ export async function getCircularDependencies(
     parent.set(node.id, null);
   }
 
-  function dfs(current: string, path: string[]) {
-    color.set(current, GRAY);
-    path.push(current);
+  const sortedNodes = [...allNodes].sort((a, b) => a.id.localeCompare(b.id));
 
-    const neighbors = adjacency.get(current) ?? [];
-    for (const neighbor of neighbors.sort()) {
+  for (const startNode of sortedNodes) {
+    if (color.get(startNode.id) !== WHITE) continue;
+
+    const stack: Array<{ nodeId: string; path: string[]; iterIndex: number }> = [
+      { nodeId: startNode.id, path: [startNode.id], iterIndex: 0 },
+    ];
+    const neighborLists = new Map<string, string[]>();
+    neighborLists.set(startNode.id, (adjacency.get(startNode.id) ?? []).slice().sort());
+
+    color.set(startNode.id, GRAY);
+
+    while (stack.length > 0) {
+      if (cycles.length >= maxCycles) break;
+
+      const frame = stack[stack.length - 1]!;
+      const neighbors = neighborLists.get(frame.nodeId) ?? [];
+
+      if (frame.iterIndex >= neighbors.length) {
+        color.set(frame.nodeId, BLACK);
+        stack.pop();
+        continue;
+      }
+
+      const neighbor = neighbors[frame.iterIndex]!;
+      frame.iterIndex++;
+
       const neighborColor = color.get(neighbor);
       if (neighborColor === GRAY) {
-        const cycleStart = path.indexOf(neighbor);
+        const cycleStart = frame.path.indexOf(neighbor);
         if (cycleStart !== -1) {
-          const cycle = path.slice(cycleStart);
+          const cycle = frame.path.slice(cycleStart);
           const cycleEdges: Edge[] = [];
           for (let i = 0; i < cycle.length; i++) {
             const from = cycle[i]!;
             const to = cycle[(i + 1) % cycle.length]!;
-            const edge = allEdges.find(
-              (e) => e.sourceNodeId === from && e.targetNodeId === to,
-            );
+            const edge = adjEdge.get(from)?.get(to);
             if (edge) cycleEdges.push(edge);
           }
           cycles.push({
@@ -103,19 +127,13 @@ export async function getCircularDependencies(
           });
         }
       } else if (neighborColor === WHITE) {
-        dfs(neighbor, path);
+        color.set(neighbor, GRAY);
+        neighborLists.set(neighbor, (adjacency.get(neighbor) ?? []).slice().sort());
+        stack.push({ nodeId: neighbor, path: [...frame.path, neighbor], iterIndex: 0 });
       }
     }
 
-    path.pop();
-    color.set(current, BLACK);
-  }
-
-  const sortedNodes = [...allNodes].sort((a, b) => a.id.localeCompare(b.id));
-  for (const node of sortedNodes) {
-    if (color.get(node.id) === WHITE) {
-      dfs(node.id, []);
-    }
+    if (cycles.length >= maxCycles) break;
   }
 
   cycles.sort((a, b) => a.cycle[0]!.localeCompare(b.cycle[0]!));

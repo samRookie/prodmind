@@ -4,11 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./constants": "./src/constants/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./types": "./src/types/index.ts",
-    "./version": "./src/version/index.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",

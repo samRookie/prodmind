@@ -6,7 +6,6 @@ export { ExtractionMetadata } from './extraction-metadata.ts';
 export type { ExtractionResult } from './extraction-metadata.ts';
 export {
   ExtractionError,
-  ZipSlipError,
   ExtractionLimitError,
   CorruptedArchiveError,
 } from './extraction-errors.ts';

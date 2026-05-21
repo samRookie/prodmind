@@ -1,5 +1,6 @@
 import { RetrievalStrategy, RetrievalScope, RetrievalOrdering } from '@prodmind/contracts';
 import type { RetrievalStrategy as RetrievalStrategyType, RetrievalScope as RetrievalScopeType, RetrievalOrdering as RetrievalOrderingType } from '@prodmind/contracts';
+import { getLimits } from '@prodmind/core';
 import type { InstabilityResult, FanMetricsResult } from '../metrics/metrics-types.ts';
 import type { ClassificationResult } from '../semantic/types.ts';
 import type {
@@ -122,8 +123,11 @@ export class RetrievalEngine {
 
   retrieve(input: RetrievalInput, query: RetrievalQuery): RetrievalResult {
     const ctx = this.buildContext(input);
-    const maxDepth = query.maxDepth ?? 10;
-    const maxResults = query.maxResults ?? 100;
+    const limits = getLimits();
+    const maxDepth = query.maxDepth ?? limits.graph.maxRetrievalDepth;
+    const maxResults = query.maxResults ?? limits.graph.maxRetrievalResults;
+    const maxVisitedNodes = query.maxVisitedNodes ?? limits.graph.maxVisitedNodes;
+    const traversalBudget = query.traversalBudget ?? limits.graph.maxTraversalBudget;
     const ordering = query.ordering ?? RetrievalOrdering.DETERMINISTIC;
 
     let nodes: RetrievedNode[] = [];
@@ -133,7 +137,7 @@ export class RetrievalEngine {
       case RetrievalStrategy.DEPENDENCY_NEIGHBORHOOD: {
         const seedIds = query.seedNodeIds ?? [];
         if (seedIds.length === 0) throw new RetrievalError('seedNodeIds required for DEPENDENCY_NEIGHBORHOOD');
-        const result = retrieveDependencyNeighborhood(ctx, seedIds, maxDepth);
+        const result = retrieveDependencyNeighborhood(ctx, seedIds, maxDepth, maxVisitedNodes, traversalBudget);
         nodes = result.nodes;
         edges = result.edges;
         break;
@@ -141,7 +145,7 @@ export class RetrievalEngine {
       case RetrievalStrategy.BLAST_RADIUS: {
         const seedIds = query.seedNodeIds ?? [];
         if (seedIds.length === 0) throw new RetrievalError('seedNodeIds required for BLAST_RADIUS');
-        const result = retrieveBlastRadiusSubgraph(ctx, seedIds[0]!, maxDepth);
+        const result = retrieveBlastRadiusSubgraph(ctx, seedIds[0]!, maxDepth, maxVisitedNodes, traversalBudget);
         nodes = [result.entryPoint, ...result.forwardImpacts, ...result.backwardImpacts];
         break;
       }
@@ -160,7 +164,7 @@ export class RetrievalEngine {
       case RetrievalStrategy.DEPTH_LIMITED: {
         const seedIds = query.seedNodeIds ?? [];
         if (seedIds.length === 0) throw new RetrievalError('seedNodeIds required for DEPTH_LIMITED');
-        const result = retrieveDepthLimitedSubgraph(ctx, seedIds, maxDepth, 'both');
+        const result = retrieveDepthLimitedSubgraph(ctx, seedIds, maxDepth, 'both', maxVisitedNodes, traversalBudget);
         nodes = result.nodes;
         edges = result.edges;
         break;
@@ -170,7 +174,7 @@ export class RetrievalEngine {
         if (seedIds.length === 0) {
           nodes = ctx.sortedNodeIds.map((id) => nodeToRetrieved(id, 0, ctx));
         } else {
-          const result = retrieveBidirectionalNeighborhood(ctx, seedIds, maxDepth);
+          const result = retrieveBidirectionalNeighborhood(ctx, seedIds, maxDepth, maxVisitedNodes, traversalBudget);
           nodes = result.nodes;
           edges = result.edges;
         }
@@ -209,7 +213,8 @@ export class RetrievalEngine {
   retrieveNeighborhood(input: RetrievalInput, query: RetrievalQuery): NeighborhoodResult {
     const ctx = this.buildContext(input);
     const seedIds = query.seedNodeIds ?? [];
-    const maxDepth = query.maxDepth ?? 5;
+    const limits = getLimits();
+    const maxDepth = query.maxDepth ?? limits.graph.maxNeighborhoodDepth;
     const direction = query.scope === RetrievalScope.NODE ? 'forward' : 'both';
     return depthLimitedResult(ctx, seedIds, maxDepth, direction as 'forward' | 'backward' | 'both');
   }

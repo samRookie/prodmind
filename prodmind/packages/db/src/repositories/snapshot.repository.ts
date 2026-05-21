@@ -114,23 +114,32 @@ export class SnapshotRepository {
   }
 
   async updateStatus(id: string, newStatus: SnapshotStatus): Promise<Snapshot> {
-    const current = await this.findById(id);
-    if (!current) throw new Error(`Snapshot ${id} not found`);
+    return this.db.transaction(async (tx) => {
+      const [current] = await tx
+        .select()
+        .from(snapshots)
+        .where(eq(snapshots.id, id))
+        .limit(1);
 
-    const currentStatus = current.status as SnapshotStatus;
-    if (!canTransitionTo(currentStatus, newStatus)) {
-      throw new Error(
-        `Cannot transition snapshot ${id} from ${currentStatus} to ${newStatus}`,
-      );
-    }
+      if (!current) throw new Error(`Snapshot ${id} not found`);
 
-    const [snapshot] = await this.db
-      .update(snapshots)
-      .set({ status: newStatus })
-      .where(eq(snapshots.id, id))
-      .returning();
+      const currentStatus = current.status as SnapshotStatus;
+      if (!canTransitionTo(currentStatus, newStatus)) {
+        throw new Error(
+          `Cannot transition snapshot ${id} from ${currentStatus} to ${newStatus}`,
+        );
+      }
 
-    return snapshot!;
+      const [snapshot] = await tx
+        .update(snapshots)
+        .set({ status: newStatus })
+        .where(and(eq(snapshots.id, id), eq(snapshots.status, currentStatus)))
+        .returning();
+
+      if (!snapshot) throw new Error(`Snapshot ${id} status changed concurrently`);
+
+      return snapshot!;
+    });
   }
 
   async markFailed(id: string): Promise<Snapshot> {

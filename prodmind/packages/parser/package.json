@@ -4,11 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./extractors": "./src/extractors/index.ts",
-    "./sanitizers": "./src/sanitizers/index.ts",
-    "./hashers": "./src/hashers/index.ts",
-    "./parsers": "./src/parsers/index.ts"
+    ".": "./src/index.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",
@@ -24,6 +20,7 @@
     "@prodmind/contracts": "workspace:*",
     "@prodmind/shared": "workspace:*",
     "@prodmind/core": "workspace:*",
+    "@prodmind/db": "workspace:*",
     "@zip.js/zip.js": "^2.7.0",
     "typescript": "^5.7.3"
   },

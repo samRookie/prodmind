@@ -124,10 +124,7 @@ function findEdgeBetween(
   sourceId: string,
   targetId: string,
 ): { edgeType: string; sourceNodeId: string; targetNodeId: string } | undefined {
-  for (const e of ctx.edgeMap.values()) {
-    if (e.sourceNodeId === sourceId && e.targetNodeId === targetId) {
-      return { edgeType: e.edgeType, sourceNodeId: e.sourceNodeId, targetNodeId: e.targetNodeId };
-    }
-  }
-  return undefined;
+  const e = ctx.adjacencyEdge.get(sourceId)?.get(targetId);
+  if (!e) return undefined;
+  return { edgeType: e.edgeType, sourceNodeId: e.sourceNodeId, targetNodeId: e.targetNodeId };
 }

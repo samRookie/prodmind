@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import type { Database } from '../client.ts';
 import { invalidationRegions } from '../schema/invalidation-regions.ts';
 
@@ -44,8 +44,10 @@ export async function getInvalidatedByType(
     .select()
     .from(invalidationRegions)
     .where(
-      eq(invalidationRegions.snapshotId, snapshotId) &&
-      eq(invalidationRegions.regionType, regionType),
+      and(
+        eq(invalidationRegions.snapshotId, snapshotId),
+        eq(invalidationRegions.regionType, regionType),
+      ),
     )
     .orderBy(invalidationRegions.regionIdentifier);
 

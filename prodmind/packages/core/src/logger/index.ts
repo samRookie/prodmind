@@ -1,3 +1,5 @@
+import { safeStringify } from './redactor.ts';
+
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 export interface LogEntry {
@@ -46,7 +48,7 @@ export class ConsoleLogger implements Logger {
       context: { ...context, source: this.source },
     };
 
-    const output = JSON.stringify(entry);
+    const output = safeStringify(entry);
 
     switch (level) {
       case 'debug':

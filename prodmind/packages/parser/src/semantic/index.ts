@@ -8,7 +8,6 @@ export type {
   DomainClusterResult,
   CouplingEdgeResult,
 } from './types.ts';
-export { SemanticType, CouplingType, RuleStrength } from '@prodmind/contracts';
 
 export { classifyNodeSemanticType, classifyFileSemanticRole, classifyModuleSemanticRole, computeSemanticRuleStrength } from './classifier.ts';
 export { detectInfrastructureLayer, detectBusinessLogicLayer, computeInfraWeight, computeBusinessWeight } from './infra-detector.ts';

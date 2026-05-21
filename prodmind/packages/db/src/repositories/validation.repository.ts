@@ -31,29 +31,25 @@ export class ValidationRepository {
       metadataJson: string | null;
     }>,
   ): Promise<boolean> {
-    try {
-      const timestamp = now();
-      const values: NewValidationResultRow[] = issues.map((issue) => ({
-        id: generateId(),
-        snapshotId,
-        category: issue.category,
-        severity: issue.severity,
-        state: issue.state,
-        issueCode: issue.issueCode,
-        message: issue.message,
-        nodeId: issue.nodeId,
-        edgeId: issue.edgeId,
-        metadataJson: issue.metadataJson,
-        createdAt: timestamp,
-      }));
+    const timestamp = now();
+    const values: NewValidationResultRow[] = issues.map((issue) => ({
+      id: generateId(),
+      snapshotId,
+      category: issue.category,
+      severity: issue.severity,
+      state: issue.state,
+      issueCode: issue.issueCode,
+      message: issue.message,
+      nodeId: issue.nodeId,
+      edgeId: issue.edgeId,
+      metadataJson: issue.metadataJson,
+      createdAt: timestamp,
+    }));
 
-      if (values.length > 0) {
-        await this.db.insert(validationResults).values(values);
-      }
-      return true;
-    } catch {
-      return false;
+    if (values.length > 0) {
+      await this.db.insert(validationResults).values(values);
     }
+    return true;
   }
 
   async insertSnapshotIntegrity(
@@ -67,22 +63,18 @@ export class ValidationRepository {
       metadataJson: string | null;
     },
   ): Promise<boolean> {
-    try {
-      await this.db.insert(snapshotIntegrity).values({
-        id: generateId(),
-        snapshotId,
-        integrityScore: data.integrityScore,
-        readinessScore: data.readinessScore,
-        validationState: data.validationState,
-        criticalIssueCount: data.criticalIssueCount,
-        warningCount: data.warningCount,
-        metadataJson: data.metadataJson,
-        createdAt: now(),
-      });
-      return true;
-    } catch {
-      return false;
-    }
+    await this.db.insert(snapshotIntegrity).values({
+      id: generateId(),
+      snapshotId,
+      integrityScore: data.integrityScore,
+      readinessScore: data.readinessScore,
+      validationState: data.validationState,
+      criticalIssueCount: data.criticalIssueCount,
+      warningCount: data.warningCount,
+      metadataJson: data.metadataJson,
+      createdAt: now(),
+    });
+    return true;
   }
 
   async getValidationIssues(
@@ -116,13 +108,9 @@ export class ValidationRepository {
   }
 
   async deleteSnapshotValidation(snapshotId: string): Promise<boolean> {
-    try {
-      await this.db.delete(validationResults).where(eq(validationResults.snapshotId, snapshotId));
-      await this.db.delete(snapshotIntegrity).where(eq(snapshotIntegrity.snapshotId, snapshotId));
-      return true;
-    } catch {
-      return false;
-    }
+    await this.db.delete(validationResults).where(eq(validationResults.snapshotId, snapshotId));
+    await this.db.delete(snapshotIntegrity).where(eq(snapshotIntegrity.snapshotId, snapshotId));
+    return true;
   }
 
   async getCriticalIssues(snapshotId: string): Promise<ValidationResultRow[]> {

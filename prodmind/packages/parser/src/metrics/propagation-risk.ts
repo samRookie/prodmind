@@ -3,6 +3,7 @@ import type { GraphAnalysisCache } from './graph-analysis-cache.ts';
 import { PropagationRiskError } from './metrics-errors.ts';
 
 const MAX_TRAVERSAL_DEPTH = 3;
+const MAX_CASCADE_NODES = 10_000;
 
 function computeCascadeBFS(
   startNodeId: string,
@@ -16,6 +17,7 @@ function computeCascadeBFS(
 
   let head = 0;
   while (head < queue.length) {
+    if (visited.size > MAX_CASCADE_NODES) break;
     const current = queue[head]!;
     head++;
 
@@ -25,6 +27,7 @@ function computeCascadeBFS(
     for (const neighbor of neighbors) {
       if (visited.has(neighbor)) continue;
       visited.add(neighbor);
+      if (visited.size > MAX_CASCADE_NODES) break;
       const edgeWeight = weightMap.get(current.nodeId)?.get(neighbor) ?? 1.0;
       const childWeight = current.weight * edgeWeight;
       queue.push({ nodeId: neighbor, depth: current.depth + 1, weight: childWeight });
@@ -35,8 +38,24 @@ function computeCascadeBFS(
   return totalImpact;
 }
 
+const cascadeCache = new Map<string, number>();
+
+function getCachedCascade(
+  nodeId: string,
+  adj: Map<string, string[]>,
+  weightMap: Map<string, Map<string, number>>,
+  maxDepth: number,
+): number {
+  let cached = cascadeCache.get(nodeId);
+  if (cached !== undefined) return cached;
+  cached = computeCascadeBFS(nodeId, adj, weightMap, maxDepth);
+  cascadeCache.set(nodeId, cached);
+  return cached;
+}
+
 export function computePropagationRisk(cache: GraphAnalysisCache): PropagationRiskResult[] {
   try {
+    cascadeCache.clear();
     const results: PropagationRiskResult[] = [];
     const V = cache.sortedNodeIds.length;
     const E = cache.edges.length;
@@ -86,7 +105,7 @@ export function computePropagationRisk(cache: GraphAnalysisCache): PropagationRi
       );
 
       const cascadeEstimate = Number(
-        Math.min(1, computeCascadeBFS(nodeId, cache.adjacency, weightMap, MAX_TRAVERSAL_DEPTH) / normalizationFactor).toFixed(4),
+        Math.min(1, getCachedCascade(nodeId, cache.adjacency, weightMap, MAX_TRAVERSAL_DEPTH) / normalizationFactor).toFixed(4),
       );
 
       const isChokePoint = fan.fanIn >= 10 && fan.fanOut >= 10;

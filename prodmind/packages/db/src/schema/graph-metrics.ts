@@ -22,6 +22,7 @@ export const graphMetrics = sqliteTable(
     nodeIdIdx: index('idx_gm_node_id').on(table.nodeId),
     priorityIdx: index('idx_gm_priority').on(table.metricPriority),
     snapshotTypeIdx: index('idx_gm_snapshot_type').on(table.snapshotId, table.metricType),
+    snapshotNodeIdx: index('idx_gm_snapshot_node').on(table.snapshotId, table.nodeId),
     snapshotPriorityIdx: index('idx_gm_snapshot_priority').on(table.snapshotId, table.metricPriority),
   }),
 );

@@ -1,5 +1,6 @@
 import { createClient, type Client } from '@libsql/client';
 import { drizzle, type LibSQLDatabase } from 'drizzle-orm/libsql';
+import { getEnv } from '@prodmind/core';
 import * as schema from './schema/index.ts';
 
 export type Database = LibSQLDatabase<typeof schema> & { $client: Client };
@@ -17,7 +18,7 @@ function applyPragmas(client: Client): void {
 }
 
 export function createDrizzleClient(options?: DrizzleClientOptions): Database {
-  const url = options?.url ?? process.env['DATABASE_URL'] ?? 'file:./prodmind.db';
+  const url = options?.url ?? getEnv().DATABASE_URL;
 
   const client = createClient({
     url,
@@ -33,6 +34,7 @@ export function createDrizzleClient(options?: DrizzleClientOptions): Database {
 
 export function createTestClient(): { client: Client; db: Database } {
   const client = createClient({ url: 'file::memory:' });
+  client.execute('PRAGMA journal_mode=WAL');
   client.execute('PRAGMA foreign_keys=ON');
   const db = drizzle(client, { schema }) as Database;
   return { client, db };

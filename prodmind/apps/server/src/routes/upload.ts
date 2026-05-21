@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { randomUUID } from 'node:crypto';
 import { createDrizzleClient } from '@prodmind/db';
+import { getLimits } from '@prodmind/core';
 import { IngestionService } from '../services/ingestion/index.ts';
 import type { IngestionResult } from '../services/ingestion/index.ts';
 
@@ -36,7 +37,8 @@ uploadRouter.post('/', async (c) => {
       return c.json({ success: false, error: 'Uploaded file is empty' }, 422);
     }
 
-    const maxSize = 50 * 1024 * 1024;
+    const limits = getLimits();
+    const maxSize = limits.upload.maxSizeBytes;
     if (file.size > maxSize) {
       return c.json({ success: false, error: `File size exceeds maximum of ${maxSize} bytes` }, 413);
     }

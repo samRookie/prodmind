@@ -1,4 +1,4 @@
-import { eq, and } from 'drizzle-orm';
+import { eq, and, inArray } from 'drizzle-orm';
 import type { Database } from '../client.ts';
 import { nodes } from '../schema/nodes.ts';
 import { edges } from '../schema/edges.ts';
@@ -47,62 +47,45 @@ export async function bfsTraversal(
     const levelEdges: Edge[] = [];
     const nextLevel: string[] = [];
 
+    const nodeRows = currentLevel.length === 1
+      ? await db.select().from(nodes).where(and(eq(nodes.id, currentLevel[0]!), eq(nodes.snapshotId, snapshotId))).limit(1)
+      : await db.select().from(nodes).where(and(inArray(nodes.id, currentLevel), eq(nodes.snapshotId, snapshotId)));
+
+    const nodeMap = new Map(nodeRows.map((n) => [n.id, n]));
+
+    if (direction === 'forward' || direction === 'both') {
+      const forwardEdges = currentLevel.length === 1
+        ? await db.select().from(edges).where(and(eq(edges.sourceNodeId, currentLevel[0]!), eq(edges.snapshotId, snapshotId))).orderBy(edges.targetNodeId)
+        : await db.select().from(edges).where(and(inArray(edges.sourceNodeId, currentLevel), eq(edges.snapshotId, snapshotId))).orderBy(edges.targetNodeId);
+
+      for (const edge of forwardEdges) {
+        levelEdges.push(edge);
+        allEdges.push(edge);
+        if (depth < maxDepth && !visited.has(edge.targetNodeId)) {
+          visited.add(edge.targetNodeId);
+          nextLevel.push(edge.targetNodeId);
+        }
+      }
+    }
+
+    if (direction === 'backward' || direction === 'both') {
+      const backwardEdges = currentLevel.length === 1
+        ? await db.select().from(edges).where(and(eq(edges.targetNodeId, currentLevel[0]!), eq(edges.snapshotId, snapshotId))).orderBy(edges.sourceNodeId)
+        : await db.select().from(edges).where(and(inArray(edges.targetNodeId, currentLevel), eq(edges.snapshotId, snapshotId))).orderBy(edges.sourceNodeId);
+
+      for (const edge of backwardEdges) {
+        levelEdges.push(edge);
+        allEdges.push(edge);
+        if (depth < maxDepth && !visited.has(edge.sourceNodeId)) {
+          visited.add(edge.sourceNodeId);
+          nextLevel.push(edge.sourceNodeId);
+        }
+      }
+    }
+
     for (const nodeId of currentLevel) {
-      const nodeResult = await db
-        .select()
-        .from(nodes)
-        .where(and(eq(nodes.id, nodeId), eq(nodes.snapshotId, snapshotId)))
-        .limit(1);
-
-      if (nodeResult[0]) {
-        levelNodes.push(nodeResult[0]);
-      }
-
-      let edgeRows: Edge[];
-
-      if (direction === 'forward' || direction === 'both') {
-        edgeRows = await db
-          .select()
-          .from(edges)
-          .where(
-            and(
-              eq(edges.sourceNodeId, nodeId),
-              eq(edges.snapshotId, snapshotId),
-            ),
-          )
-          .orderBy(edges.targetNodeId);
-
-        for (const edge of edgeRows) {
-          levelEdges.push(edge);
-          allEdges.push(edge);
-          if (depth < maxDepth && !visited.has(edge.targetNodeId)) {
-            visited.add(edge.targetNodeId);
-            nextLevel.push(edge.targetNodeId);
-          }
-        }
-      }
-
-      if (direction === 'backward' || direction === 'both') {
-        edgeRows = await db
-          .select()
-          .from(edges)
-          .where(
-            and(
-              eq(edges.targetNodeId, nodeId),
-              eq(edges.snapshotId, snapshotId),
-            ),
-          )
-          .orderBy(edges.sourceNodeId);
-
-        for (const edge of edgeRows) {
-          levelEdges.push(edge);
-          allEdges.push(edge);
-          if (depth < maxDepth && !visited.has(edge.sourceNodeId)) {
-            visited.add(edge.sourceNodeId);
-            nextLevel.push(edge.sourceNodeId);
-          }
-        }
-      }
+      const node = nodeMap.get(nodeId);
+      if (node) levelNodes.push(node);
     }
 
     levels.push({

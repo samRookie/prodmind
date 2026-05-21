@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import type { Database } from '../client.ts';
 import { reuseArtifacts } from '../schema/reuse-artifacts.ts';
 
@@ -44,8 +44,10 @@ export async function getReusedArtifactsByType(
     .select()
     .from(reuseArtifacts)
     .where(
-      eq(reuseArtifacts.snapshotId, snapshotId) &&
-      eq(reuseArtifacts.artifactType, artifactType),
+      and(
+        eq(reuseArtifacts.snapshotId, snapshotId),
+        eq(reuseArtifacts.artifactType, artifactType),
+      ),
     )
     .orderBy(reuseArtifacts.artifactIdentifier);
 

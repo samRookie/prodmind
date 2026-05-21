@@ -20,6 +20,8 @@ export const edges = sqliteTable(
     sourceIdx: index('idx_edges_source').on(table.sourceNodeId),
     targetIdx: index('idx_edges_target').on(table.targetNodeId),
     snapshotEdgeTypeIdx: index('idx_edges_snapshot_type').on(table.snapshotId, table.edgeType),
+    snapshotSourceIdx: index('idx_edges_snapshot_source').on(table.snapshotId, table.sourceNodeId),
+    snapshotTargetIdx: index('idx_edges_snapshot_target').on(table.snapshotId, table.targetNodeId),
   }),
 );
 

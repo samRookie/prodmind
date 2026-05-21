@@ -14,8 +14,8 @@ export {
   SNAPSHOT_DIR,
 } from './constants/index.ts';
 
-export { safeJsonStringify, cn, assertDefined, formatBytes, delay, isPromise } from './utils/index.ts';
+
 
 export type { FileInfo, TreeNode, UploadResult } from './types/index.ts';
 
-export { VERSION, SCHEMA_VERSION, PROMPT_VERSION, BUILD_INFO } from './version/index.ts';
+export { VERSION } from './version/index.ts';
