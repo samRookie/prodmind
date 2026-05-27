@@ -7,3 +7,15 @@ export * from './integration/index.ts';
 export * from './provenance/index.ts';
 export * from './replay/index.ts';
 export * from './retrieval/index.ts';
+export * from './assembly/index.ts';
+
+export * from './errors/index.ts';
+export * from './config/index.ts';
+export * from './hashing/index.ts';
+export * from './serialization/index.ts';
+export * from './validation/index.ts';
+export * from './repository/index.ts';
+export * from './reasoning/index.ts';
+export * from './orchestration/index.ts';
+export * from './temporal/index.ts';
+export * from './telemetry/index.ts';

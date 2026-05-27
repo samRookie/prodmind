@@ -50,3 +50,16 @@ export type { PromptRegistryRow, NewPromptRegistryRow } from './prompt-registry.
 
 export { executionHistory } from './execution-history.ts';
 export type { ExecutionHistoryRow, NewExecutionHistoryRow } from './execution-history.ts';
+
+export { memorySnapshots } from './memory/memory-snapshots.ts';
+export type { MemorySnapshotRow, NewMemorySnapshotRow } from './memory/memory-snapshots.ts';
+export { memoryEntries } from './memory/memory-entries.ts';
+export type { MemoryEntryRow, NewMemoryEntryRow } from './memory/memory-entries.ts';
+export { memoryRelations } from './memory/memory-relations.ts';
+export type { MemoryRelationRow, NewMemoryRelationRow } from './memory/memory-relations.ts';
+export { reasoningChains } from './memory/reasoning-chains.ts';
+export type { ReasoningChainRow, NewReasoningChainRow } from './memory/reasoning-chains.ts';
+export { retrievalHistory } from './memory/retrieval-history.ts';
+export type { RetrievalHistoryRow, NewRetrievalHistoryRow } from './memory/retrieval-history.ts';
+export { contextEnvelopes } from './memory/context-envelopes.ts';
+export type { ContextEnvelopeRow, NewContextEnvelopeRow } from './memory/context-envelopes.ts';

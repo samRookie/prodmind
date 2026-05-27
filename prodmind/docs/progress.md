@@ -22,6 +22,8 @@
 - **5.4**: Runtime layer (budgeting, capabilities, health, isolation, lifecycle, retries, sandbox, scheduling, telemetry)
 - **5.5**: Provider adapters (OpenAI, Anthropic, Gemini, Local; governance, validation, replay, selection, secrets, fingerprinting)
 - **5.6**: Deterministic DAG orchestration runtime (execution contracts, graph/scheduler, replay/provenance, governance/isolation, planner/AI bridge, stress validation)
+- **5.7**: Memory & Context Runtime (contracts, index/graph, retrieval/assembly, execution/session, replay/snapshot/provenance, governance, integration, stress tests)
+- **5.8**: Capability Runtime — execution engine, agents, workflows, replay/provenance/events, governance/isolation, integration bridges, barrel exports
 
 ## Not Yet Started (Phase 6)
 - Engineering risk intelligence
@@ -30,8 +32,8 @@
 - Retrieval-augmented AI analysis
 
 ## Current Status
-- **Tests**: 825 passing, 83 test files
-- **Pre-existing issues**: zip-extractor.ts typecheck error (parser); 13 `no-explicit-any` lint errors (context/)
+- **Tests**: 1522 passing, 110 test files (311 new tests in 7 new files for Phase 5.7/5.8 modules — repository, indexing-advanced, retrieval-advanced, reasoning-chain, orchestration, temporal, replay-telemetry)
+- **Pre-existing issues**: 8 pre-existing failures in `stress-determinism.test.ts` (API drift: `getManifest`→`toManifest`, `unregister` missing, `CircuitBreaker` zero-capacity edge case, test argument count mismatch); `zip-extractor.ts` typecheck error (parser); `capability-policy.ts` `allowedCategories` type mismatch; unused import warnings across pre-existing files
 
 ## Key Design Decisions
 - DAG runtime is a parallel layer alongside existing step-composition workflow engine

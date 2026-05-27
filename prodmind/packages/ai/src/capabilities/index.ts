@@ -8,4 +8,5 @@ export * from './replay/index.ts';
 export * from './provenance/index.ts';
 export * from './events/index.ts';
 export * from './governance/index.ts';
+export * from './isolation/index.ts';
 export * from './integration/index.ts';
