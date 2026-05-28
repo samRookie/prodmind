@@ -1,0 +1,28 @@
+{
+  "name": "@prodmind/insight",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsup src/index.ts --format esm --dts --watch",
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@prodmind/contracts": "workspace:*",
+    "@prodmind/core": "workspace:*",
+    "@prodmind/shared": "workspace:*",
+    "@prodmind/db": "workspace:*",
+    "@prodmind/exploration": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.4",
+    "eslint": "^9.18.0"
+  }
+}

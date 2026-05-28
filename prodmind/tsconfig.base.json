@@ -38,7 +38,9 @@
       "@prodmind/session": ["./packages/session/src"],
       "@prodmind/session/*": ["./packages/session/src/*"],
       "@prodmind/exploration": ["./packages/exploration/src"],
-      "@prodmind/exploration/*": ["./packages/exploration/src/*"]
+      "@prodmind/exploration/*": ["./packages/exploration/src/*"],
+      "@prodmind/insight": ["./packages/insight/src"],
+      "@prodmind/insight/*": ["./packages/insight/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", ".turbo"]

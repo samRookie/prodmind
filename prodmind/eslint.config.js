@@ -129,6 +129,16 @@ export default tseslint.config(
     },
   },
   {
+    files: ['packages/insight/src/**/*.ts'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          { group: ['@prodmind/ai', '@prodmind/ai/*'], message: '@prodmind/insight cannot depend on @prodmind/ai' },
+        ],
+      }],
+    },
+  },
+  {
     files: ['packages/ai/src/**/*.ts'],
     rules: {},
   },

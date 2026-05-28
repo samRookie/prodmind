@@ -107,3 +107,6 @@ export type { AnalysisSession, NewAnalysisSession, SessionTimeline, NewSessionTi
 
 export { explorationSessions, explorationQueries, traversalHistory, explorationBookmarksDb, traversalReplayDb, pathAnalysisResults, neighborhoodCache } from './exploration.ts';
 export type { ExplorationSessionRow, NewExplorationSessionRow, ExplorationQueryRow, NewExplorationQueryRow, TraversalHistoryRow, NewTraversalHistoryRow, ExplorationBookmarkRow, NewExplorationBookmarkRow, TraversalReplayRow, NewTraversalReplayRow, PathAnalysisResultRow, NewPathAnalysisResultRow, NeighborhoodCacheRow, NewNeighborhoodCacheRow } from './exploration.ts';
+
+export { insights, insightEvidence, remediationPlans, driftReports, hotspotReports, insightReplay, insightExplanations } from './insights.ts';
+export type { InsightRow, NewInsightRow, InsightEvidenceRow, NewInsightEvidenceRow, RemediationPlanRow, NewRemediationPlanRow, DriftReportRow, NewDriftReportRow, HotspotReportRow, NewHotspotReportRow, InsightReplayRow, NewInsightReplayRow, InsightExplanationRow, NewInsightExplanationRow } from './insights.ts';
