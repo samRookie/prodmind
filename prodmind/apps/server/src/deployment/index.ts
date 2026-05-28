@@ -1,0 +1,13 @@
+export { DeploymentValidator } from './deployment-validator.ts';
+export type { DeploymentValidationResult } from './deployment-validator.ts';
+export { DeploymentFingerprint } from './deployment-fingerprint.ts';
+export type { DeploymentFingerprintComponents } from './deployment-fingerprint.ts';
+export { createDeploymentReport } from './deployment-report.ts';
+export type { DeploymentReport } from './deployment-report.ts';
+export { collectReleaseMetadata } from './release-metadata.ts';
+export type { ReleaseMetadata } from './release-metadata.ts';
+export { ReleaseIntegrity } from './release-integrity.ts';
+export type { IntegrityCheck, IntegrityReport } from './release-integrity.ts';
+export { RuntimeCompatibility } from './runtime-compatibility.ts';
+export type { CompatibilityCheck } from './runtime-compatibility.ts';
+export { DeploymentError, DeploymentValidationError, ReleaseIntegrityError, RuntimeCompatibilityError } from './deployment-errors.ts';

@@ -1,0 +1,32 @@
+services:
+  prodmind:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - prodmind-data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DB_PATH=/app/data/prodmind.db
+      - LOG_LEVEL=info
+      - LOG_FORMAT=json
+      - AI_PROVIDER=mock
+      - REPLAY_ENABLED=true
+      - REPLAY_STORAGE_PATH=/app/data/replay
+      - METRICS_ENABLED=true
+      - DIAGNOSTICS_ENABLED=true
+      - HEALTH_CHECK_INTERVAL_MS=30000
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', r => { process.exit(r.statusCode === 200 ? 0 : 1) }).on('error', () => process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+volumes:
+  prodmind-data:

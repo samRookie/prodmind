@@ -2,40 +2,23 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, phase-*]
   pull_request:
     branches: [main]
 
 jobs:
-  validate:
+  ci:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
+          node-version: '22'
+          cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-
-      - run: node scripts/validate-env.mjs
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DATABASE_URL: file:./prodmind.db
-          NODE_ENV: ci
-          CI: "true"
-          PORT: "3001"
-          HOST: "0.0.0.0"
-
-      - run: pnpm typecheck
-
       - run: pnpm lint
-
+      - run: pnpm typecheck
       - run: pnpm build
-
       - run: pnpm test
+      - run: pnpm test:stress

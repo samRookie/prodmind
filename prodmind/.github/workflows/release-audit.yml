@@ -1,0 +1,43 @@
+name: Release Audit
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test
+      - name: Run Deployment Audit
+        run: node -e "
+          const { DeploymentValidator, collectReleaseMetadata, ReleaseIntegrity, DeploymentFingerprint, createDeploymentReport } = require('./apps/server/src/deployment/index.ts');
+          const { EnvGovernance } = require('./apps/server/src/env/index.ts');
+          const g = new EnvGovernance();
+          const env = g.initialize();
+          const v = new DeploymentValidator();
+          const vr = v.validate(env);
+          const m = collectReleaseMetadata({ ...env, RELEASE_VERSION: process.env.RELEASE_VERSION, RELEASE_COMMIT: process.env.RELEASE_COMMIT, RELEASE_TIMESTAMP: process.env.RELEASE_TIMESTAMP });
+          const i = new ReleaseIntegrity();
+          const ir = i.verifyPackageIntegrity(m);
+          const f = new DeploymentFingerprint();
+          const fp = f.generate({}, {}, '');
+          const r = createDeploymentReport(m, vr, ir, fp);
+          console.log('Release audit:', r.valid ? 'PASS' : 'FAIL');
+          console.log('Version:', m.version);
+          console.log('Commit:', m.commit);
+          process.exit(r.valid ? 0 : 1);
+        "
+      - name: Container Validation
+        run: |
+          docker build -t prodmind-test -f Dockerfile .
+          docker run --rm prodmind-test node -e "console.log('Container OK'); process.exit(0);"

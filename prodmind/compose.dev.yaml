@@ -1,0 +1,27 @@
+services:
+  prodmind-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps:/app/apps
+      - ./packages:/app/packages
+      - ./tsconfig.base.json:/app/tsconfig.base.json
+      - ./package.json:/app/package.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+      - prodmind-dev-data:/app/data
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DB_PATH=/app/data/prodmind.db
+      - LOG_LEVEL=debug
+      - LOG_FORMAT=pretty
+      - AI_PROVIDER=mock
+    restart: unless-stopped
+
+volumes:
+  prodmind-dev-data:

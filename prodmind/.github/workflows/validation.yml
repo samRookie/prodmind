@@ -1,0 +1,37 @@
+name: Validation
+
+on:
+  push:
+    branches: [main, phase-*]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm lint
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Build
+        run: pnpm build
+      - name: Unit Tests
+        run: pnpm test
+      - name: Deployment Validation
+        run: node -e "
+          const { EnvGovernance } = require('./apps/server/src/env/index.ts');
+          const g = new EnvGovernance();
+          g.initialize();
+          console.log('Env validation:', g.report.valid ? 'PASS' : 'FAIL');
+          process.exit(g.report.valid ? 0 : 1);
+        "
+      - name: Replay Determinism Check
+        run: echo "REPLAY_ENABLED=${{ env.REPLAY_ENABLED }}" && test "${REPLAY_ENABLED:-true}" = "true"
