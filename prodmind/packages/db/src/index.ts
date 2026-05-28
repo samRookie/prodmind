@@ -21,6 +21,10 @@ export {
   RetrievalRepository,
   ValidationRepository,
   InsightsRepository,
+  RecommendationsRepository,
+  PatternsRepository,
+  RisksRepository,
+  CognitionRepository,
 } from './repositories/index.ts';
 
 export {

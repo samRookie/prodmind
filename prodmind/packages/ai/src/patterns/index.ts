@@ -1,0 +1,10 @@
+export { PatternEngine } from './pattern-engine.ts';
+export { detectArchitecturePatterns } from './pattern-detectors.ts';
+export { detectAntiPatterns } from './anti-pattern-detectors.ts';
+export { fingerprintPattern, fingerprintPatternBatch } from './pattern-fingerprint.ts';
+export { classifyPatternConfidence, classifyPatternSeverity } from './pattern-classifier.ts';
+export { summarizePatternEvidence, aggregatePatternEvidence } from './pattern-evidence.ts';
+export type { PatternEvidenceSummary } from './pattern-evidence.ts';
+export * from './builtins/index.ts';
+export type { PatternDetection, PatternInput, PatternOutput, ArchitecturePattern, AntiPattern, PatternSeverity, TopologyEvidence, SCCEvidence, MetricEvidence } from './pattern-types.ts';
+export { ARCHITECTURE_PATTERNS, ANTI_PATTERNS, PATTERN_SEVERITIES } from './pattern-types.ts';

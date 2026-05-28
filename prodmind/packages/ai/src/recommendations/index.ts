@@ -1,0 +1,12 @@
+export { RecommendationEngine } from './recommendation-engine.ts';
+export { RecommendationGenerator } from './recommendation-generator.ts';
+export { computeRecommendationPriority } from './recommendation-priority.ts';
+export type { RecommendationPriorityScore } from './recommendation-priority.ts';
+export { rankRecommendations, topRecommendations } from './recommendation-ranking.ts';
+export { normalizeRecommendation, normalizeRecommendationBatch } from './recommendation-normalizer.ts';
+export type { NormalizedRecommendation } from './recommendation-normalizer.ts';
+export { fingerprintRecommendation, fingerprintRecommendationBatch } from './recommendation-fingerprint.ts';
+export { getRemediationTemplate, getAllTemplates, selectTemplatesForCategory } from './remediation-library.ts';
+export type { RemediationTemplate } from './remediation-library.ts';
+export type { Recommendation, RecommendationInput, RecommendationOutput, RecommendationEvidenceRef, RemediationStrategy, RecommendationCategory, RecommendationSeverity, RecommendationPriority } from './recommendation-types.ts';
+export { RECOMMENDATION_CATEGORIES, RECOMMENDATION_SEVERITIES, RECOMMENDATION_PRIORITIES } from './recommendation-types.ts';

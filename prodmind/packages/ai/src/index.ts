@@ -57,3 +57,15 @@ export * from './rules/index.ts';
 
 // Evidence
 export * from './evidence/index.ts';
+
+// Recommendations
+export * from './recommendations/index.ts';
+
+// Patterns
+export * from './patterns/index.ts';
+
+// Risk
+export * from './risk/index.ts';
+
+// Cognition
+export * from './cognition/index.ts';

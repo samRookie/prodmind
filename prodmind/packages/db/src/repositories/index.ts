@@ -15,3 +15,7 @@ export { RetrievalRepository } from './retrieval.repository.ts';
 export { ValidationRepository } from './validation.repository.ts';
 export type { ValidationSummary } from './validation.repository.ts';
 export { InsightsRepository } from './insights.repository.ts';
+export { RecommendationsRepository } from './recommendations.repository.ts';
+export { PatternsRepository } from './patterns.repository.ts';
+export { RisksRepository } from './risks.repository.ts';
+export { CognitionRepository } from './cognition.repository.ts';

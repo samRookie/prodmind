@@ -72,3 +72,12 @@ export { retrievalHistory } from './memory/retrieval-history.ts';
 export type { RetrievalHistoryRow, NewRetrievalHistoryRow } from './memory/retrieval-history.ts';
 export { contextEnvelopes } from './memory/context-envelopes.ts';
 export type { ContextEnvelopeRow, NewContextEnvelopeRow } from './memory/context-envelopes.ts';
+
+export { recommendations } from './recommendations.ts';
+export type { Recommendation, NewRecommendation } from './recommendations.ts';
+export { architecturePatterns } from './architecture-patterns.ts';
+export type { ArchitecturePattern, NewArchitecturePattern } from './architecture-patterns.ts';
+export { riskCorrelations } from './risk-correlations.ts';
+export type { RiskCorrelation, NewRiskCorrelation } from './risk-correlations.ts';
+export { cognitionSnapshots } from './cognition-snapshots.ts';
+export type { CognitionSnapshot, NewCognitionSnapshot } from './cognition-snapshots.ts';

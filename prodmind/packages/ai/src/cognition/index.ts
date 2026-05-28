@@ -1,0 +1,11 @@
+export { CognitionEngine } from './cognition-engine.ts';
+export { aggregateGlobalCognition, aggregateSubsystemCognition, aggregateNodeCognition } from './cognition-aggregator.ts';
+export { rankSnapshots, selectMostCritical } from './cognition-ranking.ts';
+export { generateArchitectureSummary, buildSeverityDistribution, computeConfidenceSummary, identifyCriticalHotspots, aggregateEvidenceReferences } from './cognition-summary.ts';
+export { computeHealthScore } from './cognition-health-score.ts';
+export { normalizeCognition, normalizeCognitionBatch } from './cognition-normalizer.ts';
+export type { NormalizedCognition } from './cognition-normalizer.ts';
+export { fingerprintCognition, fingerprintCognitionBatch } from './cognition-fingerprint.ts';
+export { serializeSnapshot, deserializeSnapshot, compareSnapshots } from './cognition-snapshot.ts';
+export type { CognitionSnapshot, CognitionInput, CognitionOutput, CognitionType, HealthScoreDetails, EvidenceReference } from './cognition-types.ts';
+export { COGNITION_TYPES } from './cognition-types.ts';

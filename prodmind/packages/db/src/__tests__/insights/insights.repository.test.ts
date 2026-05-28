@@ -254,7 +254,7 @@ describe('InsightsRepository', () => {
   });
 
   it('returns error for missing snapshot FK', async () => {
-    const result = await repo.insertInsights([
+    await repo.insertInsights([
       {
         snapshotId: 'nonexistent',
         insightType: 'TEST',

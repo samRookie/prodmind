@@ -1,0 +1,12 @@
+export { RiskEngine } from './risk-engine.ts';
+export { correlateRisks } from './risk-correlator.ts';
+export { computeNormalizedRiskScore, scoreToSeverity } from './risk-scoring.ts';
+export type { RiskScoreInput } from './risk-scoring.ts';
+export { computeBoundedPropagation, computeAggregatePropagation } from './risk-propagation.ts';
+export type { PropagationResult } from './risk-propagation.ts';
+export { rankRisks, topRisks } from './risk-ranking.ts';
+export { normalizeRisk, normalizeRiskBatch } from './risk-normalizer.ts';
+export type { NormalizedRisk } from './risk-normalizer.ts';
+export { fingerprintRisk, fingerprintRiskBatch } from './risk-fingerprint.ts';
+export type { RiskCorrelation, RiskInput, RiskOutput, RiskType, RiskSeverity } from './risk-types.ts';
+export { RISK_TYPES, RISK_SEVERITIES } from './risk-types.ts';
