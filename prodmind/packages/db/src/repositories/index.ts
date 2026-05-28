@@ -14,3 +14,4 @@ export type { MetricInsertInput } from './metrics.repository.ts';
 export { RetrievalRepository } from './retrieval.repository.ts';
 export { ValidationRepository } from './validation.repository.ts';
 export type { ValidationSummary } from './validation.repository.ts';
+export { InsightsRepository } from './insights.repository.ts';

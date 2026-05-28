@@ -51,6 +51,15 @@ export type { PromptRegistryRow, NewPromptRegistryRow } from './prompt-registry.
 export { executionHistory } from './execution-history.ts';
 export type { ExecutionHistoryRow, NewExecutionHistoryRow } from './execution-history.ts';
 
+export { graphInsights } from './graph-insights.ts';
+export type { GraphInsight, NewGraphInsight } from './graph-insights.ts';
+export { ruleExecutions } from './rule-executions.ts';
+export type { RuleExecution, NewRuleExecution } from './rule-executions.ts';
+export { evidenceLinks } from './evidence-links.ts';
+export type { EvidenceLink, NewEvidenceLink } from './evidence-links.ts';
+export { architectureFindings } from './architecture-findings.ts';
+export type { ArchitectureFinding, NewArchitectureFinding } from './architecture-findings.ts';
+
 export { memorySnapshots } from './memory/memory-snapshots.ts';
 export type { MemorySnapshotRow, NewMemorySnapshotRow } from './memory/memory-snapshots.ts';
 export { memoryEntries } from './memory/memory-entries.ts';

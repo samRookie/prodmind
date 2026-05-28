@@ -48,3 +48,12 @@ export * as Memory from './memory/index.ts';
 
 // Capabilities
 export * as Capabilities from './capabilities/index.ts';
+
+// Insights
+export * from './insights/index.ts';
+
+// Rules
+export * from './rules/index.ts';
+
+// Evidence
+export * from './evidence/index.ts';

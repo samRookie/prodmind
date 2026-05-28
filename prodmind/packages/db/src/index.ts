@@ -20,6 +20,7 @@ export {
   MetricsRepository,
   RetrievalRepository,
   ValidationRepository,
+  InsightsRepository,
 } from './repositories/index.ts';
 
 export {
