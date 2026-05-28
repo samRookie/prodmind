@@ -1,0 +1,13 @@
+export { IndexingEngine } from './indexing-engine.ts';
+export { IndexBuilder } from './index-builder.ts';
+export { buildNodeIndex, buildEdgeIndex, buildSccIndex, buildNamespaceIndex, buildSubsystemIndex } from './graph-index.ts';
+export { buildHotspotIndex } from './hotspot-index.ts';
+export { buildRiskIndex } from './risk-index.ts';
+export { buildPatternIndex } from './pattern-index.ts';
+export { buildRecommendationIndex } from './recommendation-index.ts';
+export { buildCognitionIndex } from './cognition-index.ts';
+export { buildNarrativeIndex } from './narrative-index.ts';
+export { buildTrendIndex } from './trend-index.ts';
+export { normalizeBuildInput } from './index-normalizer.ts';
+export { fingerprintIndex, fingerprintIndexEntry } from './index-fingerprint.ts';
+export type { CognitionIndex, IndexEntry, IndexBuildInput, IndexType, IndexEntry as AnyIndexEntry } from './indexing-types.ts';

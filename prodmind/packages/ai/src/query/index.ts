@@ -1,0 +1,12 @@
+export { QueryEngine } from './query-engine.ts';
+export { QueryCache } from './query-cache.ts';
+export { QueryPlanner } from './query-planner.ts';
+export { QueryExecutor } from './query-executor.ts';
+export { parseQuery } from './query-parser.ts';
+export { validateQuery } from './query-validator.ts';
+export { normalizeQuery } from './query-normalizer.ts';
+export { fingerprintQuery } from './query-fingerprint.ts';
+export { rankResults } from './query-ranking.ts';
+export type { ParsedQuery, QueryContext, QueryResult, QueryPlan, QueryType, QueryFilter, QuerySort, QueryScope, SortKey, QueryCacheEntry } from './query-types.ts';
+export type { RawQuery } from './query-parser.ts';
+export type { RankedResult } from './query-ranking.ts';

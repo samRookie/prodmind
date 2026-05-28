@@ -1,0 +1,10 @@
+export { SessionReplay } from './session-replay.ts';
+export type { SessionReplayData } from './session-replay.ts';
+export { ReplayLinkageEngine } from './linkage.ts';
+export type { ReplayLink } from './linkage.ts';
+export { ReplayRestorationEngine } from './restoration.ts';
+export type { RestorableState, RestorationDiff } from './restoration.ts';
+export { ReplayValidator } from './validation.ts';
+export type { ReplayLinkValidation } from './validation.ts';
+export { ReplayAudit } from './audit.ts';
+export type { AuditEntry, AuditAction, ReplayHistorySummary } from './audit.ts';

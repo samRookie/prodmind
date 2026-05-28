@@ -1,0 +1,11 @@
+export { TimeseriesEngine } from './timeseries-engine.ts';
+export { computeGrowthRate, computeAverageValue, determineDirection, buildTrend } from './trend-analysis.ts';
+export { detectTrends } from './trend-detectors.ts';
+export { detectCognitionTrends } from './cognition-timeseries.ts';
+export { detectRiskTrends } from './risk-timeseries.ts';
+export { detectPropagationTrends } from './propagation-timeseries.ts';
+export { detectComplexityTrends } from './complexity-timeseries.ts';
+export { detectStabilityTrends } from './stability-timeseries.ts';
+export { fingerprintTrend, fingerprintTrendBatch } from './trend-fingerprint.ts';
+export type { ArchitectureTrend, TimeseriesInput, TimeseriesOutput, TrendType, TrendDirection, TrendDataPoint } from './timeseries-types.ts';
+export { TREND_TYPES, TREND_DIRECTIONS } from './timeseries-types.ts';

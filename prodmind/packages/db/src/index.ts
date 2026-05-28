@@ -25,6 +25,16 @@ export {
   PatternsRepository,
   RisksRepository,
   CognitionRepository,
+  NarrativesRepository,
+  ReportsRepository,
+  ArchitectureDiffRepository,
+  TimeseriesRepository,
+  TrendsRepository,
+  QueryHistoryRepository,
+  SearchIndexRepository,
+  CognitionIndexRepository,
+  KnowledgeGraphRepository,
+  KnowledgeRelationsRepository,
 } from './repositories/index.ts';
 
 export {

@@ -1,0 +1,10 @@
+export { NarrativeEngine } from './narrative-engine.ts';
+export { buildNarrative } from './narrative-builder.ts';
+export { buildSection } from './narrative-sections.ts';
+export { rankNarrativesBySeverity, maxSeverity } from './narrative-priority.ts';
+export { normalizeNarrative, normalizeNarrativeBatch } from './narrative-normalizer.ts';
+export type { NormalizedNarrative } from './narrative-normalizer.ts';
+export { fingerprintNarrative, fingerprintNarrativeBatch } from './narrative-fingerprint.ts';
+export { aggregateNarrativeEvidence, computeNarrativeSeverityDistribution, collectImpactedSystems } from './narrative-evidence.ts';
+export type { Narrative, NarrativeInput, NarrativeOutput, NarrativeType, NarrativeSeverity, NarrativeSection, NarrativeEvidenceRef } from './narrative-types.ts';
+export { NARRATIVE_TYPES } from './narrative-types.ts';

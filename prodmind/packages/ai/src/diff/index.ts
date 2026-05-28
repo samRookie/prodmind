@@ -1,0 +1,12 @@
+export { DiffEngine, buildDiff } from './diff-engine.ts';
+export { detectNodeChanges, detectEdgeChanges } from './graph-diff.ts';
+export { detectComplexityChanges, detectHealthChanges } from './metrics-diff.ts';
+export { detectSccChanges, detectRiskChanges, detectHotspotChanges, detectPropagationChanges } from './cognition-diff.ts';
+export { detectRecommendationChurn } from './recommendation-diff.ts';
+export { detectRiskEvolution } from './risk-diff.ts';
+export { detectTopologyChanges, detectPropagationExpansion } from './topology-diff.ts';
+export { normalizeDiff, normalizeDiffBatch } from './diff-normalizer.ts';
+export type { NormalizedDiff } from './diff-normalizer.ts';
+export { fingerprintDiff, fingerprintDiffBatch } from './diff-fingerprint.ts';
+export type { ArchitectureDiff, DiffInput, DiffOutput, DiffType, DiffSeverity } from './diff-types.ts';
+export { DIFF_TYPES } from './diff-types.ts';

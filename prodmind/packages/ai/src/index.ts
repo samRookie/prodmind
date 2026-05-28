@@ -69,3 +69,27 @@ export * from './risk/index.ts';
 
 // Cognition
 export * from './cognition/index.ts';
+
+// Narratives
+export * from './narratives/index.ts';
+
+// Reporting
+export * from './reporting/index.ts';
+
+// Diff
+export * from './diff/index.ts';
+
+// Time-Series
+export * from './timeseries/index.ts';
+
+// Query
+export * from './query/index.ts';
+
+// Search
+export * from './search/index.ts';
+
+// Indexing
+export * from './indexing/index.ts';
+
+// Knowledge
+export * from './knowledge/index.ts';

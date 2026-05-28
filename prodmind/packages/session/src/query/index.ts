@@ -1,0 +1,10 @@
+export { SessionQueryEngine } from './session-query-engine.ts';
+export type { SessionFilter, PaginatedResult, SessionStats } from './session-query-engine.ts';
+export { TimelineQueryEngine } from './timeline-query.ts';
+export type { TimelineEventFilter, EventTypeDistribution, HeatmapEntry } from './timeline-query.ts';
+export { SnapshotQueryEngine, SnapshotQueryEngine as SessionSnapshotQueryEngine } from './snapshot-query.ts';
+export type { SnapshotFilter, SnapshotStats } from './snapshot-query.ts';
+export { InvestigationQueryEngine } from './investigation-query.ts';
+export type { InsightFilter, InvestigationSummary } from './investigation-query.ts';
+export { SessionSearchEngine } from './search.ts';
+export type { SearchResult, RankedSearchResult } from './search.ts';

@@ -34,7 +34,11 @@
       "@prodmind/db": ["./packages/db/src"],
       "@prodmind/db/*": ["./packages/db/src/*"],
       "@prodmind/parser": ["./packages/parser/src"],
-      "@prodmind/parser/*": ["./packages/parser/src/*"]
+      "@prodmind/parser/*": ["./packages/parser/src/*"],
+      "@prodmind/session": ["./packages/session/src"],
+      "@prodmind/session/*": ["./packages/session/src/*"],
+      "@prodmind/exploration": ["./packages/exploration/src"],
+      "@prodmind/exploration/*": ["./packages/exploration/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", ".turbo"]

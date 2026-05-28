@@ -118,6 +118,17 @@ export default tseslint.config(
     },
   },
   {
+    files: ['packages/session/src/**/*.ts'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          { group: ['@prodmind/ai', '@prodmind/ai/*'], message: '@prodmind/session cannot depend on @prodmind/ai' },
+          { group: ['@prodmind/parser', '@prodmind/parser/*'], message: '@prodmind/session cannot depend on @prodmind/parser' },
+        ],
+      }],
+    },
+  },
+  {
     files: ['packages/ai/src/**/*.ts'],
     rules: {},
   },

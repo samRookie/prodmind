@@ -1,0 +1,11 @@
+export { InteractionRecord } from './interaction-record.ts';
+export type { InteractionRecordData } from './interaction-record.ts';
+export { AIInteractionHistory } from './ai-interaction-history.ts';
+export { ReasoningChain } from './reasoning-chain.ts';
+export type { ReasoningStep } from './reasoning-chain.ts';
+export { ReasoningContext } from './context.ts';
+export type { ReasoningContextData } from './context.ts';
+export { compressInteractions, decompressInteractions, summarizeInteractions, extractKeyDecisions } from './compression.ts';
+export type { InteractionSummaryStats } from './compression.ts';
+export { queryInteractions, searchInteractions, findRelatedInteractions, getInteractionsByModel } from './query.ts';
+export type { InteractionFilter } from './query.ts';

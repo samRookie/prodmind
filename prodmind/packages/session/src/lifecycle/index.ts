@@ -1,0 +1,12 @@
+export { LifecycleManager } from './lifecycle-manager.ts';
+export type { SessionLifecycleData } from './lifecycle-manager.ts';
+export { LifecyclePolicy } from './lifecycle-policy.ts';
+export type { PolicyDecision } from './lifecycle-policy.ts';
+export { SessionArchiver } from './archival.ts';
+export type { ArchiveRecord, ArchiveStats } from './archival.ts';
+export { SessionRetention } from './retention.ts';
+export type { RetentionConfig, SessionExpiryInfo } from './retention.ts';
+export { SessionExpiration } from './expiration.ts';
+export type { ExpirationCheckResult } from './expiration.ts';
+export { LifecycleEventBus } from './lifecycle-events.ts';
+export type { LifecycleEvent, LifecycleEventType, LifecycleEventHandler } from './lifecycle-events.ts';

@@ -1,0 +1,12 @@
+export { KnowledgeEngine } from './knowledge-engine.ts';
+export { KnowledgeGraphImpl } from './knowledge-graph.ts';
+export { KnowledgeQueryEngine } from './knowledge-query.ts';
+export { createKnowledgeNode } from './knowledge-nodes.ts';
+export { createKnowledgeRelation } from './knowledge-edges.ts';
+export { traverseGraph, findNeighborhood } from './knowledge-traversal.ts';
+export { rankKnowledgeNodes } from './knowledge-ranking.ts';
+export { findRelationsBetween, findRelationsByType, findNodeRelations } from './knowledge-relations.ts';
+export { fingerprintKnowledgeGraph, fingerprintKnowledgeNode, fingerprintKnowledgeRelation, fingerprintTraversal } from './knowledge-fingerprint.ts';
+export { normalizeKnowledgeBuildInput, normalizeKnowledgeQuery } from './knowledge-normalizer.ts';
+export type { KnowledgeNode, KnowledgeRelation, KnowledgeGraph, KnowledgeTraversalResult, KnowledgeQuery, KnowledgeBuildInput, KnowledgeNodeType, RelationType } from './knowledge-types.ts';
+export type { KnowledgeScore } from './knowledge-ranking.ts';

@@ -16,7 +16,7 @@ export const snapshotDiffs = sqliteTable(
     createdAt: text('created_at').notNull(),
   },
   (table) => ({
-    snapshotIdx: index('idx_sd_snapshot_id').on(table.snapshotId),
+    snapshotIdIdx: index('idx_sd_snapshot').on(table.snapshotId),
     diffTypeIdx: index('idx_sd_diff_type').on(table.diffType),
   }),
 );

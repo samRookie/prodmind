@@ -1,0 +1,311 @@
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\audit.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\dependency.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\filtering.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\mock-graph.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\neighborhoods.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\optimization.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\pathing.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\query.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\replay.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\semantic.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\serialization.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\sessions.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\telemetry.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\traversal.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\__tests__\validation.test.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\audit\exploration-audit.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\audit\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\contracts\index.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\dependency-chain-analyzer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\dependency-chain-engine.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\dependency-chain-risk.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\dependency-depth-analysis.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\dependency-exposure.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\reverse-dependency.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\dependency\transitive-dependency.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\edge-filter.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\filter-composition.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\graph-filter-engine.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\node-filter.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\semantic-filter.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\filtering\structural-filter.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\neighborhood-boundary.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\neighborhood-clustering.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\neighborhood-discovery.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\neighborhood-engine.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\neighborhood-ranking.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\neighborhoods\neighborhood-risk.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\optimization\cache-planner.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\optimization\execution-planner.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\optimization\graph-indexes.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\optimization\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\optimization\query-optimizer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\optimization\traversal-optimizer.ts
+   1:1   warning  Run autofix to sort these imports!        simple-import-sort/imports
+  48:50  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\path-finder.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\path-fingerprint.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\path-query.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\path-risk-analysis.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\path-serialization.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\shortest-path.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\pathing\weighted-path.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\persistence\index.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\graph-query-compiler.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\graph-query-engine.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\graph-query-executor.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\graph-query-optimizer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\graph-query-parser.ts
+    1:1   warning  Run autofix to sort these imports!  simple-import-sort/imports
+  149:25  error    Unnecessary escape character: \-    no-useless-escape
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\graph-query-validator.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\query\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\query-replay.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\replay-comparison.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\replay-diff.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\replay-fingerprint.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\replay-validation.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\replay\traversal-replay.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-boundaries.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-clustering.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-explorer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-hotspots.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-linkage.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-neighborhood.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-query.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\semantic\semantic-traversal.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\serialization\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\serialization\neighborhood-serializer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\serialization\path-serializer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\serialization\query-serializer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\serialization\traversal-serializer.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\sessions\exploration-checkpoints.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\sessions\exploration-replay.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\sessions\exploration-session.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\sessions\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\telemetry\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\bfs-traverser.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\bounded-traverser.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\dfs-traverser.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\graph-traverser.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\layered-traverser.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\traversal-context.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\traversal-fingerprint.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\traversal\weighted-traverser.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\validation\index.ts
+  1:1  warning  Run autofix to sort these exports!  simple-import-sort/exports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\validation\integrity-validator.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\validation\path-validator.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+D:\MY PROJECTS\PROJECT 02 - PRODMIND (VIBECODE-ANALYST)\PROJECT ROOT\prodmind\packages\exploration\src\validation\replay-validator.ts
+  1:1  warning  Run autofix to sort these imports!  simple-import-sort/imports
+
+✖ 104 problems (2 errors, 102 warnings)
+  0 errors and 102 warnings potentially fixable with the `--fix` option.

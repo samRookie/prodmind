@@ -1,0 +1,49 @@
+{
+  "name": "@prodmind/exploration",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./traversal": "./src/traversal/index.ts",
+    "./query": "./src/query/index.ts",
+    "./semantic": "./src/semantic/index.ts",
+    "./pathing": "./src/pathing/index.ts",
+    "./dependency": "./src/dependency/index.ts",
+    "./filtering": "./src/filtering/index.ts",
+    "./neighborhoods": "./src/neighborhoods/index.ts",
+    "./replay": "./src/replay/index.ts",
+    "./optimization": "./src/optimization/index.ts",
+    "./sessions": "./src/sessions/index.ts",
+    "./serialization": "./src/serialization/index.ts",
+    "./validation": "./src/validation/index.ts",
+    "./telemetry": "./src/telemetry/index.ts",
+    "./audit": "./src/audit/index.ts",
+    "./errors": "./src/errors/index.ts"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@prodmind/contracts": "workspace:*",
+    "@prodmind/core": "workspace:*",
+    "@prodmind/db": "workspace:*",
+    "@prodmind/shared": "workspace:*",
+    "@prodmind/session": "workspace:*",
+    "drizzle-orm": "^0.38.3",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "eslint": "^9.18.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.4"
+  }
+}

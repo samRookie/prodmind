@@ -1,0 +1,11 @@
+export { ReportingEngine } from './reporting-engine.ts';
+export { buildArchitectureReport, buildReportSection } from './report-builder.ts';
+export { buildArchitectureSummarySection, buildRiskSummarySection, buildPatternSummarySection, buildHotspotSection, buildRecommendationSection } from './report-sections.ts';
+export { renderMarkdownReport, renderJsonContent } from './report-renderer.ts';
+export { indexReportsByType, findReportByFingerprint, findReportsBySnapshot } from './report-indexer.ts';
+export { normalizeReport, normalizeReportBatch } from './report-normalizer.ts';
+export type { NormalizedReport } from './report-normalizer.ts';
+export { fingerprintReport, fingerprintReportBatch } from './report-fingerprint.ts';
+export { exportReportAsJson, exportReportsAsJsonBundle, exportReportAsMarkdown, exportReportsAsMarkdownBundle } from './report-exporter.ts';
+export type { ArchitectureReport, ReportInput, ReportOutput, ReportType, ReportSection } from './reporting-types.ts';
+export { REPORT_TYPES } from './reporting-types.ts';
