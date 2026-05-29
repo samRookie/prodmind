@@ -1,0 +1,14 @@
+export type { ArchitectureRegressionResult } from './architecture-regression.ts';
+export { detectArchitectureRegression } from './architecture-regression.ts';
+export type { ComplexityRegressionResult } from './complexity-regression.ts';
+export { detectComplexityRegression } from './complexity-regression.ts';
+export type { DependencyRegressionResult } from './dependency-regression.ts';
+export { detectDependencyRegression } from './dependency-regression.ts';
+export type { HotspotRegressionResult } from './hotspot-regression.ts';
+export { detectHotspotRegression } from './hotspot-regression.ts';
+export type { PropagationRegressionResult } from './propagation-regression.ts';
+export { detectPropagationRegression } from './propagation-regression.ts';
+export type { RegressionAnalysisResult } from './regression-engine.ts';
+export { RegressionEngine } from './regression-engine.ts';
+export type { SemanticRegressionResult } from './semantic-regression.ts';
+export { detectSemanticRegression } from './semantic-regression.ts';

@@ -1,0 +1,39 @@
+export class TemporalError extends Error {
+  constructor(
+    message: string,
+    public readonly code: TemporalErrorCode,
+    public readonly details?: Record<string, unknown>,
+  ) {
+    super(message);
+    this.name = 'TemporalError';
+  }
+}
+
+export enum TemporalErrorCode {
+  INVALID_TIMELINE = 'INVALID_TIMELINE',
+  SNAPSHOT_NOT_FOUND = 'SNAPSHOT_NOT_FOUND',
+  INSUFFICIENT_SNAPSHOTS = 'INSUFFICIENT_SNAPSHOTS',
+  FORECAST_OUT_OF_BOUNDS = 'FORECAST_OUT_OF_BOUNDS',
+  PREDICTION_FAILED = 'PREDICTION_FAILED',
+  SIMULATION_FAILED = 'SIMULATION_FAILED',
+  REPLAY_MISMATCH = 'REPLAY_MISMATCH',
+  DETERMINISM_VIOLATION = 'DETERMINISM_VIOLATION',
+  EVIDENCE_GAP = 'EVIDENCE_GAP',
+  DEGRADATION_ANALYSIS_FAILED = 'DEGRADATION_ANALYSIS_FAILED',
+  TRAJECTORY_ERROR = 'TRAJECTORY_ERROR',
+  TREND_DETECTION_FAILED = 'TREND_DETECTION_FAILED',
+  HOTSPOT_EVOLUTION_FAILED = 'HOTSPOT_EVOLUTION_FAILED',
+  REMEDIATION_ANALYSIS_FAILED = 'REMEDIATION_ANALYSIS_FAILED',
+  INVALID_FORECAST_WINDOW = 'INVALID_FORECAST_WINDOW',
+  TIMELINE_CORRUPTED = 'TIMELINE_CORRUPTED',
+  SERIALIZATION_ERROR = 'SERIALIZATION_ERROR',
+  VALIDATION_ERROR = 'VALIDATION_ERROR',
+}
+
+export function throwTemporalError(
+  code: TemporalErrorCode,
+  message: string,
+  details?: Record<string, unknown>,
+): never {
+  throw new TemporalError(message, code, details);
+}

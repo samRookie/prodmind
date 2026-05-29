@@ -110,3 +110,26 @@ export type { ExplorationSessionRow, NewExplorationSessionRow, ExplorationQueryR
 
 export { insights, insightEvidence, remediationPlans, driftReports, hotspotReports, insightReplay, insightExplanations } from './insights.ts';
 export type { InsightRow, NewInsightRow, InsightEvidenceRow, NewInsightEvidenceRow, RemediationPlanRow, NewRemediationPlanRow, DriftReportRow, NewDriftReportRow, HotspotReportRow, NewHotspotReportRow, InsightReplayRow, NewInsightReplayRow, InsightExplanationRow, NewInsightExplanationRow } from './insights.ts';
+
+export {
+  architectureTimelines,
+  evolutionSnapshots,
+  forecastReports,
+  trajectoryReports,
+  degradationReports,
+  simulationReports,
+  predictionReports,
+  temporalReplay,
+  remediationEffectiveness,
+} from './temporal.ts';
+export type {
+  ArchitectureTimeline, NewArchitectureTimeline,
+  EvolutionSnapshot, NewEvolutionSnapshot,
+  ForecastReport, NewForecastReport,
+  TrajectoryReport, NewTrajectoryReport,
+  DegradationReport, NewDegradationReport,
+  SimulationReport, NewSimulationReport,
+  PredictionReport, NewPredictionReport,
+  TemporalReplayRow, NewTemporalReplayRow,
+  RemediationEffectivenessRow, NewRemediationEffectivenessRow,
+} from './temporal.ts';

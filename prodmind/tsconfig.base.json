@@ -40,7 +40,9 @@
       "@prodmind/exploration": ["./packages/exploration/src"],
       "@prodmind/exploration/*": ["./packages/exploration/src/*"],
       "@prodmind/insight": ["./packages/insight/src"],
-      "@prodmind/insight/*": ["./packages/insight/src/*"]
+      "@prodmind/insight/*": ["./packages/insight/src/*"],
+      "@prodmind/temporal": ["./packages/temporal/src"],
+      "@prodmind/temporal/*": ["./packages/temporal/src/*"]
     }
   },
   "exclude": ["node_modules", "dist", ".turbo"]

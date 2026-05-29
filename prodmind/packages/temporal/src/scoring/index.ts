@@ -1,0 +1,14 @@
+export type { DegradationScore } from './degradation-scoring.ts';
+export { scoreDegradation } from './degradation-scoring.ts';
+export type { HotspotPriority } from './hotspot-priority.ts';
+export { prioritizeHotspots } from './hotspot-priority.ts';
+export type { OperationalRiskPriority } from './operational-risk-priority.ts';
+export { scoreOperationalRisk } from './operational-risk-priority.ts';
+export type { PredictionScore } from './prediction-scoring.ts';
+export { scorePrediction, scorePredictions } from './prediction-scoring.ts';
+export type { RemediationPriority } from './remediation-priority.ts';
+export { prioritizeRemediations } from './remediation-priority.ts';
+export type { TrajectoryScore } from './trajectory-scoring.ts';
+export { scoreTrajectory } from './trajectory-scoring.ts';
+export type { TrendPriority } from './trend-priority.ts';
+export { prioritizeTrends } from './trend-priority.ts';

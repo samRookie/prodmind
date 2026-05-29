@@ -1,0 +1,14 @@
+export type { RemediationComparisonResult } from './remediation-comparison.ts';
+export { compareRemediationActions } from './remediation-comparison.ts';
+export type { RemediationEffectivenessResult } from './remediation-effectiveness.ts';
+export { analyzeRemediationEffectiveness } from './remediation-effectiveness.ts';
+export type { RemediationFailureAnalysis } from './remediation-failure-analysis.ts';
+export { analyzeRemediationFailures } from './remediation-failure-analysis.ts';
+export type { RemediationHistoryResult } from './remediation-history.ts';
+export { buildRemediationHistory } from './remediation-history.ts';
+export type { RemediationImpactTrajectory } from './remediation-impact-trajectory.ts';
+export { analyzeRemediationImpactTrajectory } from './remediation-impact-trajectory.ts';
+export type { RemediationRegressionResult } from './remediation-regression.ts';
+export { detectRemediationRegression } from './remediation-regression.ts';
+export type { RemediationSuccessAnalysis } from './remediation-success-analysis.ts';
+export { analyzeRemediationSuccesses } from './remediation-success-analysis.ts';

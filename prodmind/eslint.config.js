@@ -139,6 +139,17 @@ export default tseslint.config(
     },
   },
   {
+    files: ['packages/temporal/src/**/*.ts'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          { group: ['@prodmind/ai', '@prodmind/ai/*'], message: '@prodmind/temporal cannot depend on @prodmind/ai' },
+          { group: ['@prodmind/parser', '@prodmind/parser/*'], message: '@prodmind/temporal cannot depend on @prodmind/parser' },
+        ],
+      }],
+    },
+  },
+  {
     files: ['packages/ai/src/**/*.ts'],
     rules: {},
   },

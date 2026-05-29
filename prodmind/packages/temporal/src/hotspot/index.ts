@@ -1,0 +1,14 @@
+export type { HotspotAccelerationResult } from './hotspot-acceleration.ts';
+export { analyzeHotspotAcceleration } from './hotspot-acceleration.ts';
+export type { HotspotDiffResult } from './hotspot-diff.ts';
+export { diffHotspots } from './hotspot-diff.ts';
+export type { HotspotEmergenceResult } from './hotspot-emergence.ts';
+export { analyzeHotspotEmergence } from './hotspot-emergence.ts';
+export type { HotspotEvolutionResult } from './hotspot-evolution.ts';
+export { analyzeHotspotEvolution } from './hotspot-evolution.ts';
+export type { HotspotForecastResult } from './hotspot-forecast.ts';
+export { forecastHotspots } from './hotspot-forecast.ts';
+export type { HotspotPersistenceResult } from './hotspot-persistence.ts';
+export { analyzeHotspotPersistence } from './hotspot-persistence.ts';
+export type { HotspotTrajectoryResult } from './hotspot-trajectory.ts';
+export { analyzeHotspotTrajectory } from './hotspot-trajectory.ts';

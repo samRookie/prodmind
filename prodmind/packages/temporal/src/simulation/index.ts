@@ -1,0 +1,10 @@
+export { generateSimulationSteps } from './bounded-simulation.ts';
+export { simulateComplexity } from './complexity-simulation.ts';
+export { simulateDegradation } from './degradation-simulation.ts';
+export { simulateHotspot } from './hotspot-simulation.ts';
+export { simulatePropagation } from './propagation-simulation.ts';
+export type { SimulationInput } from './simulation-engine.ts';
+export { SimulationEngine } from './simulation-engine.ts';
+export type { SimulationValidationResult } from './simulation-validation.ts';
+export { validateSimulation } from './simulation-validation.ts';
+export { simulateTrend } from './trend-simulation.ts';

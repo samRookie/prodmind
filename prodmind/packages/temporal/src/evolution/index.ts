@@ -1,0 +1,11 @@
+export { analyzeComplexityEvolution } from './complexity-evolution.ts';
+export { analyzeCouplingEvolution } from './coupling-evolution.ts';
+export type { DependencyEvolutionResult } from './dependency-evolution.ts';
+export { analyzeDependencyEvolution } from './dependency-evolution.ts';
+export { computeAggregateDeltas, computeGraphDelta, computeTotalEvolution } from './evolution-diff.ts';
+export type { EvolutionResult } from './evolution-engine.ts';
+export { EvolutionEngine } from './evolution-engine.ts';
+export { buildEvolutionPoints, computeGraphGrowthRate } from './graph-evolution.ts';
+export { analyzeInstabilityEvolution } from './instability-evolution.ts';
+export { analyzePropagationEvolution } from './propagation-evolution.ts';
+export { analyzeDriftEvolution,analyzeSemanticEvolution } from './semantic-evolution.ts';

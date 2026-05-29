@@ -1,0 +1,16 @@
+export type { DegradationExplanation } from './degradation-explainer.ts';
+export { explainDegradation } from './degradation-explainer.ts';
+export type { RenderedEvidence } from './evidence-renderer.ts';
+export { renderEvidence, renderEvidenceList } from './evidence-renderer.ts';
+export type { ForecastExplanation } from './forecast-explainer.ts';
+export { explainForecast } from './forecast-explainer.ts';
+export type { PredictionExplanation } from './prediction-explainer.ts';
+export { explainPredictions } from './prediction-explainer.ts';
+export type { ReasoningChain,ReasoningStep } from './reasoning-chain.ts';
+export { buildReasoningChain } from './reasoning-chain.ts';
+export type { SimulationExplanation } from './simulation-explainer.ts';
+export { explainSimulation } from './simulation-explainer.ts';
+export type { Explanation } from './temporal-explainer.ts';
+export { generateTemporalExplanation, generateTrajectoryExplanation } from './temporal-explainer.ts';
+export type { TrendExplanation } from './trend-explainer.ts';
+export { explainTrends } from './trend-explainer.ts';

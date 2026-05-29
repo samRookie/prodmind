@@ -1,0 +1,16 @@
+export type { FatigueResult } from './architectural-fatigue.ts';
+export { analyzeArchitecturalFatigue } from './architectural-fatigue.ts';
+export type { DegradationClass,DegradationClassificationResult } from './degradation-classification.ts';
+export { classifyDegradation } from './degradation-classification.ts';
+export type { DegradationAnalysisResult } from './degradation-engine.ts';
+export { DegradationEngine } from './degradation-engine.ts';
+export type { DegradationForecastResult } from './degradation-forecast.ts';
+export { forecastDegradation } from './degradation-forecast.ts';
+export type { DegradationPriorityResult, PriorityLevel } from './degradation-priority.ts';
+export { prioritizeDegradation } from './degradation-priority.ts';
+export type { ErosionResult } from './erosion-analysis.ts';
+export { analyzeErosion } from './erosion-analysis.ts';
+export type { FragmentationResult } from './fragmentation-degradation.ts';
+export { analyzeFragmentation } from './fragmentation-degradation.ts';
+export type { InstabilityGrowthResult } from './graph-instability-growth.ts';
+export { analyzeInstabilityGrowth } from './graph-instability-growth.ts';

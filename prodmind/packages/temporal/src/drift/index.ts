@@ -1,0 +1,12 @@
+export type { ArchitectureDriftTrajectory } from './architecture-drift-trajectory.ts';
+export { analyzeArchitectureDriftTrajectory } from './architecture-drift-trajectory.ts';
+export { analyzeDependencyDriftEvolution } from './dependency-drift-evolution.ts';
+export type { DriftAccelerationResult } from './drift-acceleration.ts';
+export { analyzeDriftAcceleration } from './drift-acceleration.ts';
+export type { DriftComparisonResult } from './drift-comparison.ts';
+export { compareDrifts } from './drift-comparison.ts';
+export type { DriftPersistenceResult } from './drift-persistence.ts';
+export { analyzeDriftPersistence } from './drift-persistence.ts';
+export { analyzeSemanticDriftEvolution } from './semantic-drift-evolution.ts';
+export type { TemporalDriftResult } from './temporal-drift.ts';
+export { computeTemporalDrift } from './temporal-drift.ts';

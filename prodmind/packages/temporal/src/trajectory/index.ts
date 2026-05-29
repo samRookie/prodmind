@@ -1,0 +1,12 @@
+export type { ArchitecturalTrajectoryResult } from './architectural-trajectory.ts';
+export { analyzeArchitecturalTrajectory } from './architectural-trajectory.ts';
+export { analyzeComplexityTrajectory, computeComplexityAcceleration } from './complexity-trajectory.ts';
+export type { DegradationTrajectoryResult } from './degradation-trajectory.ts';
+export { analyzeDegradationTrajectory } from './degradation-trajectory.ts';
+export type { RiskTrajectoryResult } from './risk-trajectory.ts';
+export { analyzeRiskTrajectory } from './risk-trajectory.ts';
+export type { SemanticTrajectoryResult } from './semantic-trajectory.ts';
+export { analyzeSemanticTrajectory } from './semantic-trajectory.ts';
+export type { TrajectoryComparisonResult } from './trajectory-comparison.ts';
+export { compareMultipleTrajectories,compareTrajectories } from './trajectory-comparison.ts';
+export { TrajectoryEngine } from './trajectory-engine.ts';

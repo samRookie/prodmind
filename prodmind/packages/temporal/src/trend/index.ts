@@ -1,0 +1,11 @@
+export { analyzeDependencyTrends } from './dependency-trends.ts';
+export { analyzeGraphTrends } from './graph-trends.ts';
+export { analyzeHotspotTrends } from './hotspot-trends.ts';
+export { analyzeInstabilityTrends } from './instability-trends.ts';
+export { analyzePropagationTrends } from './propagation-trends.ts';
+export { analyzeSemanticTrends } from './semantic-trends.ts';
+export type { TrendSignal } from './trend-detection.ts';
+export { detectTrends } from './trend-detection.ts';
+export type { TrendAnalysisResult } from './trend-engine.ts';
+export { TrendEngine } from './trend-engine.ts';
+export { getTopTrends, getWorseningTrends,rankTrends } from './trend-ranking.ts';

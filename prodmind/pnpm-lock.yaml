@@ -457,6 +457,49 @@ importers:
         specifier: ^3.0.4
         version: 3.2.4(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.0)
 
+  packages/temporal:
+    dependencies:
+      '@prodmind/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@prodmind/core':
+        specifier: workspace:*
+        version: link:../core
+      '@prodmind/db':
+        specifier: workspace:*
+        version: link:../db
+      '@prodmind/exploration':
+        specifier: workspace:*
+        version: link:../exploration
+      '@prodmind/insight':
+        specifier: workspace:*
+        version: link:../insight
+      '@prodmind/session':
+        specifier: workspace:*
+        version: link:../session
+      '@prodmind/shared':
+        specifier: workspace:*
+        version: link:../shared
+      zod:
+        specifier: ^3.24.1
+        version: 3.25.76
+    devDependencies:
+      '@types/node':
+        specifier: ^22.12.0
+        version: 22.19.19
+      eslint:
+        specifier: ^9.18.0
+        version: 9.39.4(jiti@2.7.0)
+      tsup:
+        specifier: ^8.3.5
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.14)(tsx@4.22.0)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.4
+        version: 3.2.4(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(tsx@4.22.0)
+
 packages:
 
   '@anthropic-ai/sdk@0.32.0':
